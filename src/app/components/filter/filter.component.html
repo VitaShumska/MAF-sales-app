@@ -1,0 +1,31 @@
+<div class="filter-component">
+  <div class="btn" fxFlex="100" fxLayout="row-reverse">
+    <button fxFlex="14" (click)="toggleFilter()">
+      <img src="assets/icons/filter-icon.png">
+      Filter
+    </button>
+  </div>
+  <div id="light" class="filter-panel bright_content" *ngIf="showFilter">
+    <button (click)="toggleFilter()"><img src="assets/icons/close-icon.png"></button>
+    <p>FILTER</p>
+
+    <label for="product-type">Product Type</label>
+    <input id="product-type" type="text">
+
+    <label for="phase">Phase (Building Name)</label>
+    <input id="phase" type="text">
+
+    <label for="unit-type">Unit Type</label>
+    <input id="unit-type" type="text">
+
+    <label for="model">Model</label>
+    <input id="model" type="text">
+
+    <label for="bedrooms">Bedrooms</label>
+    <input id="bedrooms" type="text">
+
+    <label for="budget">Budget</label>
+    <input id="budget" type="text">
+
+  </div>
+</div>

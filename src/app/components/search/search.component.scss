@@ -1,0 +1,28 @@
+.search-component {
+  margin-bottom: 8px;
+  margin-right: 8px;
+  position: relative;
+
+  input {
+    width: 100%;
+    line-height: 35px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);
+    border: none;
+    border-radius: 18px;
+    padding-left: 58px;
+    font-size: 15px;
+    font-family: Helvetica;
+    outline: none;
+    &::placeholder {
+      color: #a5a5a5;
+    }
+  }
+
+  img {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 9px;
+    left: 25px;
+  }
+}

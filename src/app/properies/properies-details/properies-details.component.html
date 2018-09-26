@@ -1,0 +1,120 @@
+<div class="properties-details">
+  <div class="container">
+    <div class="unit-info">
+      <div class="details">
+        <h3>DETAILS</h3>
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Unit</span>
+          <span fxLFlex="50" [class]="unitDetails?.MAF_UnitType_c ? '' : 'empty'">{{unitDetails?.MAF_UnitType_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Project</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_ProjectName_c ? '' : 'empty'" >{{unitDetails?.MAF_ProjectName_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Phase</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_PhaseName_c ? '' : 'empty'">{{unitDetails?.MAF_PhaseName_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Floor</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_FloorId_c ? '' : 'empty'">{{unitDetails?.MAF_FloorId_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Status</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_Status_c ? '' : 'empty'">{{unitDetails?.MAF_Status_c}}</span>
+        </div>
+      </div>
+
+      <div class="attributes">
+        <h3>UNIT ATTRIBUTES</h3>
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Unit Type</span>
+          <span fxLFlex="50" [class]="unitDetails?.MAF_UnitType_c ? '' : 'empty'">{{unitDetails?.MAF_UnitType_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Bedrooms</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_Bedroom_c ? '' : 'empty'">{{unitDetails?.MAF_Bedroom_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Aspect</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_Aspect_c ? '' : 'empty'">{{unitDetails?.MAF_Aspect_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">View</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_UnitView_c ? '' : 'empty'">{{unitDetails?.MAF_UnitView_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Greenways</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_Greenways_c ? '' : 'empty'">{{unitDetails?.MAF_Greenways_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Boulevards</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_Boulevard_c ? '' : 'empty'">{{unitDetails?.MAF_Boulevard_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">No of Parking</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_CarParkNo_c ? '' : 'empty'">{{unitDetails?.MAF_CarParkNo_c}}</span>
+        </div>
+      </div>
+
+      <div class="areas">
+        <h3>AREAS</h3>
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">BUA (sqft)/(sqm)</span>
+          <span fxLFlex="50">{{unitDetails?.MAF_BuiltupAreaSqFt_c}}/{{unitDetails?.MAF_BuiltupAreaSqm_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Plot (sqft)/(sqm)</span>
+          <span fxFlex="50">{{unitDetails?.MAF_PlotAreaSqFt_c}}/{{unitDetails?.MAF_PlotAreaSqm_c}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Price per (sqft)</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_UnitPrice_c ? '' : 'empty'">{{unitDetails?.MAF_UnitPrice_c | number:0}}</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Price per (sqm)</span>
+          <span fxFlex="50">Price per (sqm)</span>
+        </div>
+
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">GSA (sqft)/(sqm)</span>
+          <span fxFlex="50">{{unitDetails?.MAF_GarageSFt_c}}/{{unitDetails?.MAF_GarageSqm_c}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="gallery">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            GALLERY
+          </ng-template>
+          <!--<img src="assets/images/unit-img.png">-->
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            FLOORPLAN
+          </ng-template>
+          <ngx-gallery [options]="galleryOptions" [images]="galleryFloorplanImages"></ngx-gallery>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+  <div class="price-block">
+    <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number:0}}</b></span>
+    <button>Select</button>
+  </div>
+</div>

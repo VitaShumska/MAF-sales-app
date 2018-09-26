@@ -1,0 +1,279 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('assets/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('assets/fonts/Roboto-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  src: url('assets/fonts/Roboto-Black.ttf');
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/HelveticaRegular.ttf');
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 300;
+  src: url('assets/fonts/HelveticaLight.ttf');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  outline: none!important;
+  cursor: pointer;
+}
+
+////Table////
+.table {
+  font-size: 14px!important;
+  color: #171717;
+  font-family: Roboto;
+  border-bottom: 1px solid #d8d8d8;
+
+  .header {
+    color: #171717;
+    display: flex;
+    position: sticky;
+    top: 38px;
+    background-color: #e3e3e3;
+    height: 50px;
+    min-height: 50px;
+    z-index: 9;
+    padding: 0 6px 0 0;
+
+    .cell:first-child {
+      flex: 2;
+      padding-left: 15px;
+    }
+  }
+  .body {
+    background: #ffffff;
+    overflow: auto;
+    height: calc(100vh - 68px - 45px - 46px - 20px - 50px);
+    .row {
+      display: flex;
+      &:hover {
+        background-color: #e3e3e3;
+        cursor: pointer;
+
+        .pencil-icon {
+          display: block;
+        }
+      }
+    }
+
+    .empty-list {
+      text-align: center;
+      font-size: 18px;
+      color: #212b36;
+      font-family: Helvetica;
+    }
+  }
+  .cell {
+    flex: 1;
+    height: 100%;
+    line-height: 50px;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+    word-wrap: break-word;
+    cursor: pointer;
+    overflow: hidden;
+
+    &.empty:before {
+      content: "E/N";
+      opacity: 0.2;
+      font-family: Helvetica;
+    }
+
+    span{
+      vertical-align: middle;
+    }
+
+    &.unit-name {
+      flex: 2;
+      display: flex;
+      margin: 7px 0;
+      padding-left: 15px;
+      img {
+        margin-right: 10px;
+      }
+      div {
+        height: 36px;
+        p {
+          line-height: 25px;
+          margin: 0;
+          &:last-child {
+            font-size: 10px;
+            line-height: 12px;
+          }
+        }
+      }
+    }
+
+    &.status-column   {
+      color: #01b1b0;
+
+      &.inactive{
+        color: #d0021b;
+      }
+    }
+
+    &.price {
+      color: #f89716;
+    }
+
+    &.action {
+      display: flex;
+      flex: 0.5;
+      max-width: 64px;
+      text-align: center;
+
+      .pencil-icon {
+        display: none;
+        padding: 12px 25px;
+      }
+    }
+
+    img {
+      transition: 0.3s;
+      &.reverse {
+        transform: rotate(180deg);
+        transition: 0.3s;
+      }
+    }
+  }
+}
+
+/////////////Scrollbar////////////////////
+
+.body::-webkit-scrollbar,
+.container::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 5px;
+}
+
+.body::-webkit-scrollbar-track,
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.body::-webkit-scrollbar-thumb,
+.container::-webkit-scrollbar-thumb {  background-color: #d8d8d8;
+  outline: 1px solid slategrey;
+  width: 6px;
+  border-radius: 5px;
+}
+////////////////Disabled screen////////////////////
+.dark_overlay {
+  display: none;
+  position: absolute;
+  top: 68px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 68px);
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .80;
+  filter: alpha(opacity=80);
+}
+
+.bright_content {
+  background-image: url("assets/images/bg.png");
+  position: absolute;
+  top: 68px;
+  right: 0;
+  width: 239px;
+  height: calc(100vh - 68px);
+  z-index: 1002;
+  overflow: auto;
+  -webkit-transition: ease; /* Safari */
+  transition: ease;
+}
+
+.mat-tab-labels {
+  background-color: #ffffff;
+}
+
+.mat-tab-label {
+  width: 50%!important;
+  color: #8a1638;
+  font-size: 14px;
+  font-family: Helvetica;
+}
+
+.mat-tab-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+  margin-bottom: 13px;
+}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #8a1638;
+  height: 3px;
+}
+
+.mat-tab-body-content {
+  overflow: hidden!important;
+  img {
+    width: 100%!important;
+    height: auto;
+  }
+}
+
+/////////////Styles for carousel///////////
+
+.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
+  transform: none !important;
+}
+
+ngx-gallery /deep/ ngx-gallery-image .ngx-gallery-arrow {
+  background-color: #000000;
+  opacity: 0.31!important;
+  padding: 18px 15px;
+  height: 60px;
+  vertical-align: middle;
+  i {
+    color: #c1c1c1;
+  }
+}
+
+.ngx-gallery-arrow-left[_ngcontent-c11] .ngx-gallery-arrow[_ngcontent-c11] {
+  left: 0!important;
+}
+
+.ngx-gallery-arrow-right[_ngcontent-c11] .ngx-gallery-arrow[_ngcontent-c11] {
+  right: 0!important;
+}
+
+

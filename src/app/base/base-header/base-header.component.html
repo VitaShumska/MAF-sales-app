@@ -1,0 +1,17 @@
+<div class="base-header container" fxFlex="100" fxLayout="row" fxLayoutAlign="center">
+  <div class="button" fxFlex="25">
+    <button (click)="goBack()">
+      <img src="assets/icons/arrow.svg">
+      <span *ngIf=" headerName === 'Home' ">Back to Sales Cloud</span>
+      <span *ngIf=" headerName !== 'Home' ">Back</span>
+    </button>
+    <div class="title" *ngIf=" headerName !== 'Home'">{{headerName}}</div>
+  </div>
+  <div class="logo item" fxFlex="50">
+    <img src="assets/images/logo.png">
+  </div>
+  <div class="user-name item" fxFlex="25">
+    <span>Person Name</span>
+    <img src="assets/images/avatar.png">
+  </div>
+</div>

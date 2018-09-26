@@ -1,0 +1,66 @@
+.filter-component {
+  .btn {
+    margin-left: 8px;
+    margin-top: -43px;
+    button {
+      border: none;
+      height: 35px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);
+      border-radius: 18px;
+      background-color: #ffffff;
+      line-height: 35px;
+      font-size: 18px;
+      font-family: Helvetica;
+      outline: none;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .filter-panel {
+    padding: 0 14px 0 20px;
+    p {
+      color: #000000;
+      font-family: Helvetica;
+      font-size: 15px;
+      margin: 28px 0 35px;
+      text-align: center;
+    }
+    button {
+      width: 32px;
+      height: 32px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      background-color: #31241c;
+      border-radius: 16px;
+      border: none;
+      position: absolute;
+      top: 15px;
+      right: 14px;
+      img {
+        vertical-align: middle;
+      }
+    }
+
+    label {
+      color: #212b36;
+      font-family: Helvetica;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    input {
+      box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
+      border-radius: 18px;
+      border: 1px solid #c4cdd5;
+      background-color: #ffffff;
+      line-height: 36px;
+      width: 100%;
+      margin-bottom: 13px;
+      padding: 0 10px;
+      outline: none;
+    }
+  }
+}
