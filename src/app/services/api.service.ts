@@ -10,17 +10,19 @@ export class ApiService {
   }
 
   getProperties() {
-    let headers = new HttpHeaders();
-    headers = headers.append("Authorization", "Basic " + btoa("SOAUSER:SOAUSER123"));
-    headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
-    return this.http.get(this.API_URL, {headers});
+    // let headers = new HttpHeaders();
+    // headers = headers.append("Authorization", "Basic " + btoa("SOAUSER:SOAUSER123"));
+    // headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
+    // return this.http.get(this.API_URL, {headers});
+    return this.http.get(this.API_URL);
   }
 
   getPropertiesById(id) {
-    let headers = new HttpHeaders();
-    headers = headers.append("Authorization", "Basic " + btoa("SOAUSER:SOAUSER123"));
-    headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
-    return this.http.get(this.API_URL + '/' + id, {headers});
+    // let headers = new HttpHeaders();
+    // headers = headers.append("Authorization", "Basic " + btoa("SOAUSER:SOAUSER123"));
+    // headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
+    // return this.http.get(this.API_URL + '/' + id, {headers});
+    return this.http.get(this.API_URL + '/' + id);
   }
 
 }
