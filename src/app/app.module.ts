@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { ApiService } from './services/api.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
@@ -45,8 +46,9 @@ import { ProperiesDetailsComponent } from './properies/properies-details/properi
     BrowserAnimationsModule,
     MatTabsModule,
     NgxGalleryModule,
-    AngularFontAwesomeModule
-  ],
+    AngularFontAwesomeModule,
+    MDBBootstrapModule.forRoot()
+],
   providers: [
     ApiService,
     BreadcrumbsService

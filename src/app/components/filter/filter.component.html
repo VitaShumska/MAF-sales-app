@@ -1,31 +1,33 @@
 <div class="filter-component">
-  <div class="btn" fxFlex="100" fxLayout="row-reverse">
+  <div class="custom-btn" fxFlex="100" fxLayout="row-reverse">
     <button fxFlex="14" (click)="toggleFilter()">
       <img src="assets/icons/filter-icon.png">
       Filter
     </button>
   </div>
   <div id="light" class="filter-panel bright_content" *ngIf="showFilter">
-    <button (click)="toggleFilter()"><img src="assets/icons/close-icon.png"></button>
+    <button class="close-btn" (click)="toggleFilter()"><img src="assets/icons/close-icon.png"></button>
     <p>FILTER</p>
 
     <label for="product-type">Product Type</label>
-    <input id="product-type" type="text">
+    <input id="product-type" type="text" [(ngModel)]="productType">
 
     <label for="phase">Phase (Building Name)</label>
-    <input id="phase" type="text">
+    <input id="phase" type="text" [(ngModel)]="phase">
 
     <label for="unit-type">Unit Type</label>
-    <input id="unit-type" type="text">
+    <input id="unit-type" type="text" [(ngModel)]="unitType">
 
     <label for="model">Model</label>
-    <input id="model" type="text">
+    <input id="model" type="text" [(ngModel)]="unitModel">
 
     <label for="bedrooms">Bedrooms</label>
-    <input id="bedrooms" type="text">
+    <input id="bedrooms" type="text" [(ngModel)]="bedrooms">
 
     <label for="budget">Budget</label>
-    <input id="budget" type="text">
+    <input id="budget" type="text" [(ngModel)]="unitPrice">
+
+    <button class="filter-btn" (click)="getPropertiesWithFilter()">Search</button>
 
   </div>
 </div>

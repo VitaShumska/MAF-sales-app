@@ -1,5 +1,5 @@
 .filter-component {
-  .btn {
+  .custom-btn {
     margin-left: 8px;
     margin-top: -43px;
     button {
@@ -29,7 +29,7 @@
       margin: 28px 0 35px;
       text-align: center;
     }
-    button {
+    .close-btn {
       width: 32px;
       height: 32px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -49,6 +49,7 @@
       font-family: Helvetica;
       font-size: 14px;
       line-height: 20px;
+      margin-bottom: 0;
     }
 
     input {
@@ -57,10 +58,21 @@
       border: 1px solid #c4cdd5;
       background-color: #ffffff;
       line-height: 36px;
-      width: 100%;
+      width: calc(100%);
       margin-bottom: 13px;
       padding: 0 10px;
       outline: none;
+    }
+
+    .filter-btn {
+      color: #ffffff;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      background-color: #8a1638;
+      height: 40px;
+      box-shadow: none;
+      margin: 20px 0;
     }
   }
 }

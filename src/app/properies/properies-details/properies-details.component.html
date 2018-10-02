@@ -1,5 +1,5 @@
 <div class="properties-details">
-  <div class="container">
+  <div class="custom-container">
     <div class="unit-info">
       <div class="details">
         <h3>DETAILS</h3>
@@ -109,6 +109,35 @@
             FLOORPLAN
           </ng-template>
           <ngx-gallery [options]="galleryOptions" [images]="galleryFloorplanImages"></ngx-gallery>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            VIDEO
+          </ng-template>
+
+          <mdb-carousel [isControls]="true" class="carousel slide" [animation]="'slide'">
+            <!--First slide-->
+            <mdb-carousel-item>
+              <video class="video-fluid" controls>
+                <source [src]="galleryVideos[i]" type="video/mp4" />
+              </video>
+            </mdb-carousel-item>
+            <!--/First slide-->
+            <!--Second slide-->
+            <mdb-carousel-item>
+              <video class="video-fluid" controls>
+                <source [src]="galleryVideos[i]" type="video/mp4" />
+              </video>
+            </mdb-carousel-item>
+            <!--/Second slide-->
+            <!--Third slide-->
+            <mdb-carousel-item>
+              <video class="video-fluid" controls>
+                <source [src]="galleryVideos[i]" type="video/mp4" />
+              </video>
+            </mdb-carousel-item>
+            <!--/Third slide-->
+          </mdb-carousel>
         </mat-tab>
       </mat-tab-group>
     </div>

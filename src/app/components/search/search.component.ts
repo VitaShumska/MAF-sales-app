@@ -26,6 +26,12 @@ export class SearchComponent implements OnInit {
       let selectedFilters = this.searchColumns;
 
       const filtered = this.inputList.filter((item) => {
+        Object.keys(item).map(key => {
+          if (item[key]) {
+            item[key] = item[key].toString();
+          }
+        });
+
         for (let i = 0; i < selectedFilters.length; i++) {
           if (item[selectedFilters[i]] && typeof item[selectedFilters[i]] === 'string') {
             if (item[selectedFilters[i]].toLowerCase().indexOf(searchText) !== -1) {

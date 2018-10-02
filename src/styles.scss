@@ -58,8 +58,9 @@ button {
   color: #171717;
   font-family: Roboto;
   border-bottom: 1px solid #d8d8d8;
+  margin-bottom: 0;
 
-  .header {
+  .table-header {
     color: #171717;
     display: flex;
     position: sticky;
@@ -70,16 +71,16 @@ button {
     z-index: 9;
     padding: 0 6px 0 0;
 
-    .cell:first-child {
+    .table-cell:first-child {
       flex: 2;
       padding-left: 15px;
     }
   }
-  .body {
+  .table-body {
     background: #ffffff;
     overflow: auto;
     height: calc(100vh - 68px - 45px - 46px - 20px - 50px);
-    .row {
+    .table-row {
       display: flex;
       &:hover {
         background-color: #e3e3e3;
@@ -98,7 +99,7 @@ button {
       font-family: Helvetica;
     }
   }
-  .cell {
+  .table-cell {
     flex: 1;
     height: 100%;
     line-height: 50px;
@@ -111,7 +112,7 @@ button {
     overflow: hidden;
 
     &.empty:before {
-      content: "E/N";
+      content: "N/A";
       opacity: 0.2;
       font-family: Helvetica;
     }
@@ -177,19 +178,23 @@ button {
 
 /////////////Scrollbar////////////////////
 
-.body::-webkit-scrollbar,
-.container::-webkit-scrollbar {
+.table-body::-webkit-scrollbar,
+.custom-container::-webkit-scrollbar,
+.bright_content::-webkit-scrollbar {
   width: 6px;
   border-radius: 5px;
 }
 
-.body::-webkit-scrollbar-track,
-.container::-webkit-scrollbar-track {
+.table-body::-webkit-scrollbar-track,
+.custom-container::-webkit-scrollbar-track,
+.bright_content::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.body::-webkit-scrollbar-thumb,
-.container::-webkit-scrollbar-thumb {  background-color: #d8d8d8;
+.table-body::-webkit-scrollbar-thumb,
+.custom-container::-webkit-scrollbar-thumb,
+  .bright_content::-webkit-scrollbar-thumb {
+  background-color: #d8d8d8;
   outline: 1px solid slategrey;
   width: 6px;
   border-radius: 5px;
@@ -214,7 +219,7 @@ button {
   position: absolute;
   top: 68px;
   right: 0;
-  width: 239px;
+  width: 278px;
   height: calc(100vh - 68px);
   z-index: 1002;
   overflow: auto;
@@ -275,5 +280,27 @@ ngx-gallery /deep/ ngx-gallery-image .ngx-gallery-arrow {
 .ngx-gallery-arrow-right[_ngcontent-c11] .ngx-gallery-arrow[_ngcontent-c11] {
   right: 0!important;
 }
+
+
+////////////////////////Video carousel//////////////////////////
+.carousel-control-next.ng-star-inserted,
+.carousel-control-prev.ng-star-inserted {
+  background-color: rgba(0, 0, 0, 0.31);
+  width: 44px;
+  height: 60px!important;
+  top: calc(50% - 30px);
+}
+
+.carousel .carousel-control-prev-icon {
+  width: 25px;
+  height: 25px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+.carousel .carousel-control-next-icon {
+  width: 25px;
+  height: 25px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
 
 

@@ -17,6 +17,8 @@ export class ProperiesDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   galleryFloorplanImages: NgxGalleryImage[];
+  galleryVideos: any = [];
+  i = 0;
 
   breadcrumbObj = {
     name: 'Unit Details',
@@ -110,6 +112,8 @@ export class ProperiesDetailsComponent implements OnInit {
         big: 'assets/images/floorplan.jpg'
       }
     ];
+
+    this.galleryVideos = ['assets/images/video.mp4', 'assets/images/video1.mp4', 'assets/images/video.mp4']
   }
 
   getPropertiesById () {

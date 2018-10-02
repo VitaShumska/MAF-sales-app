@@ -21,7 +21,7 @@ export class PropertiesListComponent implements OnInit {
   propertiesList;
 
   displayedColumns = ['Unit Tab', 'Unit Code', 'Model', 'Plot Area', 'Built-up Area', 'Status', 'Price'];
-  searchColumns = ['MAF_UnitType_c', 'MAF_UnitRegion_c', 'MAF_PlotAreaSqFt_c', 'MAF_BuiltupAreaSqFt_c', 'MAF_Status_c', 'MAF_UnitPrice_c'];
+  searchColumns = ['MAF_UnitType_c', 'MAF_UnitRegion_c', 'MAF_PlotAreaSqFt_c', 'MAF_BuiltupAreaSqFt_c', 'MAF_Status_c', 'MAF_UnitPrice_c', 'MAF_UnitModel_c'];
 
   breadcrumbObj = {
     name: 'Units',
@@ -48,6 +48,11 @@ export class PropertiesListComponent implements OnInit {
 
   changeSearch(data) {
     this.propertiesList = data;
+  }
+
+  changeFilter(data) {
+    this.propertiesList = data;
+    console.log('datafilter', this.propertiesList);
   }
 
   breadcrumbsArr() {

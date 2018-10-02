@@ -2,7 +2,7 @@
   background-color: white;
   height: calc(100vh - 68px);
 
-  .container {
+  .custom-container {
     height: calc(100vh - 68px - 90px);
     background-color: #f3f3f3;
     overflow-y: auto;
@@ -20,6 +20,7 @@
         color: #8a1638;
         font-family: Roboto;
         font-weight: 400;
+        font-size: 16px;
       }
 
       span {
@@ -32,7 +33,7 @@
         }
 
         &.empty:before {
-          content: 'E/N';
+          content: 'N/A';
           opacity: 0.2;
           font-family: Helvetica;
         }

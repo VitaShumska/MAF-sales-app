@@ -14,6 +14,7 @@
 
   .button {
     padding: 0 10px;
+    vertical-align: middle;
     button {
       padding: 0 21px;
       height: 38px;
@@ -24,6 +25,7 @@
       font-family: Helvetica;
       font-weight: 300;
       font-size: 16px;
+      line-height: 38px;
       img {
         vertical-align: middle;
         margin-right: 9px;

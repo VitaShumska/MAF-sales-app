@@ -4,38 +4,38 @@
     [searchColumns]="searchColumns"
     (searchChange)="changeSearch($event)"
   ></app-search>
-  <app-filter></app-filter>
+  <app-filter (changeFilter)="changeFilter($event)"></app-filter>
   <div class="properties-table">
     <div class="table">
-      <div class="header">
-        <div class="cell" *ngFor="let element of displayedColumns">
+      <div class="table-header">
+        <div class="table-cell" *ngFor="let element of displayedColumns">
           {{element}}
         </div>
       </div>
-      <div class="body">
-        <div class="row" *ngFor="let propertie of propertiesList" (click)="goToPage('/unit-details/' + propertie.InventoryItemId)">
-          <div class="cell unit-name">
+      <div class="table-body">
+        <div class="table-row" *ngFor="let propertie of propertiesList" (click)="goToPage('/unit-details/' + propertie.InventoryItemId)">
+          <div class="table-cell unit-name">
             <img src="assets/images/unit.png">
             <div>
               <p>{{propertie.MAF_UnitType_c}}</p>
-              <p>{{propertie.MAF_UnitRegion_c}}</p>
+              <p>{{propertie.MAF_PhaseName_c}}</p>
             </div>
           </div>
-          <div class="cell" [class]="propertie.ProductTypeCode ? 'cell' : 'cell empty'">{{propertie.ProductTypeCode}}</div>
-          <div class="cell" [class]="propertie.MAF_UnitModel_c ? 'cell' : 'cell empty'"> {{propertie.MAF_UnitModel_c}} </div>
-          <div class="cell" [class]="propertie.MAF_PlotAreaSqFt_c ? 'cell' : 'cell empty'"> {{propertie.MAF_PlotAreaSqFt_c | number:0}} </div>
-          <div class="cell" [class]="propertie.MAF_BuiltupAreaSqFt_c ? 'cell' : 'cell empty'"> {{propertie.MAF_BuiltupAreaSqFt_c | number:0}} </div>
-          <div class="cell status-column" [class]="propertie.MAF_Status_c ? 'cell status-column' : 'cell status-column empty'"> {{propertie.MAF_Status_c}} </div>
-          <div class="cell price" [class]="propertie.MAF_UnitPrice_c ? 'cell price' : 'cell empty price'"> {{propertie.MAF_UnitPrice_c | number:0}} </div>
+          <div class="table-cell" [class]="propertie.ProductTypeCode ? 'table-cell' : 'table-cell empty'">{{propertie.ProductTypeCode}}</div>
+          <div class="table-cell" [class]="propertie.MAF_UnitModel_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_UnitModel_c}} </div>
+          <div class="table-cell" [class]="propertie.MAF_PlotAreaSqFt_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_PlotAreaSqFt_c | number:0}} </div>
+          <div class="table-cell" [class]="propertie.MAF_BuiltupAreaSqFt_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_BuiltupAreaSqFt_c | number:0}} </div>
+          <div class="table-cell status-column" [class]="propertie.MAF_Status_c ? 'table-cell status-column' : 'table-cell status-column empty'"> {{propertie.MAF_Status_c}} </div>
+          <div class="table-cell price" [class]="propertie.MAF_UnitPrice_c ? 'table-cell price' : 'table-cell empty price'"> {{propertie.MAF_UnitPrice_c | number:0}} </div>
         </div>
         <div class="scrollbar" id="style">
           <div class="force-overflow"></div>
         </div>
-        <!--<p class="empty-list" *ngIf="!propertiesList.length"> Units list is empty </p>-->
+        <p class="empty-list" *ngIf="!propertiesList?.length"> Units list is empty </p>
       </div>
     </div>
     <div class="summary">
-      <span>Total Units: 55</span>
+      <span>Total Units: {{propertiesList?.length}}</span>
       <span class="available">Available: 50</span>
     </div>
   </div>
