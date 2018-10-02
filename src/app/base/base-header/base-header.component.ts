@@ -31,7 +31,13 @@ export class BaseHeaderComponent implements OnInit {
   }
 
   goBack(): void {
+    this.closeFilter();
     this.location.back();
+  }
+
+  closeFilter() {
+    document.getElementById('light').style.display = 'none';
+    document.getElementById('fade').style.display = 'none';
   }
 
 }
