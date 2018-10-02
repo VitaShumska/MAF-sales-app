@@ -26,7 +26,7 @@ export class ApiService {
   }
 
   getProperties() {
-    return this.http.get(this.API_URL + 'products/?limit=300', {headers});
+    return this.http.get(this.API_URL + 'products/?limit=300');
   }
 
   getPropertiesWithFilter(product_type?, phase?, unit_type?, model?, bedrooms?, budget?) {
@@ -49,12 +49,11 @@ export class ApiService {
     if (budget) {
       filterParams += 'q=(MAF_UnitPrice_c<=' + budget;
     }
-    console.log('params', filterParams);
-    return this.http.get(this.API_URL + 'products/?' + filterParams + '&limit=1000', {headers});
+    return this.http.get(this.API_URL + 'products/?' + filterParams + '&limit=1000');
   }
 
   getPropertiesById(id) {
-    return this.http.get(this.API_URL + 'products/' + id, {headers});
+    return this.http.get(this.API_URL + 'products/' + id);
   }
 
 }

@@ -17,7 +17,7 @@ export class FilterComponent implements OnInit {
   unitPrice;
   @Output() changeFilter = new EventEmitter();
 
-  constructor(private apiService: ApiService,) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
   }
