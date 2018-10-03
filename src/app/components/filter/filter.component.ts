@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 
 @Component({
   selector: 'app-filter',
@@ -9,15 +10,20 @@ import { ApiService } from '../../services/api.service';
 export class FilterComponent implements OnInit {
   showFilter = false;
   propertiesList;
-  productType;
-  phase;
-  unitType;
-  bedrooms;
-  unitModel;
-  unitPrice;
-  @Output() changeFilter = new EventEmitter();
+  filterParams = {
+    productType: '',
+    phase: '',
+    unitType: '',
+    bedrooms: '',
+    unitModel: '',
+    unitPrice: ''
+  };
 
-  constructor(private apiService: ApiService) { }
+  @Output() changeFilter = new EventEmitter();
+  @Output() changeFilterParams = new EventEmitter();
+
+  constructor(private apiService: ApiService,
+              private loadingSpinner: LoadingSpinnerService) { }
 
   ngOnInit() {
   }
@@ -33,11 +39,13 @@ export class FilterComponent implements OnInit {
   }
 
   getPropertiesWithFilter () {
-    this.apiService.getPropertiesWithFilter(this.productType, this.phase, this.unitType, this.unitModel, this.bedrooms, this.unitPrice).subscribe((data:  Array<object>) => {
+    this.loadingSpinner.show();
+    this.apiService.getPropertiesWithFilter(null, this.filterParams).subscribe((data:  Array<object>) => {
+      this.loadingSpinner.hide();
       this.propertiesList  =  data;
       this.propertiesList =  this.propertiesList.items;
-      console.log('list', this.propertiesList);
       this.changeFilter.emit(this.propertiesList);
+      this.changeFilterParams.emit(this.filterParams);
       this.toggleFilter();
     });
   }

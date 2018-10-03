@@ -2,3 +2,9 @@
   background-color: #efefef;
   height: 100vh;
 }
+
+@media screen and (max-width: 340px) {
+  .base {
+    width: 340px!important;
+  }
+}

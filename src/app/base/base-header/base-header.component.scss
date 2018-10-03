@@ -30,6 +30,14 @@
         vertical-align: middle;
         margin-right: 9px;
       }
+
+      span#back-to-cloud:before {
+        content: ' Back to Sales Cloud';
+      }
+
+      span#back:before {
+        content: ' Back';
+      }
     }
 
     .title {
@@ -37,6 +45,7 @@
       font-family: Roboto;
       font-size: 18px;
       float: right;
+      display: block;
     }
   }
 
@@ -51,6 +60,37 @@
       width: 46px;
       height: 46px;
       border-radius: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 970px)  {
+  .button {
+    button {
+      span:before {
+        content: ' Back'!important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 670px)  {
+  .title {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 560px)  {
+  .button {
+    button {
+      text-align: center;
+      span:before {
+        content: ''!important;
+      }
+      img {
+        margin-right: 0!important;
+      }
     }
   }
 }

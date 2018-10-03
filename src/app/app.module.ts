@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatRippleModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { ApiService } from './services/api.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
+import { LoadingSpinnerService } from './services/loading-spinner.service';
 
 import { AppComponent } from './app.component';
 import { BaseHeaderComponent } from './base/base-header/base-header.component';
@@ -23,6 +25,7 @@ import { PropertiesListComponent } from './properies/properties-list/properties-
 import { SearchComponent } from './components/search/search.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ProperiesDetailsComponent } from './properies/properies-details/properies-details.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { ProperiesDetailsComponent } from './properies/properies-details/properi
     PropertiesListComponent,
     FilterComponent,
     SearchComponent,
-    ProperiesDetailsComponent
+    ProperiesDetailsComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -47,11 +51,13 @@ import { ProperiesDetailsComponent } from './properies/properies-details/properi
     MatTabsModule,
     NgxGalleryModule,
     AngularFontAwesomeModule,
+    MatSnackBarModule,
     MDBBootstrapModule.forRoot()
 ],
   providers: [
     ApiService,
-    BreadcrumbsService
+    BreadcrumbsService,
+    LoadingSpinnerService
   ],
   bootstrap: [AppComponent]
 })

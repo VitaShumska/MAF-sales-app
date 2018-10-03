@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
+import {LoadingSpinnerService} from '../../services/loading-spinner.service';
 import 'hammerjs';
 
 @Component({
@@ -29,7 +30,8 @@ export class ProperiesDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private breadcrumbs:  BreadcrumbsService,
               private router: Router,
-              private apiService: ApiService) { }
+              private apiService: ApiService,
+              private loadingSpinner: LoadingSpinnerService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -113,12 +115,14 @@ export class ProperiesDetailsComponent implements OnInit {
       }
     ];
 
-    this.galleryVideos = ['assets/images/video.mp4', 'assets/images/video1.mp4', 'assets/images/video.mp4']
+    this.galleryVideos = ['assets/images/video.mp4', 'assets/images/video1.mp4', 'assets/images/video1.mp4'];
   }
 
   getPropertiesById () {
+    this.loadingSpinner.show();
     this.apiService.getPropertiesById(this.unitId)
       .subscribe(data => {
+        this.loadingSpinner.hide();
         this.unitDetails = data;
       });
   }

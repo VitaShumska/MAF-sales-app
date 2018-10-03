@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Observable} from 'rxjs';
 // import {map} from 'rxjs/add/operator/map';
 
 @Injectable()
@@ -25,35 +26,40 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  getProperties() {
-    return this.http.get(this.API_URL + 'products/?limit=300');
+  getProperties(): Observable<any> {
+    let headers = new HttpHeaders();
+    // headers = headers.append('Authorization', 'Bearer ' + this.token);
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'products/?limit=100', {headers});
   }
 
-  getPropertiesWithFilter(product_type?, phase?, unit_type?, model?, bedrooms?, budget?) {
-    let filterParams = '';
-    if (product_type) {
-      filterParams += 'MAF_ProductType_c=' + product_type;
+  getPropertiesWithFilter(sortParam?, filterParams?): Observable<any> {
+    console.log(sortParam, filterParams);
+    let filterParameters = '';
+    let sortParameters = '';
+    if (filterParams) {
+      filterParameters = 'q=';
+      filterParams.bedrooms ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
+      filterParams.phase ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
+      filterParams.productType  ? (filterParameters += 'MAF_ProductType_c=' + filterParams.productType + ';') : false;
+      filterParams.model  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.model + ';') : false;
+      filterParams.unitPrice  ? (filterParameters += 'MAF_UnitPrice_c<=' + filterParams.unitPrice + ';') : false;
+      filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
     }
-    if (phase) {
-      filterParams += 'MAF_PhaseName_c=' + phase;
-    }
-    if (unit_type) {
-      filterParams += 'q=MAF_UnitType_c=' + unit_type;
-    }
-    if (model) {
-      filterParams += 'q=MAF_UnitModel_c=' + model  + '&';
-    }
-    if (bedrooms) {
-      filterParams += 'MAF_Bedroom_c=' + bedrooms;
-    }
-    if (budget) {
-      filterParams += 'q=(MAF_UnitPrice_c<=' + budget;
-    }
-    return this.http.get(this.API_URL + 'products/?' + filterParams + '&limit=1000');
+    sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
+
+    let headers = new HttpHeaders();
+    // headers = headers.append('Authorization', 'Bearer ' + this.token);
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'products/?' + filterParameters + sortParameters + '&limit=300', {headers});
   }
 
-  getPropertiesById(id) {
-    return this.http.get(this.API_URL + 'products/' + id);
+  getPropertiesById(id): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
-
 }

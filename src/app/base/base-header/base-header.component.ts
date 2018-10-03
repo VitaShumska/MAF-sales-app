@@ -31,7 +31,9 @@ export class BaseHeaderComponent implements OnInit {
   }
 
   goBack(): void {
-    this.closeFilter();
+    if ( document.getElementById('light') && document.getElementById('fade') ) {
+      this.closeFilter();
+    }
     this.location.back();
   }
 

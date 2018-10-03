@@ -2,8 +2,8 @@
   <div class="button" fxFlex="25">
     <button (click)="goBack()">
       <img src="assets/icons/arrow.svg">
-      <span *ngIf=" headerName === 'Home' ">Back to Sales Cloud</span>
-      <span *ngIf=" headerName !== 'Home' ">Back</span>
+      <span id="back-to-cloud" *ngIf=" headerName === 'Home' "></span>
+      <span id="back"  *ngIf=" headerName !== 'Home' "></span>
     </button>
     <div class="title" *ngIf=" headerName !== 'Home'">{{headerName}}</div>
   </div>
@@ -15,3 +15,4 @@
     <!--<img src="assets/images/user.png">-->
   </div>
 </div>
+
