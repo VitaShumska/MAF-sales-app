@@ -87,7 +87,7 @@ button {
   .table-body {
     background: #ffffff;
     overflow: auto;
-    height: calc(100vh - 68px - 45px - 46px - 20px - 50px);
+    height: calc(100vh - 68px - 45px - 56px - 20px - 50px);
     .table-row {
       display: flex;
       &:hover {
@@ -270,7 +270,7 @@ button {
   transform: none !important;
 }
 
-ngx-gallery /deep/ ngx-gallery-image .ngx-gallery-arrow {
+ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
   background-color: #000000;
   opacity: 0.31!important;
   padding: 18px 15px;
@@ -281,11 +281,11 @@ ngx-gallery /deep/ ngx-gallery-image .ngx-gallery-arrow {
   }
 }
 
-.ngx-gallery-arrow-left[_ngcontent-c11] .ngx-gallery-arrow[_ngcontent-c11] {
+.ngx-gallery-arrow-left .ngx-gallery-arrow{
   left: 0!important;
 }
 
-.ngx-gallery-arrow-right[_ngcontent-c11] .ngx-gallery-arrow[_ngcontent-c11] {
+.ngx-gallery-arrow-right .ngx-gallery-arrow {
   right: 0!important;
 }
 
@@ -308,6 +308,14 @@ ngx-gallery /deep/ ngx-gallery-image .ngx-gallery-arrow {
   width: 25px;
   height: 25px;
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.video-fluid {
+  width: 100%!important;
+}
+//////////////////Pagination///////////
+.mat-paginator-page-size {
+  display: none!important;
 }
 
 

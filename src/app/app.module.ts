@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ApiService } from './services/api.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
@@ -52,6 +53,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     NgxGalleryModule,
     AngularFontAwesomeModule,
     MatSnackBarModule,
+    MatPaginatorModule,
     MDBBootstrapModule.forRoot()
 ],
   providers: [

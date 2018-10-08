@@ -4,7 +4,9 @@ import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import {PageEvent} from '@angular/material';
 import * as _ from 'lodash';
+import {copyObj} from "@angular/animations/browser/src/util";
 
 @Component({
   selector: 'app-properties-list',
@@ -12,8 +14,6 @@ import * as _ from 'lodash';
   styleUrls: ['./properties-list.component.scss']
 })
 export class PropertiesListComponent implements OnInit {
-  private  contacts:  Array<object> = [];
-
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -24,6 +24,12 @@ export class PropertiesListComponent implements OnInit {
   propertiesListOriginal;
   propertiesList;
   filterParams;
+  pageEvent: PageEvent;
+  offset = 0;
+  countOfProperties;
+  countOfAvailable = 0;
+  searchColumns = [];
+  sortElem = null;
 
   displayedColumns = [
     {
@@ -70,9 +76,6 @@ export class PropertiesListComponent implements OnInit {
     }
   ];
 
-  // displayedColumns = [ ];
-  searchColumns = [ 'MAF_PlotAreaSqFt_c', 'MAF_BuiltupAreaSqFt_c', 'MAF_Status_c', 'MAF_UnitPrice_c'];
-
   breadcrumbObj = {
     name: 'Units',
     url: '',
@@ -80,58 +83,71 @@ export class PropertiesListComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.getProperties();
+    this.displayedColumns.map( item => {
+      this.searchColumns.push(item.key);
+    });
+    this.getProperties(this.offset);
     this.breadcrumbsArr();
   }
 
-  getProperties() {
+  getProperties(offset) {
     this.loadingSpinner.show();
-    this.apiService.getProperties()
+    this.apiService.getProperties(offset)
       // .finally(() => this.loadingSpinner.hide())
       .subscribe(
         (data:  Array<object>) => {
           this.loadingSpinner.hide();
+          this.countOfProperties = data['totalResults'];
           this.propertiesListOriginal  =  data;
           this.propertiesListOriginal  =  this.propertiesListOriginal.items;
           this.propertiesList = this.propertiesListOriginal;
+          this.getCountOfAvailable();
         },
         (error) => {
-          this.openSnackBar('Server error', 'OK');
           this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
         }
       );
   }
 
-  getPropertiesWithFilter(sortParam?, filterParams?) {
+  getPropertiesWithFilter(offset, sortParam?, filterParams?) {
     this.loadingSpinner.show();
-    this.apiService.getPropertiesWithFilter(sortParam, filterParams).subscribe(
+    this.apiService.getPropertiesWithFilter(offset, sortParam, filterParams).subscribe(
       (data:  Array<object>) => {
         this.loadingSpinner.hide();
         this.propertiesListOriginal = data;
+        this.countOfProperties = data['totalResults'];
         this.propertiesListOriginal = this.propertiesListOriginal.items;
         this.propertiesList = this.propertiesListOriginal;
+        this.getCountOfAvailable();
+      },
+      (error) => {
+        this.loadingSpinner.hide();
+        this.openSnackBar('Server error', 'OK');
       }
     );
   }
 
-  goToPage(url) {
-    this.router.navigate([url]);
-  }
-
-  changeSearch(data) {
-    this.propertiesList = data;
-  }
-
-  changeFilter(data) {
-    this.propertiesList = data;
-  }
-
-  changeFilterParams(data) {
-    this.filterParams = data;
-    console.log('this.filterParams', this.filterParams);
+  getCountOfAvailable () {
+    this.loadingSpinner.show();
+    let filterParams;
+    if ( this.filterParams ) {
+      filterParams = Object.assign({}, this.filterParams);
+      filterParams.status = 'available';
+    } else {
+      filterParams = {
+        status: 'available'
+      };
+    }
+    this.apiService.getPropertiesWithFilter(0, this.sortElem, filterParams)
+      .subscribe((data:  Array<object>) => {
+        this.loadingSpinner.hide();
+        this.countOfAvailable = data['totalResults'];
+      });
   }
 
   sortByKey(sortElem) {
+    this.sortElem = sortElem;
     this.displayedColumns.forEach(item => {
       if (sortElem.key === item.key) {
         if (sortElem.sort === 'asc') {
@@ -143,9 +159,25 @@ export class PropertiesListComponent implements OnInit {
         item.sort = '';
       }
     });
-    this.getPropertiesWithFilter(sortElem, this.filterParams)
+    this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+  }
 
-    // this.filterParams ? this.getPropertiesWithFilter(sortElem, this.filterParams) : this.getPropertiesWithFilter(sortElem);
+  goToPage(url) {
+    this.router.navigate([url]);
+  }
+
+  changeSearch(data) {
+    this.propertiesList = data;
+  }
+
+  changeFilter(data) {
+    this.propertiesList = data.items;
+    this.countOfProperties = data.totalResults;
+  }
+
+  changeFilterParams(data) {
+    this.filterParams = data;
+    this.getCountOfAvailable();
   }
 
   breadcrumbsArr() {
@@ -159,4 +191,12 @@ export class PropertiesListComponent implements OnInit {
     });
   }
 
+  paginator (event) {
+    this.offset = event.pageIndex * event.pageSize;
+    if (this.filterParams || this.sortElem) {
+      this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+    } else {
+      this.getProperties(this.offset);
+    }
+  }
 }

@@ -10,22 +10,22 @@
     <p>FILTER</p>
 
     <label for="product-type">Product Type</label>
-    <input id="product-type" type="text" [(ngModel)]="filterParams.productType">
+    <input id="product-type" type="text" maxlength="72"  [(ngModel)]="filterParams.productType">
 
     <label for="phase">Phase (Building Name)</label>
-    <input id="phase" type="text" [(ngModel)]="filterParams.phase">
+    <input id="phase" type="text" maxlength="72"  [(ngModel)]="filterParams.phase">
 
     <label for="unit-type">Unit Type</label>
-    <input id="unit-type" type="text" [(ngModel)]="filterParams.unitType">
+    <input id="unit-type" type="text" maxlength="72"  [(ngModel)]="filterParams.unitType">
 
     <label for="model">Model</label>
-    <input id="model" type="text" [(ngModel)]="filterParams.unitModel">
+    <input id="model" type="text" maxlength="72"  [(ngModel)]="filterParams.unitModel">
 
     <label for="bedrooms">Bedrooms</label>
-    <input id="bedrooms" type="text" [(ngModel)]="filterParams.bedrooms">
+    <input id="bedrooms" type="text" maxlength="72" [(ngModel)]="filterParams.bedrooms">
 
     <label for="budget">Budget</label>
-    <input id="budget" type="text" [(ngModel)]="filterParams.unitPrice">
+    <input id="budget" type="text" maxlength="24" (keypress)="onlyNumberKey($event)" [(ngModel)]="filterParams.unitPrice">
 
     <button class="filter-btn" (click)="getPropertiesWithFilter()">Search</button>
 

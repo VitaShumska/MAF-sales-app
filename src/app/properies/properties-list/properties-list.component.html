@@ -39,8 +39,14 @@
       </div>
     </div>
     <div class="summary">
-      <span>Total Units: {{propertiesList?.length}}</span>
-      <!--<span class="available">Available: 50</span>-->
+      <mat-paginator [length]="countOfProperties"
+                     [pageSize]="25"
+                     (page)="pageEvent = paginator($event)">
+      </mat-paginator>
+      <div>
+        <span>Total Units: {{countOfProperties}}</span>
+        <span class="available">Available: {{countOfAvailable}}</span>
+      </div>
     </div>
   </div>
 </div>

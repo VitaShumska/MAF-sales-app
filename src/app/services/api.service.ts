@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs';
-// import {map} from 'rxjs/add/operator/map';
+import { Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import { NgxXml2jsonService } from 'ngx-xml2json';
 
 @Injectable()
 export class ApiService {
@@ -23,19 +25,19 @@ export class ApiService {
     'ySGj+3WAphLG5/FC6xIXICLrDk1s58uZsbKTDNY6EkQyiWUc6hPGLcSzZHS0lR8V' +
     'fdnRLGGB';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private ngxXml2jsonService: NgxXml2jsonService) {
   }
 
-  getProperties(): Observable<any> {
+  getProperties(offset): Observable<any> {
     let headers = new HttpHeaders();
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'products/?limit=100', {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset, {headers});
   }
 
-  getPropertiesWithFilter(sortParam?, filterParams?): Observable<any> {
-    console.log(sortParam, filterParams);
+  getPropertiesWithFilter(offset, sortParam?, filterParams?): Observable<any> {
     let filterParameters = '';
     let sortParameters = '';
     if (filterParams) {
@@ -46,6 +48,7 @@ export class ApiService {
       filterParams.model  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.model + ';') : false;
       filterParams.unitPrice  ? (filterParameters += 'MAF_UnitPrice_c<=' + filterParams.unitPrice + ';') : false;
       filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
+      filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
     }
     sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
 
@@ -53,7 +56,7 @@ export class ApiService {
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'products/?' + filterParameters + sortParameters + '&limit=300', {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + sortParameters + '&' + filterParameters, {headers});
   }
 
   getPropertiesById(id): Observable<any> {
@@ -61,5 +64,17 @@ export class ApiService {
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/' + id, {headers});
+  }
+
+  getXml() {
+    const parser = new DOMParser();
+    let headers = new HttpHeaders();
+    headers.append('Accept', 'application/xml');
+    return this.http.get('https://mafsalesapp.com/static/cms_links.xml', {headers, responseType: 'text'})
+      .map (xmlFile => {
+        const xml = parser.parseFromString(xmlFile, 'text/xml');
+        const obj = this.ngxXml2jsonService.xmlToJson(xml);
+        return obj;
+      });
   }
 }

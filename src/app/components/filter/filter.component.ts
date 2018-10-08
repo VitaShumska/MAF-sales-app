@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
+import {MatSnackBar} from "@angular/material";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-filter',
@@ -10,6 +12,7 @@ import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 export class FilterComponent implements OnInit {
   showFilter = false;
   propertiesList;
+  offset = 1;
   filterParams = {
     productType: '',
     phase: '',
@@ -23,7 +26,8 @@ export class FilterComponent implements OnInit {
   @Output() changeFilterParams = new EventEmitter();
 
   constructor(private apiService: ApiService,
-              private loadingSpinner: LoadingSpinnerService) { }
+              private loadingSpinner: LoadingSpinnerService,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -39,15 +43,43 @@ export class FilterComponent implements OnInit {
   }
 
   getPropertiesWithFilter () {
+    let filterParams = this.filterParams;
+    if (this.isFilterEmpty()) {
+      filterParams = null;
+    }
     this.loadingSpinner.show();
-    this.apiService.getPropertiesWithFilter(null, this.filterParams).subscribe((data:  Array<object>) => {
-      this.loadingSpinner.hide();
-      this.propertiesList  =  data;
-      this.propertiesList =  this.propertiesList.items;
-      this.changeFilter.emit(this.propertiesList);
-      this.changeFilterParams.emit(this.filterParams);
-      this.toggleFilter();
+    this.apiService.getPropertiesWithFilter(this.offset,null, filterParams)
+      .subscribe((data:  Array<object>) => {
+        this.loadingSpinner.hide();
+        this.propertiesList  =  data;
+        this.changeFilter.emit(this.propertiesList);
+        this.changeFilterParams.emit(this.filterParams);
+        this.toggleFilter();
+      },
+      (error) => {
+        this.toggleFilter();
+        this.loadingSpinner.hide();
+        this.openSnackBar('Server error', 'OK');
+      });
+  }
+
+  onlyNumberKey(event) {
+    return (event.charCode === 8 || event.charCode === 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
     });
   }
 
+  isFilterEmpty () {
+    let filterEmpty = true;
+      Object.keys(this.filterParams).map(key => {
+        if ( this.filterParams[key] !== '' ) {
+          filterEmpty = false;
+        }
+      });
+      return filterEmpty;
+  }
 }

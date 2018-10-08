@@ -116,27 +116,13 @@
           </ng-template>
 
           <mdb-carousel [isControls]="true" class="carousel slide" [animation]="'slide'">
-            <!--First slide-->
-            <mdb-carousel-item>
-              <video class="video-fluid" controls>
-                <source [src]="galleryVideos[i]" type="video/mp4" />
-              </video>
-            </mdb-carousel-item>
-            <!--/First slide-->
-            <!--Second slide-->
-            <mdb-carousel-item>
-              <video class="video-fluid" controls>
-                <source [src]="galleryVideos[i]" type="video/mp4" />
-              </video>
-            </mdb-carousel-item>
-            <!--/Second slide-->
-            <!--Third slide-->
-            <mdb-carousel-item>
-              <video class="video-fluid" controls>
-                <source src="galleryVideos[i]" type="video/mp4" />
-              </video>
-            </mdb-carousel-item>
-            <!--/Third slide-->
+            <div *ngFor="let video of galleryVideos">
+              <mdb-carousel-item>
+                <video class="video-fluid" controls>
+                  <source [src]="video" type="video/mp4" />
+                </video>
+              </mdb-carousel-item>
+            </div>
           </mdb-carousel>
         </mat-tab>
       </mat-tab-group>

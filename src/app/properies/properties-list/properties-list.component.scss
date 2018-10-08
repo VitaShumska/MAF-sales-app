@@ -11,6 +11,8 @@
     background-color: #ffffff;
     z-index: 2;
     line-height: 46px;
+    display: flex;
+    justify-content: space-between;
 
     span {
       margin: 0 15px;
