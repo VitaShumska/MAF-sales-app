@@ -33,6 +33,9 @@ export class FilterComponent implements OnInit {
               public filterClose: FilterCloseService) { }
 
   ngOnInit() {
+    if (JSON.parse(window.sessionStorage.getItem('filterParams'))) {
+      this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
+    }
   }
 
   toggleFilter() {
@@ -66,6 +69,7 @@ export class FilterComponent implements OnInit {
         this.loadingSpinner.hide();
         this.openSnackBar('Server error', 'OK');
       });
+    window.sessionStorage.removeItem('filterParams');
   }
 
   onlyNumberKey(event) {

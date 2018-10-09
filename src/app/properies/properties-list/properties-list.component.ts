@@ -84,7 +84,12 @@ export class PropertiesListComponent implements OnInit {
     this.displayedColumns.map( item => {
       this.searchColumns.push(item.key);
     });
-    this.getProperties(this.offset);
+    if (JSON.parse(window.sessionStorage.getItem('filterParams'))) {
+      this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
+      this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+    } else {
+      this.getProperties(this.offset);
+    }
     this.breadcrumbsArr();
   }
 
@@ -162,6 +167,7 @@ export class PropertiesListComponent implements OnInit {
 
   goToPage(url) {
     this.router.navigate([url]);
+    window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams));
   }
 
   changeSearch(data) {
