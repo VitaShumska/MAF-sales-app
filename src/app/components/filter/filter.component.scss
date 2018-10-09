@@ -58,10 +58,19 @@
       border: 1px solid #c4cdd5;
       background-color: #ffffff;
       line-height: 36px;
-      width: calc(100%);
+      width: 100%;
       margin-bottom: 13px;
       padding: 0 10px;
       outline: none;
+
+      &#budget-from,
+      &#budget-to {
+        width: 48%;
+      }
+
+      &#budget-from {
+        margin-right: 4%;
+      }
     }
 
     .filter-btn {

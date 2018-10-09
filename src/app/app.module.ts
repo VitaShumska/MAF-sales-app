@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ApiService } from './services/api.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
 import { LoadingSpinnerService } from './services/loading-spinner.service';
+import { FilterCloseService } from './services/filter-close.service';
 
 import { AppComponent } from './app.component';
 import { BaseHeaderComponent } from './base/base-header/base-header.component';
@@ -59,7 +60,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
   providers: [
     ApiService,
     BreadcrumbsService,
-    LoadingSpinnerService
+    LoadingSpinnerService,
+    FilterCloseService
   ],
   bootstrap: [AppComponent]
 })

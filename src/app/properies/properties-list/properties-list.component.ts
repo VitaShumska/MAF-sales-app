@@ -5,8 +5,6 @@ import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import {PageEvent} from '@angular/material';
-import * as _ from 'lodash';
-import {copyObj} from "@angular/animations/browser/src/util";
 
 @Component({
   selector: 'app-properties-list',

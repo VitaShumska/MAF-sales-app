@@ -312,6 +312,19 @@ ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
 
 .video-fluid {
   width: 100%!important;
+  height: 700px;
+}
+
+@media screen and (max-width: 1400px) {
+  .video-fluid {
+    height: 500px!important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .video-fluid {
+    height: 300px!important;
+  }
 }
 //////////////////Pagination///////////
 .mat-paginator-page-size {

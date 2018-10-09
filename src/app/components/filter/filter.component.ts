@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
+import {FilterCloseService} from "../../services/filter-close.service";
 import {MatSnackBar} from "@angular/material";
 import * as _ from 'lodash';
 
@@ -10,16 +11,17 @@ import * as _ from 'lodash';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-  showFilter = false;
+  showFilter: boolean;
   propertiesList;
-  offset = 1;
+  offset = 0;
   filterParams = {
     productType: '',
     phase: '',
     unitType: '',
     bedrooms: '',
     unitModel: '',
-    unitPrice: ''
+    unitPriceFrom: '',
+    unitPriceTo: ''
   };
 
   @Output() changeFilter = new EventEmitter();
@@ -27,12 +29,14 @@ export class FilterComponent implements OnInit {
 
   constructor(private apiService: ApiService,
               private loadingSpinner: LoadingSpinnerService,
-              public snackBar: MatSnackBar) { }
+              public snackBar: MatSnackBar,
+              public filterClose: FilterCloseService) { }
 
   ngOnInit() {
   }
 
   toggleFilter() {
+    this.showFilter = this.filterClose.showFilter;
     this.showFilter = !this.showFilter;
     if (this.showFilter) {
       document.getElementById('fade').style.display = 'block';
@@ -40,6 +44,7 @@ export class FilterComponent implements OnInit {
       document.getElementById('light').style.display = 'none';
       document.getElementById('fade').style.display = 'none';
     }
+    this.filterClose.toggleFilter();
   }
 
   getPropertiesWithFilter () {
@@ -49,7 +54,7 @@ export class FilterComponent implements OnInit {
     }
     this.loadingSpinner.show();
     this.apiService.getPropertiesWithFilter(this.offset,null, filterParams)
-      .subscribe((data:  Array<object>) => {
+      .subscribe((data) => {
         this.loadingSpinner.hide();
         this.propertiesList  =  data;
         this.changeFilter.emit(this.propertiesList);

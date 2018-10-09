@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilterCloseService } from '../services/filter-close.service';
 
 @Component({
   selector: 'app-base',
@@ -7,15 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaseComponent implements OnInit {
 
-  constructor() {
+  constructor(private filterClose: FilterCloseService) {
   }
 
   ngOnInit() {
   }
 
   closeFilter() {
-    document.getElementById('light').style.display = 'none';
-    document.getElementById('fade').style.display = 'none';
+    this.filterClose.closeFilter(false);
   }
 
 }

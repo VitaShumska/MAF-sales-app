@@ -5,7 +5,7 @@
       Filter
     </button>
   </div>
-  <div id="light" class="filter-panel bright_content" *ngIf="showFilter">
+  <div id="light" class="filter-panel bright_content" *ngIf="filterClose.showFilter">
     <button class="close-btn" (click)="toggleFilter()"><img src="assets/icons/close-icon.png"></button>
     <p>FILTER</p>
 
@@ -24,8 +24,10 @@
     <label for="bedrooms">Bedrooms</label>
     <input id="bedrooms" type="text" maxlength="72" [(ngModel)]="filterParams.bedrooms">
 
-    <label for="budget">Budget</label>
-    <input id="budget" type="text" maxlength="24" (keypress)="onlyNumberKey($event)" [(ngModel)]="filterParams.unitPrice">
+    <label>Budget</label>
+    <br>
+    <input id="budget-from" type="text" maxlength="24" (keypress)="onlyNumberKey($event)" [(ngModel)]="filterParams.unitPriceFrom" placeholder="From">
+    <input id="budget-to" type="text" maxlength="24" (keypress)="onlyNumberKey($event)" [(ngModel)]="filterParams.unitPriceTo" placeholder="To">
 
     <button class="filter-btn" (click)="getPropertiesWithFilter()">Search</button>
 

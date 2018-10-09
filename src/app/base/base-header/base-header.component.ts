@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
+import { FilterCloseService } from '../../services/filter-close.service';
 
 @Component({
   selector: 'app-base-header',
@@ -17,7 +18,8 @@ export class BaseHeaderComponent implements OnInit {
   constructor(
     private location: Location,
     private router: Router,
-    private breadcrumbs: BreadcrumbsService
+    private breadcrumbs: BreadcrumbsService,
+    private filterClose: FilterCloseService
   ) {
     this.breadcrumbs.breadcrumbsEmitter
       .subscribe( breadcrumbsArr => {
@@ -32,14 +34,8 @@ export class BaseHeaderComponent implements OnInit {
 
   goBack(): void {
     if ( document.getElementById('light') && document.getElementById('fade') ) {
-      this.closeFilter();
+      this.filterClose.closeFilter(false);
     }
     this.location.back();
   }
-
-  closeFilter() {
-    document.getElementById('light').style.display = 'none';
-    document.getElementById('fade').style.display = 'none';
-  }
-
 }
