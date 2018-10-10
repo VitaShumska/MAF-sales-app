@@ -17,8 +17,7 @@ export class SearchComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public debouncedChangeSearch() {
     if (this.searchText) {

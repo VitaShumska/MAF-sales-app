@@ -85,7 +85,7 @@ export class PropertiesListComponent implements OnInit {
     this.displayedColumns.map( item => {
       this.searchColumns.push(item.key);
     });
-    if (JSON.parse(window.sessionStorage.getItem('filterParams'))) {
+    if (window.sessionStorage.getItem('filterParams')) {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
       this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
     } else {
@@ -175,7 +175,9 @@ export class PropertiesListComponent implements OnInit {
 
   goToPage(url) {
     this.router.navigate([url]);
-    window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams));
+    // console.log(this.filterParams);
+    this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)): false;
+    // window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams));
   }
 
   changeSearch(data) {

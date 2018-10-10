@@ -38,16 +38,15 @@ export class ApiService {
   }
 
   getPropertiesWithFilter(offset, sortParam?, filterParams?): Observable<any> {
-    let filterParameters = '';
+    let filterParameters;
+    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
     if (filterParams) {
-      filterParameters = 'q=';
       filterParams.bedrooms ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
       filterParams.phase ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
       filterParams.productType  ? (filterParameters += 'MAF_ProductType_c=' + filterParams.productType + ';') : false;
       filterParams.model  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.model + ';') : false;
       (filterParams.unitPriceFrom || filterParams.unitPriceTo)  ? (filterParameters += 'MAF_UnitPrice_c>=' + filterParams.unitPriceFrom + ' and <=' + filterParams.unitPriceTo + ';' ) : false;
-      // filterParams.unitPriceTo  ? (filterParameters += 'MAF_UnitPrice_c<=' + filterParams.unitPriceTo + ';') : false;
       filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
       filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
     }
@@ -77,5 +76,17 @@ export class ApiService {
         const obj = this.ngxXml2jsonService.xmlToJson(xml);
         return obj;
       });
+  }
+
+  isFilterEmpty (filter) {
+    let filterEmpty = true;
+    if (filter) {
+      Object.keys(filter).map(key => {
+        if ( filter[key] !== '' ) {
+          filterEmpty = false;
+        }
+      });
+    }
+    return filterEmpty;
   }
 }

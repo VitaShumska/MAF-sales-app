@@ -128,7 +128,6 @@ export class ProperiesDetailsComponent implements OnInit {
 
     ////////get url for images///////////////
     const images = this.cmsTypeData.images.image;
-    this.galleryImages = [];
     if (typeof images === 'string') {
       this.galleryImages = [
         {
@@ -137,7 +136,10 @@ export class ProperiesDetailsComponent implements OnInit {
           big: 'https://mafsalesapp.com/static/' + type + '/images/' + images
         }
       ];
+    } else if (images === undefined) {
+      return;
     } else {
+      this.galleryImages = [];
       images.map(item => {
         this.galleryImages.push({
           small: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
@@ -149,7 +151,6 @@ export class ProperiesDetailsComponent implements OnInit {
 
     ////////get url for floorplans////////////
     const floorplans = this.cmsTypeData.floorplans.floorplan;
-    this.galleryFloorplanImages = [];
     if (typeof floorplans === 'string') {
       this.galleryFloorplanImages = [
         {
@@ -158,7 +159,10 @@ export class ProperiesDetailsComponent implements OnInit {
           big: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + floorplans
         }
       ];
+    } else if (floorplans === undefined) {
+      return;
     } else {
+      this.galleryFloorplanImages = [];
       floorplans.map(item => {
         this.galleryFloorplanImages.push({
           small: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + item,
@@ -170,14 +174,17 @@ export class ProperiesDetailsComponent implements OnInit {
 
     ////////get url for videos////////////
     const videos = this.cmsTypeData.videos.video;
-    this.galleryVideos = [];
     if (typeof videos === 'string') {
-      this.galleryVideos.push ('https://mafsalesapp.com/static/' + type + '/videos/' + videos);
+      this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + videos);
+    } else if (videos === undefined) {
+      return;
     } else {
+      this.galleryVideos = [];
       videos.map(item => {
-        this.galleryVideos.push ('https://mafsalesapp.com/static/' + type + '/videos/' + item);
+        this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + item);
       });
     }
+
   }
 
   getXml() {
