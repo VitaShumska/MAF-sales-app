@@ -55,4 +55,8 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  clearSearch() {
+    this.searchText = null;
+  }
+
 }

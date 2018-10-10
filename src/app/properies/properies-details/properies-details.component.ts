@@ -126,17 +126,29 @@ export class ProperiesDetailsComponent implements OnInit {
       this.cmsTypeData = this.cmsData[type];
     }
 
-    let images = this.cmsTypeData.images.image;
+    ////////get url for images///////////////
+    const images = this.cmsTypeData.images.image;
     this.galleryImages = [];
-    images.map( item => {
-      this.galleryImages.push({
-        small: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
-        medium: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
-        big: 'https://mafsalesapp.com/static/' + type + '/images/' + item
+    if (typeof images === 'string') {
+      this.galleryImages = [
+        {
+          small: 'https://mafsalesapp.com/static/' + type + '/images/' + images,
+          medium: 'https://mafsalesapp.com/static/' + type + '/images/' + images,
+          big: 'https://mafsalesapp.com/static/' + type + '/images/' + images
+        }
+      ];
+    } else {
+      images.map(item => {
+        this.galleryImages.push({
+          small: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
+          medium: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
+          big: 'https://mafsalesapp.com/static/' + type + '/images/' + item
+        });
       });
-    });
+    }
 
-    let floorplans = this.cmsTypeData.floorplans.floorplan;
+    ////////get url for floorplans////////////
+    const floorplans = this.cmsTypeData.floorplans.floorplan;
     this.galleryFloorplanImages = [];
     if (typeof floorplans === 'string') {
       this.galleryFloorplanImages = [
@@ -156,7 +168,8 @@ export class ProperiesDetailsComponent implements OnInit {
       });
     }
 
-    let videos = this.cmsTypeData.videos.video;
+    ////////get url for videos////////////
+    const videos = this.cmsTypeData.videos.video;
     this.galleryVideos = [];
     if (typeof videos === 'string') {
       this.galleryVideos.push ('https://mafsalesapp.com/static/' + type + '/videos/' + videos);

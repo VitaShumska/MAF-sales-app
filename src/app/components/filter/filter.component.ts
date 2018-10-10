@@ -55,6 +55,7 @@ export class FilterComponent implements OnInit {
     if (this.isFilterEmpty()) {
       filterParams = null;
     }
+    this.clearSearchInput();
     this.loadingSpinner.show();
     this.apiService.getPropertiesWithFilter(this.offset,null, filterParams)
       .subscribe((data) => {
@@ -80,6 +81,11 @@ export class FilterComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  clearSearchInput() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput['value'] = '';
   }
 
   isFilterEmpty () {

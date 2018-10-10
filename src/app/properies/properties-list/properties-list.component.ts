@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import {PageEvent} from '@angular/material';
+import { PageEvent } from '@angular/material';
+
 
 @Component({
   selector: 'app-properties-list',
@@ -77,7 +78,7 @@ export class PropertiesListComponent implements OnInit {
   breadcrumbObj = {
     name: 'Units',
     url: '',
-    param: 0 // because is a parent
+    param: 0
   };
 
   ngOnInit() {
@@ -95,8 +96,8 @@ export class PropertiesListComponent implements OnInit {
 
   getProperties(offset) {
     this.loadingSpinner.show();
+    this.clearSearchInput();
     this.apiService.getProperties(offset)
-      // .finally(() => this.loadingSpinner.hide())
       .subscribe(
         (data:  Array<object>) => {
           this.loadingSpinner.hide();
@@ -115,6 +116,7 @@ export class PropertiesListComponent implements OnInit {
 
   getPropertiesWithFilter(offset, sortParam?, filterParams?) {
     this.loadingSpinner.show();
+    this.clearSearchInput();
     this.apiService.getPropertiesWithFilter(offset, sortParam, filterParams).subscribe(
       (data:  Array<object>) => {
         this.loadingSpinner.hide();
@@ -150,6 +152,7 @@ export class PropertiesListComponent implements OnInit {
   }
 
   sortByKey(sortElem) {
+    this.clearSearchInput();
     this.sortElem = sortElem;
     this.displayedColumns.forEach(item => {
       if (sortElem.key === item.key) {
@@ -163,6 +166,11 @@ export class PropertiesListComponent implements OnInit {
       }
     });
     this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+  }
+
+  clearSearchInput() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput['value'] = '';
   }
 
   goToPage(url) {
