@@ -35,7 +35,7 @@ export class ApiService {
     headers = headers.append('Access-Control-Allow-Origin', '*');
     headers = headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
-    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset, {headers});
   }
@@ -57,14 +57,14 @@ export class ApiService {
 
     let headers = new HttpHeaders();
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
-    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + sortParameters + '&' + filterParameters, {headers});
   }
 
   getPropertiesById(id): Observable<any> {
     let headers = new HttpHeaders();
-    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
