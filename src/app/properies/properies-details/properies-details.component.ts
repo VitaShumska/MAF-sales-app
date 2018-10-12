@@ -94,6 +94,8 @@ export class ProperiesDetailsComponent implements OnInit {
         big: 'assets/images/image-overlay.png'
       }
     ];
+
+    this.galleryVideos = ['assets/images/image-overlay.png'];
   }
 
   getPropertiesById () {
@@ -124,6 +126,20 @@ export class ProperiesDetailsComponent implements OnInit {
     } else {
       type = 't2';
       this.cmsTypeData = this.cmsData[type];
+    }
+
+    ////////get url for videos////////////
+    const videos = this.cmsTypeData.videos.video;
+    if (typeof videos === 'string') {
+      this.galleryVideos = [];
+      this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + videos);
+    } else if (videos === undefined) {
+      return;
+    } else {
+      this.galleryVideos = [];
+      videos.map(item => {
+        this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + item);
+      });
     }
 
     ////////get url for images///////////////
@@ -171,20 +187,6 @@ export class ProperiesDetailsComponent implements OnInit {
         });
       });
     }
-
-    ////////get url for videos////////////
-    const videos = this.cmsTypeData.videos.video;
-    if (typeof videos === 'string') {
-      this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + videos);
-    } else if (videos === undefined) {
-      return;
-    } else {
-      this.galleryVideos = [];
-      videos.map(item => {
-        this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + item);
-      });
-    }
-
   }
 
   getXml() {

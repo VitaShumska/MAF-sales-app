@@ -115,7 +115,7 @@
             VIDEO
           </ng-template>
 
-          <mdb-carousel [isControls]="true" class="carousel slide" [animation]="'slide'">
+          <mdb-carousel [isControls]="true" class="carousel slide" [animation]="'slide'" [interval]="0">
             <div *ngFor="let video of galleryVideos">
               <mdb-carousel-item>
                 <video class="video-fluid" controls>

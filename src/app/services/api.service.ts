@@ -31,8 +31,11 @@ export class ApiService {
 
   getProperties(offset): Observable<any> {
     let headers = new HttpHeaders();
+    headers = headers.append('Access-Control-Allow-Credentials', 'true');
+    headers = headers.append('Access-Control-Allow-Origin', '*');
+    headers = headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset, {headers});
   }
@@ -45,7 +48,7 @@ export class ApiService {
       filterParams.bedrooms ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
       filterParams.phase ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
       filterParams.productType  ? (filterParameters += 'MAF_ProductType_c=' + filterParams.productType + ';') : false;
-      filterParams.model  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.model + ';') : false;
+      filterParams.unitModel  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.unitModel + ';') : false;
       (filterParams.unitPriceFrom || filterParams.unitPriceTo)  ? (filterParameters += 'MAF_UnitPrice_c>=' + filterParams.unitPriceFrom + ' and <=' + filterParams.unitPriceTo + ';' ) : false;
       filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
       filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
@@ -54,14 +57,14 @@ export class ApiService {
 
     let headers = new HttpHeaders();
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + sortParameters + '&' + filterParameters, {headers});
   }
 
   getPropertiesById(id): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
