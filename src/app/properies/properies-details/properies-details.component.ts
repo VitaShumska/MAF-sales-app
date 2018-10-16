@@ -54,15 +54,16 @@ export class ProperiesDetailsComponent implements OnInit {
         height: '700px',
         thumbnails: false,
         imageAnimation: NgxGalleryAnimation.Slide,
+        preview: false,
         previewCloseOnClick: true,
+        previewZoom: true,
+        previewSwipe: true,
+        imageSwipe: true,
         arrowPrevIcon: 'fa fa-chevron-left',
         arrowNextIcon: 'fa fa-chevron-right',
         closeIcon: 'fa fa-times',
         zoomInIcon: 'fa fa-plus',
-        zoomOutIcon: 'fa fa-minus',
-        previewZoom: true,
-        previewSwipe: true,
-        imageSwipe: true
+        zoomOutIcon: 'fa fa-minus'
       },
       {
         breakpoint: 1400,
@@ -199,7 +200,7 @@ export class ProperiesDetailsComponent implements OnInit {
       },
       (error) => {
         this.loadingSpinner.hide();
-        this.openSnackBar('Server error', 'OK');
+        // this.openSnackBar('Server error', 'OK');
       });
   }
 
@@ -207,5 +208,9 @@ export class ProperiesDetailsComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  galleryClick(event) {
+    console.log('gallery', event);
   }
 }

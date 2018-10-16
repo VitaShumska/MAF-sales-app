@@ -31,12 +31,10 @@ export class ApiService {
 
   getProperties(offset): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Access-Control-Allow-Credentials', 'true');
-    headers = headers.append('Access-Control-Allow-Origin', '*');
-    headers = headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
     return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset, {headers});
   }
 
@@ -59,6 +57,7 @@ export class ApiService {
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
     return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + sortParameters + '&' + filterParameters, {headers});
   }
 
@@ -66,13 +65,14 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
     return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
 
   getXml() {
     const parser = new DOMParser();
     let headers = new HttpHeaders();
-    headers.append('Accept', 'application/xml');
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get('https://mafsalesapp.com/static/cms_links.xml', {headers, responseType: 'text'})
       .map (xmlFile => {
         const xml = parser.parseFromString(xmlFile, 'text/xml');

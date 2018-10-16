@@ -102,7 +102,7 @@
             GALLERY
           </ng-template>
           <!--<img src="assets/images/unit-img.png">-->
-          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" (onClick) ="galleryClick($event)"></ngx-gallery>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
