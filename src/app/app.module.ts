@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxGalleryModule } from 'ngx-gallery';
+import { NgxGalleryModule } from '../../ngx-gallery';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MatPaginatorModule } from '@angular/material/paginator';

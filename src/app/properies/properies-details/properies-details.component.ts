@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation} from '../../../../ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
 import {LoadingSpinnerService} from '../../services/loading-spinner.service';
 import { MatSnackBar } from '@angular/material';
-import 'hammerjs';
+// import 'hammerjs';
 
 @Component({
   selector: 'app-ptoperies-details',
@@ -54,7 +54,7 @@ export class ProperiesDetailsComponent implements OnInit {
         height: '700px',
         thumbnails: false,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false,
+        preview: true,
         previewCloseOnClick: true,
         previewZoom: true,
         previewSwipe: true,
