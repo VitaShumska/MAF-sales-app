@@ -281,6 +281,11 @@ ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
   }
 }
 
+.ngx-gallery-active {
+  z-index: 1000000;
+  position: fixed!important;
+}
+
 .ngx-gallery-arrow-left .ngx-gallery-arrow{
   left: 0!important;
 }
