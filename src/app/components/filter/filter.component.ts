@@ -14,6 +14,7 @@ export class FilterComponent implements OnInit {
   showFilter: boolean;
   propertiesList;
   offset = 0;
+  limit = 25;
   filterParams = {
     productType: '',
     phase: '',
@@ -57,7 +58,7 @@ export class FilterComponent implements OnInit {
     }
     this.clearSearchInput();
     this.loadingSpinner.show();
-    this.apiService.getPropertiesWithFilter(this.offset,null, filterParams)
+    this.apiService.getPropertiesWithFilter(this.offset, this.limit, null, filterParams)
       .subscribe((data) => {
         this.loadingSpinner.hide();
         this.propertiesList  =  data;

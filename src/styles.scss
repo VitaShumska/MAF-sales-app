@@ -140,12 +140,8 @@ button {
       div {
         height: 36px;
         p {
-          line-height: 25px;
+          line-height: 36px;
           margin: 0;
-          &:last-child {
-            font-size: 12px;
-            line-height: 12px;
-          }
         }
       }
     }
@@ -280,15 +276,15 @@ ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
     color: #c1c1c1;
   }
 }
-
-ngx-gallery-preview {
-  position: fixed!important;
-}
-
-.ngx-gallery-preview-wrapper {
-  z-index: 1000000;
-  position: fixed!important;
-}
+//
+//ngx-gallery-preview {
+//  position: fixed!important;
+//}
+//
+//.ngx-gallery-preview-wrapper {
+//  z-index: 1000000;
+//  position: fixed!important;
+//}
 
 .ngx-gallery-arrow-left .ngx-gallery-arrow{
   left: 0!important;
@@ -336,8 +332,8 @@ ngx-gallery-preview {
   }
 }
 //////////////////Pagination///////////
-.mat-paginator-page-size {
-  display: none!important;
+.mat-select-value {
+  text-align: center;
 }
 
 

@@ -22,9 +22,9 @@
             <img src="assets/images/unit.png">
             <div>
               <p>{{propertie.MAF_UnitType_c}}</p>
-              <p>{{propertie.MAF_PhaseName_c}}</p>
             </div>
           </div>
+          <div class="table-cell" [class]="propertie.MAF_PhaseName_c ? 'table-cell' : 'table-cell empty'">{{propertie.MAF_PhaseName_c}}</div>
           <div class="table-cell" [class]="propertie.ProductTypeCode ? 'table-cell' : 'table-cell empty'">{{propertie.ProductTypeCode}}</div>
           <div class="table-cell" [class]="propertie.MAF_UnitModel_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_UnitModel_c}} </div>
           <div class="table-cell" [class]="propertie.MAF_PlotAreaSqFt_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_PlotAreaSqFt_c | number:0}} </div>
@@ -40,7 +40,8 @@
     </div>
     <div class="summary">
       <mat-paginator [length]="countOfProperties"
-                     [pageSize]="25"
+                     [pageSize]="limit"
+                     [pageSizeOptions]="pageSizeOptions"
                      (page)="pageEvent = paginator($event)">
       </mat-paginator>
       <div>

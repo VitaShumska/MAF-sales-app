@@ -25,6 +25,8 @@ export class PropertiesListComponent implements OnInit {
   filterParams;
   pageEvent: PageEvent;
   offset = 0;
+  limit = 25;
+  pageSizeOptions: number[] = [25, 50, 100];
   countOfProperties;
   countOfAvailable = 0;
   searchColumns = [];
@@ -38,8 +40,14 @@ export class PropertiesListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Unit Code',
-      key: 'MAF_UnitRegion_c',
+      name: 'Phase',
+      key: 'MAF_PhaseName_c',
+      sort: '',
+      disableSort: false
+    },
+    {
+      name: 'Product Number',
+      key: 'MAF_UnitNumber_c',
       sort: '',
       disableSort: false
     },
@@ -87,17 +95,17 @@ export class PropertiesListComponent implements OnInit {
     });
     if (window.sessionStorage.getItem('filterParams')) {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
-      this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+      this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
     } else {
-      this.getProperties(this.offset);
+      this.getProperties(this.offset, this.limit);
     }
     this.breadcrumbsArr();
   }
 
-  getProperties(offset) {
+  getProperties(offset, limit) {
     this.loadingSpinner.show();
     this.clearSearchInput();
-    this.apiService.getProperties(offset)
+    this.apiService.getProperties(offset, limit)
       .subscribe(
         (data:  Array<object>) => {
           this.loadingSpinner.hide();
@@ -114,10 +122,10 @@ export class PropertiesListComponent implements OnInit {
       );
   }
 
-  getPropertiesWithFilter(offset, sortParam?, filterParams?) {
+  getPropertiesWithFilter(offset, limit, sortParam?, filterParams?) {
     this.loadingSpinner.show();
     this.clearSearchInput();
-    this.apiService.getPropertiesWithFilter(offset, sortParam, filterParams).subscribe(
+    this.apiService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
       (data:  Array<object>) => {
         this.loadingSpinner.hide();
         this.propertiesListOriginal = data;
@@ -144,7 +152,7 @@ export class PropertiesListComponent implements OnInit {
         status: 'available'
       };
     }
-    this.apiService.getPropertiesWithFilter(0, this.sortElem, filterParams)
+    this.apiService.getPropertiesWithFilter(0, this.limit, this.sortElem, filterParams)
       .subscribe((data:  Array<object>) => {
         this.loadingSpinner.hide();
         this.countOfAvailable = data['totalResults'];
@@ -165,7 +173,7 @@ export class PropertiesListComponent implements OnInit {
         item.sort = '';
       }
     });
-    this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+    this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
   }
 
   clearSearchInput() {
@@ -207,10 +215,11 @@ export class PropertiesListComponent implements OnInit {
 
   paginator (event) {
     this.offset = event.pageIndex * event.pageSize;
+    this.limit = event.pageSize;
     if (this.filterParams || this.sortElem) {
-      this.getPropertiesWithFilter(this.offset, this.sortElem, this.filterParams);
+      this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
     } else {
-      this.getProperties(this.offset);
+      this.getProperties(this.offset, this.limit);
     }
   }
 }

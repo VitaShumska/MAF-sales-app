@@ -29,16 +29,16 @@ export class ApiService {
               private ngxXml2jsonService: NgxXml2jsonService) {
   }
 
-  getProperties(offset): Observable<any> {
+  getProperties(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     // headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset, {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
   }
 
-  getPropertiesWithFilter(offset, sortParam?, filterParams?): Observable<any> {
+  getPropertiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
     let filterParameters;
     this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
@@ -58,7 +58,7 @@ export class ApiService {
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + sortParameters + '&' + filterParameters, {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
   }
 
   getPropertiesById(id): Observable<any> {
