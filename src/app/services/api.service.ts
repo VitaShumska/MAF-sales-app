@@ -44,7 +44,7 @@ export class ApiService {
     let sortParameters = '';
     if (filterParams) {
       filterParams.bedrooms ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
-      filterParams.phase ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
+      filterParams.phase ? (filterParameters += 'MAF_PhaseName_c=' + filterParams.phase + ';') : false;
       filterParams.productType  ? (filterParameters += 'MAF_ProductType_c=' + filterParams.productType + ';') : false;
       filterParams.unitModel  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.unitModel + ';') : false;
       (filterParams.unitPriceFrom || filterParams.unitPriceTo)  ? (filterParameters += 'MAF_UnitPrice_c>=' + filterParams.unitPriceFrom + ' and <=' + filterParams.unitPriceTo + ';' ) : false;
