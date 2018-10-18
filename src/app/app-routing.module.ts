@@ -13,14 +13,14 @@ const routes: Routes = [
     path: '',
     component: BaseComponent,
     children: [
-      { path: '', redirectTo: '/units', pathMatch: 'full' },
-      // { path: 'home', component: HomePageComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'home', component: HomePageComponent },
       { path: 'leads', component: LeadsListComponent },
       { path: 'units', component: PropertiesListComponent },
       { path: 'unit-details/:unitId', component: ProperiesDetailsComponent }
     ]
   },
-  { path: '**', redirectTo: '/units'}
+  { path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
