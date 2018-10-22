@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 })
 export class SearchComponent implements OnInit {
   searchText;
-  searchPlaceholder = 'Search by all';
+  searchPlaceholder = 'Search';
   changeSearch = _.debounce(() => {this.debouncedChangeSearch(); }, 300);
 
   @Input() searchColumns;

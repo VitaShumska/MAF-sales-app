@@ -32,6 +32,12 @@
           font-family: Helvetica;
         }
 
+        &.price:after {
+          content: 'AED';
+          opacity: 0.2;
+          font-family: Helvetica;
+        }
+
         &.empty:before {
           content: 'N/A';
           opacity: 0.2;

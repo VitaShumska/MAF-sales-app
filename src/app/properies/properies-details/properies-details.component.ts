@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation} from '../../../../ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize} from '../../../../ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
 import {LoadingSpinnerService} from '../../services/loading-spinner.service';
 import { MatSnackBar } from '@angular/material';
+import PhotoSwipe from 'photoswipe';
+import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 // import 'hammerjs';
 
 @Component({
@@ -13,6 +15,8 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./properies-details.component.scss']
 })
 export class ProperiesDetailsComponent implements OnInit {
+  @ViewChild('photoSwipe') photoSwipe: ElementRef;
+
   sub;
   unitId;
   unitDetails;
@@ -30,15 +34,48 @@ export class ProperiesDetailsComponent implements OnInit {
     param: 0 // because is a parent
   };
 
+
+  pswpElement;
+
+// build items array
+  items = [
+    {
+      thumbnail: 'https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg',
+      src: 'https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg',
+      w: 964,
+      h: 1024
+    },
+    {
+      thumbnail: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
+      src: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
+      w: 1024,
+      h: 683
+    }
+  ];
+  images;
+
+// define options (if needed)
+  options = {
+    index: 0,
+    history: false,
+    focus: false,
+
+    showAnimationDuration: 0,
+    hideAnimationDuration: 0
+  };
+  gallery;
+
   constructor(private route: ActivatedRoute,
               private breadcrumbs:  BreadcrumbsService,
               private router: Router,
               private apiService: ApiService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) {
+    // setTimeout (function(){this.pswpElement = document.querySelectorAll('.pswp')[0]}, 500 );
   }
 
   ngOnInit() {
+    // this.onClick();
     this.sub = this.route.params.subscribe(params => {
       this.unitId = params['unitId'];
       if (this.unitId) {
@@ -59,6 +96,7 @@ export class ProperiesDetailsComponent implements OnInit {
         previewZoom: true,
         previewSwipe: true,
         imageSwipe: true,
+        imageSize: NgxGalleryImageSize.Contain,
         arrowPrevIcon: 'fa fa-chevron-left',
         arrowNextIcon: 'fa fa-chevron-right',
         closeIcon: 'fa fa-times',
@@ -97,6 +135,27 @@ export class ProperiesDetailsComponent implements OnInit {
     ];
 
     this.galleryVideos = ['assets/images/image-overlay.png'];
+
+
+   //Initializes and opens PhotoSwipe
+   //    this.gallery = new PhotoSwipe( this.photoSwipe.nativeElement, PhotoSwipeUI_Default, this.items, this.options);
+   //    this.gallery.init();
+  }
+
+  onClick() {
+    // Build gallery images array
+    this.images = [
+      { thumbnail: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg', src: 'http://via.placeholder.com/600x400', w: 600, h: 400 },
+      { thumbnail: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg', src: 'http://via.placeholder.com/800x600', w: 800, h: 600 }
+    ];
+
+    const options = {
+      index: 0
+    };
+
+    // Initializes and opens PhotoSwipe
+    const gallery = new PhotoSwipe(this.photoSwipe.nativeElement, PhotoSwipeUI_Default, this.images, options);
+    gallery.init();
   }
 
   getPropertiesById () {
@@ -208,9 +267,5 @@ export class ProperiesDetailsComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
-  }
-
-  galleryClick(event) {
-    console.log('gallery', event);
   }
 }

@@ -5,7 +5,7 @@
         <h3>DETAILS</h3>
         <div fxLayout="100">
           <span class="label" fxFlex="50">Unit</span>
-          <span fxLFlex="50" [class]="unitDetails?.MAF_UnitType_c ? '' : 'empty'">{{unitDetails?.MAF_UnitType_c}}</span>
+          <span fxLFlex="50" [class]="unitDetails?.MAF_UnitNumber_c ? '' : 'empty'">{{unitDetails?.MAF_UnitNumber_c}}</span>
         </div>
 
         <div fxLayout="100">
@@ -18,10 +18,10 @@
           <span fxFlex="50" [class]="unitDetails?.MAF_PhaseName_c ? '' : 'empty'">{{unitDetails?.MAF_PhaseName_c}}</span>
         </div>
 
-        <div fxLayout="100">
-          <span class="label" fxFlex="50">Floor</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_FloorId_c ? '' : 'empty'">{{unitDetails?.MAF_FloorId_c}}</span>
-        </div>
+        <!--<div fxLayout="100">-->
+          <!--<span class="label" fxFlex="50">Floor</span>-->
+          <!--<span fxFlex="50" [class]="unitDetails?.MAF_FloorId_c ? '' : 'empty'">{{unitDetails?.MAF_FloorId_c}}</span>-->
+        <!--</div>-->
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Status</span>
@@ -41,25 +41,25 @@
           <span fxFlex="50" [class]="unitDetails?.MAF_Bedroom_c ? '' : 'empty'">{{unitDetails?.MAF_Bedroom_c}}</span>
         </div>
 
-        <div fxLayout="100">
-          <span class="label" fxFlex="50">Aspect</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_Aspect_c ? '' : 'empty'">{{unitDetails?.MAF_Aspect_c}}</span>
-        </div>
+        <!--<div fxLayout="100">-->
+          <!--<span class="label" fxFlex="50">Aspect</span>-->
+          <!--<span fxFlex="50" [class]="unitDetails?.MAF_Aspect_c ? '' : 'empty'">{{unitDetails?.MAF_Aspect_c}}</span>-->
+        <!--</div>-->
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">View</span>
           <span fxFlex="50" [class]="unitDetails?.MAF_UnitView_c ? '' : 'empty'">{{unitDetails?.MAF_UnitView_c}}</span>
         </div>
 
-        <div fxLayout="100">
-          <span class="label" fxFlex="50">Greenways</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_Greenways_c ? '' : 'empty'">{{unitDetails?.MAF_Greenways_c}}</span>
-        </div>
+        <!--<div fxLayout="100">-->
+          <!--<span class="label" fxFlex="50">Greenways</span>-->
+          <!--<span fxFlex="50" [class]="unitDetails?.MAF_Greenways_c ? '' : 'empty'">{{unitDetails?.MAF_Greenways_c}}</span>-->
+        <!--</div>-->
 
-        <div fxLayout="100">
-          <span class="label" fxFlex="50">Boulevards</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_Boulevard_c ? '' : 'empty'">{{unitDetails?.MAF_Boulevard_c}}</span>
-        </div>
+        <!--<div fxLayout="100">-->
+          <!--<span class="label" fxFlex="50">Boulevards</span>-->
+          <!--<span fxFlex="50" [class]="unitDetails?.MAF_Boulevard_c ? '' : 'empty'">{{unitDetails?.MAF_Boulevard_c}}</span>-->
+        <!--</div>-->
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">No of Parking</span>
@@ -71,22 +71,22 @@
         <h3>AREAS</h3>
         <div fxLayout="100">
           <span class="label" fxFlex="50">BUA (sqft)/(sqm)</span>
-          <span fxLFlex="50">{{unitDetails?.MAF_BuiltupAreaSqFt_c}}/{{unitDetails?.MAF_BuiltupAreaSqm_c}}</span>
+          <span fxLFlex="50">{{unitDetails?.MAF_BuiltupAreaSqFt_c| number:0}}/{{unitDetails?.MAF_BuiltupAreaSqm_c| number:0}}</span>
         </div>
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Plot (sqft)/(sqm)</span>
-          <span fxFlex="50">{{unitDetails?.MAF_PlotAreaSqFt_c}}/{{unitDetails?.MAF_PlotAreaSqm_c}}</span>
+          <span fxFlex="50">{{unitDetails?.MAF_PlotAreaSqFt_c| number:0}}/{{unitDetails?.MAF_PlotAreaSqm_c| number:0}}</span>
         </div>
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Price per (sqft)</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_UnitPrice_c ? '' : 'empty'">{{unitDetails?.MAF_UnitPrice_c | number:0}}</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_SellingPricePerSqFt_c ? 'price' : 'empty'">{{unitDetails?.MAF_SellingPricePerSqFt_c| number:0}}</span>
         </div>
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Price per (sqm)</span>
-          <span fxFlex="50">Price per (sqm)</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_SellingPricePerSqm_c ? 'price' : 'empty'">{{unitDetails?.MAF_SellingPricePerSqm_c| number:0}}</span>
         </div>
 
         <div fxLayout="100">
@@ -103,6 +103,76 @@
           </ng-template>
           <!--<img src="assets/images/unit-img.png">-->
           <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+
+
+
+          <!--&lt;!&ndash; Root element of PhotoSwipe. Must have class pswp. &ndash;&gt;-->
+          <!--<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" #photoSwipe>-->
+
+            <!--&lt;!&ndash; Background of PhotoSwipe.-->
+                 <!--It's a separate element as animating opacity is faster than rgba(). &ndash;&gt;-->
+            <!--<div class="pswp__bg"></div>-->
+
+            <!--&lt;!&ndash; Slides wrapper with overflow:hidden. &ndash;&gt;-->
+            <!--<div class="pswp__scroll-wrap">-->
+
+              <!--&lt;!&ndash; Container that holds slides.-->
+                  <!--PhotoSwipe keeps only 3 of them in the DOM to save memory.-->
+                  <!--Don't modify these 3 pswp__item elements, data is added later on. &ndash;&gt;-->
+              <!--<div class="pswp__container">-->
+                <!--<div class="pswp__item"></div>-->
+                <!--<div class="pswp__item"></div>-->
+                <!--<div class="pswp__item"></div>-->
+              <!--</div>-->
+
+              <!--&lt;!&ndash; Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. &ndash;&gt;-->
+              <!--<div class="pswp__ui pswp__ui&#45;&#45;hidden">-->
+
+                <!--<div class="pswp__top-bar">-->
+
+                  <!--&lt;!&ndash;  Controls are self-explanatory. Order can be changed. &ndash;&gt;-->
+
+                  <!--<div class="pswp__counter"></div>-->
+
+                  <!--<button class="pswp__button pswp__button&#45;&#45;close" title="Close (Esc)"></button>-->
+
+                  <!--<button class="pswp__button pswp__button&#45;&#45;fs" title="Toggle fullscreen"></button>-->
+
+                  <!--<button class="pswp__button pswp__button&#45;&#45;zoom" title="Zoom in/out"></button>-->
+
+                  <!--&lt;!&ndash; Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR &ndash;&gt;-->
+                  <!--&lt;!&ndash; element will get class pswp__preloader&#45;&#45;active when preloader is running &ndash;&gt;-->
+                  <!--<div class="pswp__preloader">-->
+                    <!--<div class="pswp__preloader__icn">-->
+                      <!--<div class="pswp__preloader__cut">-->
+                        <!--<div class="pswp__preloader__donut"></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="pswp__share-modal pswp__share-modal&#45;&#45;hidden pswp__single-tap">-->
+                  <!--<div class="pswp__share-tooltip"></div>-->
+                <!--</div>-->
+
+                <!--<button class="pswp__button pswp__button&#45;&#45;arrow&#45;&#45;left" title="Previous (arrow left)">-->
+                <!--</button>-->
+
+                <!--<button class="pswp__button pswp__button&#45;&#45;arrow&#45;&#45;right" title="Next (arrow right)">-->
+                <!--</button>-->
+
+                <!--<div class="pswp__caption">-->
+                  <!--<div class="pswp__caption__center"></div>-->
+                <!--</div>-->
+
+              <!--</div>-->
+
+            <!--</div>-->
+
+          <!--</div>-->
+
+
+
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -129,7 +199,7 @@
     </div>
   </div>
   <div class="price-block">
-    <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number:0}}</b></span>
+    <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number:0}} AED</b></span>
     <!--<button>Select</button>-->
   </div>
 </div>

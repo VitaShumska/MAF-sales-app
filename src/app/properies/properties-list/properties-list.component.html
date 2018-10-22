@@ -24,8 +24,8 @@
               <p>{{propertie.MAF_UnitType_c}}</p>
             </div>
           </div>
-          <div class="table-cell" [class]="propertie.MAF_PhaseName_c ? 'table-cell' : 'table-cell empty'">{{propertie.MAF_PhaseName_c}}</div>
-          <div class="table-cell" [class]="propertie.ProductTypeCode ? 'table-cell' : 'table-cell empty'">{{propertie.ProductTypeCode}}</div>
+          <div class="table-cell phase" [class]="propertie.MAF_PhaseName_c ? 'table-cell phase' : 'table-cell phase empty'">{{propertie.MAF_PhaseName_c}}</div>
+          <div class="table-cell" [class]="propertie.MAF_UnitNumber_c ? 'table-cell' : 'table-cell empty'">{{propertie.MAF_UnitNumber_c}}</div>
           <div class="table-cell" [class]="propertie.MAF_UnitModel_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_UnitModel_c}} </div>
           <div class="table-cell" [class]="propertie.MAF_PlotAreaSqFt_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_PlotAreaSqFt_c | number:0}} </div>
           <div class="table-cell" [class]="propertie.MAF_BuiltupAreaSqFt_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_BuiltupAreaSqFt_c | number:0}} </div>

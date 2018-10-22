@@ -183,9 +183,7 @@ export class PropertiesListComponent implements OnInit {
 
   goToPage(url) {
     this.router.navigate([url]);
-    // console.log(this.filterParams);
     this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)): false;
-    // window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams));
   }
 
   changeSearch(data) {
