@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize} from '../../../../ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize, NgxGalleryAction} from '../../../../ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
 import {LoadingSpinnerService} from '../../services/loading-spinner.service';
@@ -27,6 +27,7 @@ export class ProperiesDetailsComponent implements OnInit {
   cmsId;
   cmsData;
   cmsTypeData;
+  index;
 
   breadcrumbObj = {
     name: 'Unit Details',
@@ -75,7 +76,6 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.onClick();
     this.sub = this.route.params.subscribe(params => {
       this.unitId = params['unitId'];
       if (this.unitId) {
@@ -142,15 +142,22 @@ export class ProperiesDetailsComponent implements OnInit {
    //    this.gallery.init();
   }
 
-  onClick() {
+  onClick(event) {
+    console.log('event', event);
     // Build gallery images array
-    this.images = [
-      { thumbnail: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg', src: 'http://via.placeholder.com/600x400', w: 600, h: 400 },
-      { thumbnail: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg', src: 'http://via.placeholder.com/800x600', w: 800, h: 600 }
-    ];
+    this.images = [];
+
+    this.galleryImages.map(item => {
+      this.images.push(
+        {
+          src: item.small,
+          w: 1200,
+          h: 800
+        });
+    });
 
     const options = {
-      index: 0
+      index: event.index
     };
 
     // Initializes and opens PhotoSwipe
@@ -267,5 +274,11 @@ export class ProperiesDetailsComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  galleryClick(event) {
+    this.index = event.index;
+    this.onClick(event.index);
+    console.log('gallery', event);
   }
 }

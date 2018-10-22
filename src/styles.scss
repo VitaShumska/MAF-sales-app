@@ -265,7 +265,7 @@ button {
 .mat-tab-body-content {
   overflow: hidden!important;
   img {
-    width: 100%!important;
+    //width: 100%!important;
     height: auto;
   }
 }
@@ -287,9 +287,9 @@ ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
   }
 }
 //
-//ngx-gallery-preview {
-//  position: fixed!important;
-//}
+ngx-gallery-preview {
+  display: none!important;
+}
 //
 //.ngx-gallery-preview-wrapper {
 //  z-index: 1000000;
@@ -344,6 +344,10 @@ ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
 //////////////////Pagination///////////
 .mat-select-value {
   text-align: center;
+}
+
+.pswp--open {
+  z-index: 2001!important;
 }
 
 
