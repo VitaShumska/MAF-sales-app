@@ -4,7 +4,7 @@
       <div class="details">
         <h3>DETAILS</h3>
         <div fxLayout="100">
-          <span class="label" fxFlex="50">Unit</span>
+          <span class="label" fxFlex="50">Product Number</span>
           <span fxLFlex="50" [class]="unitDetails?.MAF_UnitNumber_c ? '' : 'empty'">{{unitDetails?.MAF_UnitNumber_c}}</span>
         </div>
 
@@ -18,10 +18,11 @@
           <span fxFlex="50" [class]="unitDetails?.MAF_PhaseName_c ? '' : 'empty'">{{unitDetails?.MAF_PhaseName_c}}</span>
         </div>
 
-        <!--<div fxLayout="100">-->
-          <!--<span class="label" fxFlex="50">Floor</span>-->
+        <div fxLayout="100">
+          <span class="label" fxFlex="50">Floor</span>
           <!--<span fxFlex="50" [class]="unitDetails?.MAF_FloorId_c ? '' : 'empty'">{{unitDetails?.MAF_FloorId_c}}</span>-->
-        <!--</div>-->
+          <span fxFlex="50"></span>
+        </div>
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Status</span>
@@ -81,12 +82,12 @@
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Price per (sqft)</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_SellingPricePerSqFt_c ? 'price' : 'empty'">{{unitDetails?.MAF_SellingPricePerSqFt_c| number:0}}</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_SellingPricePerSqFt_c ? '' : 'empty'">{{unitDetails?.MAF_SellingPricePerSqFt_c| number:0}} {{unitDetails?.MAF_PrefferredCurrency_c}}</span>
         </div>
 
         <div fxLayout="100">
           <span class="label" fxFlex="50">Price per (sqm)</span>
-          <span fxFlex="50" [class]="unitDetails?.MAF_SellingPricePerSqm_c ? 'price' : 'empty'">{{unitDetails?.MAF_SellingPricePerSqm_c| number:0}}</span>
+          <span fxFlex="50" [class]="unitDetails?.MAF_SellingPricePerSqm_c ? '' : 'empty'">{{unitDetails?.MAF_SellingPricePerSqm_c| number:0}} {{unitDetails?.MAF_PrefferredCurrency_c}}</span>
         </div>
 
         <div fxLayout="100">
@@ -199,7 +200,7 @@
     </div>
   </div>
   <div class="price-block">
-    <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number:0}} AED</b></span>
+    <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number:0}} {{unitDetails?.MAF_PrefferredCurrency_c}}</b></span>
     <!--<button>Select</button>-->
   </div>
 </div>
