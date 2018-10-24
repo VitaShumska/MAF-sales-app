@@ -192,7 +192,8 @@ button {
 
 .table-body::-webkit-scrollbar,
 .custom-container::-webkit-scrollbar,
-.bright_content::-webkit-scrollbar {
+.bright_content::-webkit-scrollbar,
+.unit-info::-webkit-scrollbar {
   width: 6px;
   height: 8px;
   border-radius: 5px;
@@ -200,13 +201,15 @@ button {
 
 .table-body::-webkit-scrollbar-track,
 .custom-container::-webkit-scrollbar-track,
-.bright_content::-webkit-scrollbar-track {
+.bright_content::-webkit-scrollbar-track,
+.unit-info::-webkit-scrollbar-track {
   background: transparent;
 }
 
 .table-body::-webkit-scrollbar-thumb,
 .custom-container::-webkit-scrollbar-thumb,
-  .bright_content::-webkit-scrollbar-thumb {
+.bright_content::-webkit-scrollbar-thumb,
+.unit-info::-webkit-scrollbar-thumb {
   background-color: #d8d8d8;
   outline: 1px solid slategrey;
   width: 6px;
@@ -261,9 +264,13 @@ button {
   background-color: #8a1638;
   height: 3px;
 }
+.mat-tab-group .mat-tab-body,
+.mat-tab-body.mat-tab-body-active {
+  overflow: visible!important;
+}
 
 .mat-tab-body-content {
-  overflow: hidden!important;
+  //overflow: hidden!important;
   img {
     //width: 100%!important;
     height: auto;
@@ -302,6 +309,10 @@ ngx-gallery-preview {
 
 .ngx-gallery-arrow-right .ngx-gallery-arrow {
   right: 0!important;
+}
+
+.ngx-gallery-image-size-cover .ngx-gallery-image {
+  height: calc(100% - 150px);
 }
 
 
@@ -348,21 +359,11 @@ ngx-gallery-preview {
 
 .pswp--open {
   z-index: 2001!important;
-  //width: 100vw!important;
-  //height: 100vh!important;
 }
 
 .g-overlay {
   min-width: 360px!important;
 }
-
-.pswp,
-.pswp__bg,
-.pswp__scroll-wrap {
-  width: 100vw;
-  height: 100vh;
-}
-
 
 
 

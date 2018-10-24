@@ -96,7 +96,7 @@ export class ProperiesDetailsComponent implements OnInit {
         previewZoom: true,
         previewSwipe: true,
         imageSwipe: true,
-        imageSize: NgxGalleryImageSize.Contain,
+        imageSize: NgxGalleryImageSize.Cover,
         arrowPrevIcon: 'fa fa-chevron-left',
         arrowNextIcon: 'fa fa-chevron-right',
         closeIcon: 'fa fa-times',
@@ -106,7 +106,7 @@ export class ProperiesDetailsComponent implements OnInit {
       {
         breakpoint: 1400,
         width: '100%',
-        height: '500px',
+        height: 'calc(100vh - 265px)',
         imagePercent: 80,
         previewSwipe: true
       },
