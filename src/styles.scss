@@ -348,13 +348,17 @@ ngx-gallery-preview {
 
 .pswp--open {
   z-index: 2001!important;
+  //width: 100vw!important;
+  //height: 100vh!important;
 }
 
 .g-overlay {
   min-width: 360px!important;
 }
 
-.pswp__bg {
+.pswp,
+.pswp__bg,
+.pswp__scroll-wrap {
   width: 100vw;
   height: 100vh;
 }
