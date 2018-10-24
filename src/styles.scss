@@ -91,7 +91,7 @@ button {
   .table-body {
     background: #ffffff;
     overflow: auto;
-    height: calc(100vh - 68px - 45px - 56px - 20px - 50px);
+    height: calc(100vh - 68px - 45px - 56px - 20px - 50px - 50px);
     .table-row {
       display: flex;
       &:hover {
@@ -270,9 +270,7 @@ button {
 }
 
 .mat-tab-body-content {
-  //overflow: hidden!important;
   img {
-    //width: 100%!important;
     height: auto;
   }
 }
