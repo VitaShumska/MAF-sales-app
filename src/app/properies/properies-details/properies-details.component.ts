@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize} from 'ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
-import {LoadingSpinnerService} from '../../services/loading-spinner.service';
+import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar } from '@angular/material';
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
+import { FullScreenGalleryComponent } from "../../components/full-screen-gallery/full-screen-gallery.component";
+
 // import 'hammerjs';
 
 @Component({
@@ -15,7 +17,9 @@ import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
   styleUrls: ['./properies-details.component.scss']
 })
 export class ProperiesDetailsComponent implements OnInit {
-  @ViewChild('photoSwipe') photoSwipe: ElementRef;
+  @ViewChild('photoSwipeImages') photoSwipeImages: ElementRef;
+  @ViewChild('photoSwipeFloorplan') photoSwipeFloorplan: ElementRef;
+  @ViewChild(FullScreenGalleryComponent) fullScreenGallery: FullScreenGalleryComponent ;
 
   sub;
   unitId;
@@ -34,37 +38,7 @@ export class ProperiesDetailsComponent implements OnInit {
     url: '',
     param: 0 // because is a parent
   };
-
-
-  pswpElement;
-
-// build items array
-  items = [
-    {
-      thumbnail: 'https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg',
-      src: 'https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg',
-      w: 964,
-      h: 1024
-    },
-    {
-      thumbnail: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
-      src: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
-      w: 1024,
-      h: 683
-    }
-  ];
   images;
-
-// define options (if needed)
-  options = {
-    index: 0,
-    history: false,
-    focus: false,
-
-    showAnimationDuration: 0,
-    hideAnimationDuration: 0
-  };
-  gallery;
 
   constructor(private route: ActivatedRoute,
               private breadcrumbs:  BreadcrumbsService,
@@ -72,7 +46,6 @@ export class ProperiesDetailsComponent implements OnInit {
               private apiService: ApiService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) {
-    // setTimeout (function(){this.pswpElement = document.querySelectorAll('.pswp')[0]}, 500 );
   }
 
   ngOnInit() {
@@ -106,8 +79,8 @@ export class ProperiesDetailsComponent implements OnInit {
       {
         breakpoint: 1400,
         width: '100%',
-        height: 'calc(100vh - 265px)',
-        imagePercent: 80,
+        height: 'calc(100vh - 320px)',
+        imagePercent: 100,
         previewSwipe: true
       },
       {
@@ -142,27 +115,40 @@ export class ProperiesDetailsComponent implements OnInit {
    //    this.gallery.init();
   }
 
-  onClick(event) {
-    console.log('event', event);
-    // Build gallery images array
-    this.images = [];
+  onClick(event, type) {
 
-    this.galleryImages.map(item => {
-      this.images.push(
-        {
-          src: item.small,
-          w: 1200,
-          h: 800
-        });
-    });
+    // this.fullScreenGallery.openGalleryOnCick(event);
 
     const options = {
       index: event.index
     };
+    if (type === 'images') {
+      this.images = [];
 
-    // Initializes and opens PhotoSwipe
-    const gallery = new PhotoSwipe(this.photoSwipe.nativeElement, PhotoSwipeUI_Default, this.images, options);
-    gallery.init();
+      this.galleryImages.map(item => {
+        this.images.push(
+          {
+            src: item.small,
+            w: 1200,
+            h: 800
+          });
+      });
+      const galleryImages = new PhotoSwipe(this.photoSwipeImages.nativeElement, PhotoSwipeUI_Default, this.images, options);
+      galleryImages.init();
+    } else if (type === 'floorplan') {
+      this.images = [];
+
+      this.galleryFloorplanImages.map(item => {
+        this.images.push(
+          {
+            src: item.small,
+            w: 1200,
+            h: 800
+          });
+      });
+      const galleryFloorplan = new PhotoSwipe(this.photoSwipeFloorplan.nativeElement, PhotoSwipeUI_Default, this.images, options);
+      galleryFloorplan.init();
+    }
   }
 
   getPropertiesById () {
@@ -274,11 +260,5 @@ export class ProperiesDetailsComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
-  }
-
-  galleryClick(event) {
-    this.index = event.index;
-    this.onClick(event.index);
-    console.log('gallery', event);
   }
 }

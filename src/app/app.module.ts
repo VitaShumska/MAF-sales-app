@@ -28,6 +28,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ProperiesDetailsComponent } from './properies/properies-details/properies-details.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { FullScreenGalleryComponent } from './components/full-screen-gallery/full-screen-gallery.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     FilterComponent,
     SearchComponent,
     ProperiesDetailsComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    FullScreenGalleryComponent
   ],
   imports: [
     BrowserModule,
