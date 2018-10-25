@@ -39,8 +39,8 @@ export class ApiService {
   }
 
   getPropertiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
-    let filterParameters;
-    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
+    let filterParameters = 'q=MAF_ProjectName_c=Tilal Al Ghaf;';
+    // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
     if (filterParams) {
       filterParams.bedrooms ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
@@ -52,7 +52,6 @@ export class ApiService {
       (filterParams.unitPriceFrom || filterParams.unitPriceTo)  ? (filterParameters += 'MAF_UnitPrice_c>=' + filterParams.unitPriceFrom + ' and <=' + filterParams.unitPriceTo + ';' ) : false;
       filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
       filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
-      filterParameters += 'MAF_ProjectName_c=Tilal Al Ghaf';
     }
     sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
 

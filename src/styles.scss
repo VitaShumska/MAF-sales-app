@@ -72,12 +72,12 @@ button {
     padding: 0 6px 0 0;
 
     .table-cell:first-child {
-      flex: 1.2;
+      flex: 1.3;
       padding-left: 15px;
     }
 
-    .table-cell:nth-child(2) {
-      flex: 0.5
+    .table-cell:nth-child(5) {
+      flex: 0.7
     }
 
     .table-cell {
@@ -114,7 +114,7 @@ button {
   .table-cell {
     flex: 1;
     height: 100%;
-    line-height: 50px;
+    line-height: 60px;
     vertical-align: middle;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -134,7 +134,7 @@ button {
     }
 
     &.unit-name {
-      flex: 1.2;
+      flex: 1.3;
       display: flex;
       margin: 7px 0;
       padding-left: 15px;
@@ -142,16 +142,16 @@ button {
         margin-right: 10px;
       }
       div {
-        height: 36px;
+        height: 46px;
         p {
-          line-height: 36px;
+          line-height: 46px;
           margin: 0;
         }
       }
     }
 
-    &.phase {
-      flex: 0.5;
+    &.plot {
+      flex: 0.7;
     }
 
     &.status-column   {
