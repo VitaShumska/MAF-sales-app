@@ -18,9 +18,11 @@ export class FilterComponent implements OnInit {
   filterParams = {
     productType: '',
     phase: '',
+    cluster: '',
+    buildingName: '',
+    floor: '',
     unitType: '',
     bedrooms: '',
-    unitModel: '',
     unitPriceFrom: '',
     unitPriceTo: ''
   };

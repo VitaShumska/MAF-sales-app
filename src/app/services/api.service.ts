@@ -35,7 +35,7 @@ export class ApiService {
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     // headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit + '&q=MAF_ProjectName_c=Tilal Al Ghaf', {headers});
   }
 
   getPropertiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
@@ -45,11 +45,14 @@ export class ApiService {
     if (filterParams) {
       filterParams.bedrooms ? (filterParameters += 'MAF_Bedroom_c=' + filterParams.bedrooms + ';') : false;
       filterParams.phase ? (filterParameters += 'MAF_PhaseName_c=' + filterParams.phase + ';') : false;
+      filterParams.cluster ? (filterParameters += 'MAF_Cluster_c=' + filterParams.cluster + ';') : false;
+      filterParams.buildingName ? (filterParameters += 'MAF_BuildingName_c=' + filterParams.buildingName + ';') : false;
+      // filterParams.floor ? (filterParameters += 'MAF_FloorId_c=' + filterParams.floor + ';') : false;
       filterParams.productType  ? (filterParameters += 'MAF_ProductType_c=' + filterParams.productType + ';') : false;
-      filterParams.unitModel  ? (filterParameters += 'MAF_UnitModel_c=' + filterParams.unitModel + ';') : false;
       (filterParams.unitPriceFrom || filterParams.unitPriceTo)  ? (filterParameters += 'MAF_UnitPrice_c>=' + filterParams.unitPriceFrom + ' and <=' + filterParams.unitPriceTo + ';' ) : false;
       filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
       filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
+      filterParameters += 'MAF_ProjectName_c=Tilal Al Ghaf';
     }
     sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
 

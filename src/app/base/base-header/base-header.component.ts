@@ -36,7 +36,7 @@ export class BaseHeaderComponent implements OnInit {
     if ( document.getElementById('light') && document.getElementById('fade') ) {
       this.filterClose.closeFilter(false);
     }
-    if (this.headerName === 'Home') {
+    if (this.headerName === 'Home' || this.headerName === 'Units') {
       window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
     } else {
       this.location.back();
