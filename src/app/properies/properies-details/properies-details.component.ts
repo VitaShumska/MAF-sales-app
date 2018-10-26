@@ -161,7 +161,7 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   getGalleryOption () {
-    let allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B_BGL', '4B_LV', '5B_BGL', '5B_LV', '5B_TYP', '6B_LV', '6B_ULV'];
+    let allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV'];
     let type;
     if ( allTypes.indexOf(this.cmsId) === -1 ) {
       this.cmsId = null;
