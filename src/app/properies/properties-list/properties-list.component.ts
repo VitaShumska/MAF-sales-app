@@ -28,6 +28,7 @@ export class PropertiesListComponent implements OnInit {
   limit = 25;
   pageSizeOptions: number[] = [25, 50, 100];
   countOfProperties;
+  countOfAllProperties;
   countOfAvailable = 0;
   searchColumns = [];
   sortElem = null;
@@ -93,6 +94,7 @@ export class PropertiesListComponent implements OnInit {
     this.displayedColumns.map( item => {
       this.searchColumns.push(item.key);
     });
+    this.getCountOfAllProperties();
     if (window.sessionStorage.getItem('filterParams')) {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
       this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
@@ -104,7 +106,7 @@ export class PropertiesListComponent implements OnInit {
 
   getProperties(offset, limit) {
     this.loadingSpinner.show();
-    this.clearSearchInput();
+    // this.clearSearchInput();
     this.apiService.getProperties(offset, limit)
       .subscribe(
         (data:  Array<object>) => {
@@ -113,7 +115,6 @@ export class PropertiesListComponent implements OnInit {
           this.propertiesListOriginal  =  data;
           this.propertiesListOriginal  =  this.propertiesListOriginal.items;
           this.propertiesList = this.propertiesListOriginal;
-          this.getCountOfAvailable();
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -124,7 +125,7 @@ export class PropertiesListComponent implements OnInit {
 
   getPropertiesWithFilter(offset, limit, sortParam?, filterParams?) {
     this.loadingSpinner.show();
-    this.clearSearchInput();
+    // this.clearSearchInput();
     this.apiService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
       (data:  Array<object>) => {
         this.loadingSpinner.hide();
@@ -132,7 +133,6 @@ export class PropertiesListComponent implements OnInit {
         this.countOfProperties = data['totalResults'];
         this.propertiesListOriginal = this.propertiesListOriginal.items;
         this.propertiesList = this.propertiesListOriginal;
-        this.getCountOfAvailable();
       },
       (error) => {
         this.loadingSpinner.hide();
@@ -159,8 +159,17 @@ export class PropertiesListComponent implements OnInit {
       });
   }
 
+  getCountOfAllProperties(){
+    this.loadingSpinner.show();
+    this.apiService.getAllProperties()
+      .subscribe((data:  Array<object>) => {
+        this.loadingSpinner.hide();
+        this.countOfAllProperties = data['totalResults'];
+      });
+  }
+
   sortByKey(sortElem) {
-    this.clearSearchInput();
+    // this.clearSearchInput();
     this.sortElem = sortElem;
     this.displayedColumns.forEach(item => {
       if (sortElem.key === item.key) {
@@ -197,7 +206,6 @@ export class PropertiesListComponent implements OnInit {
 
   changeFilterParams(data) {
     this.filterParams = data;
-    this.getCountOfAvailable();
   }
 
   breadcrumbsArr() {

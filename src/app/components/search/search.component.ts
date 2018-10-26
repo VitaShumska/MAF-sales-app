@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef} from '@angular/core';
 import * as _ from 'lodash';
 
 @Component({
@@ -15,11 +15,18 @@ export class SearchComponent implements OnInit {
   @Input() inputList;
   @Output() searchChange = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchText = localStorage.getItem('searchText');
+    setTimeout(() => {
+      this.changeSearch();
+    }, 2000);
+    console.log('fff', this.searchText);
+  }
 
   public debouncedChangeSearch() {
+    localStorage.setItem('searchText', this.searchText);
     if (this.searchText) {
       const searchText = this.searchText.trim().toLowerCase();
       let selectedFilters = this.searchColumns;
@@ -51,11 +58,7 @@ export class SearchComponent implements OnInit {
       this.searchChange.emit(filtered);
     } else {
       this.searchChange.emit(this.inputList);
+      localStorage.removeItem('searchText');
     }
   }
-
-  clearSearch() {
-    this.searchText = null;
-  }
-
 }

@@ -29,17 +29,23 @@ export class ApiService {
               private ngxXml2jsonService: NgxXml2jsonService) {
   }
 
+  getAllProperties(): Observable<any>{
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'products/?totalResults=true', {headers});
+  }
+
   getProperties(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit + '&q=MAF_ProjectName_c=Tilal Al Ghaf', {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit + '&q=MAF_ProjectName_c=Tilal Al Ghaf;MAF_Status_c=available', {headers});
   }
 
   getPropertiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
-    let filterParameters = 'q=MAF_ProjectName_c=Tilal Al Ghaf;';
+    let filterParameters = 'q=MAF_ProjectName_c=Tilal Al Ghaf;MAF_Status_c=available';
     // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
     if (filterParams) {
@@ -51,12 +57,11 @@ export class ApiService {
       filterParams.productType  ? (filterParameters += 'MAF_ProductType_c=' + filterParams.productType + ';') : false;
       (filterParams.unitPriceFrom || filterParams.unitPriceTo)  ? (filterParameters += 'MAF_UnitPrice_c>=' + filterParams.unitPriceFrom + ' and <=' + filterParams.unitPriceTo + ';' ) : false;
       filterParams.unitType  ? (filterParameters += 'MAF_UnitType_c=' + filterParams.unitType + ';') : false;
-      filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
+      // filterParams.status  ? (filterParameters += 'MAF_Status_c=' + filterParams.status + ';') : false;
     }
     sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
 
     let headers = new HttpHeaders();
-    // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers = headers.append('Accept', 'application/json');

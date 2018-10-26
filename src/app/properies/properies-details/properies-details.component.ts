@@ -61,7 +61,7 @@ export class ProperiesDetailsComponent implements OnInit {
     this.galleryOptions = [
       {
         width: '100%',
-        height: '700px',
+        height: 'calc(100vh - 220px)',
         thumbnails: false,
         imageAnimation: NgxGalleryAnimation.Slide,
         preview: true,
@@ -82,12 +82,6 @@ export class ProperiesDetailsComponent implements OnInit {
         height: 'calc(100vh - 320px)',
         imagePercent: 100,
         previewSwipe: true
-      },
-      {
-        breakpoint: 800,
-        width: '100%',
-        height: '300px',
-        preview: false
       }
     ];
 
@@ -108,11 +102,6 @@ export class ProperiesDetailsComponent implements OnInit {
     ];
 
     this.galleryVideos = ['assets/images/image-overlay.png'];
-
-
-   //Initializes and opens PhotoSwipe
-   //    this.gallery = new PhotoSwipe( this.photoSwipe.nativeElement, PhotoSwipeUI_Default, this.items, this.options);
-   //    this.gallery.init();
   }
 
   onClick(event, type) {

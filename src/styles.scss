@@ -281,6 +281,10 @@ button {
   transform: none !important;
 }
 
+ngx-gallery {
+  min-height: 100px;
+}
+
 ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
   background-color: #000000;
   opacity: 0.31!important;
@@ -291,15 +295,9 @@ ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
     color: #c1c1c1;
   }
 }
-//
 ngx-gallery-preview {
   display: none!important;
 }
-//
-//.ngx-gallery-preview-wrapper {
-//  z-index: 1000000;
-//  position: fixed!important;
-//}
 
 .ngx-gallery-arrow-left .ngx-gallery-arrow{
   left: 0!important;
