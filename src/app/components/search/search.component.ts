@@ -22,7 +22,6 @@ export class SearchComponent implements OnInit {
     setTimeout(() => {
       this.changeSearch();
     }, 2000);
-    console.log('fff', this.searchText);
   }
 
   public debouncedChangeSearch() {

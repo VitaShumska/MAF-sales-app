@@ -146,7 +146,7 @@ export class ProperiesDetailsComponent implements OnInit {
       .subscribe(data => {
         this.loadingSpinner.hide();
         this.unitDetails = data;
-        this.cmsId = this.unitDetails['MAF_CMSID_c'];
+        this.cmsId = this.unitDetails['MAF_UnitType_c'];
         this.getXml();
       },
       (error) => {
@@ -161,9 +161,13 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   getGalleryOption () {
+    let allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B_BGL', '4B_LV', '5B_BGL', '5B_LV', '5B_TYP', '6B_LV', '6B_ULV'];
     let type;
-    if (this.cmsId === '12345') {
-      type = 't1';
+    if ( allTypes.indexOf(this.cmsId) === -1 ) {
+      this.cmsId = null;
+    }
+    if (this.cmsId) {
+      type = 't' + this.cmsId.replace(/\s/g, '_');
       this.cmsTypeData = this.cmsData[type];
     } else {
       type = 't2';
@@ -176,7 +180,7 @@ export class ProperiesDetailsComponent implements OnInit {
       this.galleryVideos = [];
       this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + videos);
     } else if (videos === undefined) {
-      return;
+      // return this.galleryVideos;
     } else {
       this.galleryVideos = [];
       videos.map(item => {
@@ -195,7 +199,7 @@ export class ProperiesDetailsComponent implements OnInit {
         }
       ];
     } else if (images === undefined) {
-      return;
+      return this.galleryImages;
     } else {
       this.galleryImages = [];
       images.map(item => {
@@ -218,7 +222,7 @@ export class ProperiesDetailsComponent implements OnInit {
         }
       ];
     } else if (floorplans === undefined) {
-      return;
+      return this.galleryFloorplanImages;
     } else {
       this.galleryFloorplanImages = [];
       floorplans.map(item => {
@@ -230,7 +234,6 @@ export class ProperiesDetailsComponent implements OnInit {
       });
     }
   }
-
   getXml() {
     this.loadingSpinner.show();
     this.apiService.getXml()
