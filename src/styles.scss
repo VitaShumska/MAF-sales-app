@@ -88,7 +88,7 @@ button {
       }
     }
   }
-  .table-body {
+.table-body {
     background: #ffffff;
     overflow: auto;
     height: calc(100vh - 68px - 45px - 56px - 20px - 50px);
@@ -99,8 +99,8 @@ button {
         cursor: pointer;
 
         .pencil-icon {
-          display: block;
-        }
+            display: block;
+          }
       }
     }
 
@@ -111,7 +111,7 @@ button {
       font-family: Helvetica;
     }
   }
-  .table-cell {
+.table-cell {
     flex: 1;
     height: 100%;
     line-height: 60px;
@@ -129,7 +129,7 @@ button {
       font-family: Helvetica;
     }
 
-    span{
+    span {
       vertical-align: middle;
     }
 
@@ -188,14 +188,15 @@ button {
   }
 }
 
-@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
-{ @supports (-webkit-appearance:none) {
-  ::i-block-chrome, .table{
-    .table-body {
-      height: calc(100vh - 68px - 45px - 56px - 20px - 50px - 70px);
-    }
+
+//@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0)
+//{ @supports (-webkit-appearance:none) {
+
+::-webkit-full-page-media, :future, :root .table {
+  .table-body {
+    height: calc(100vh - 68px - 45px - 56px - 20px - 50px - 70px);
   }
-}}
+}
 
 /////////////Scrollbar////////////////////
 
