@@ -31,7 +31,7 @@ export class PropertiesListComponent implements OnInit {
   countOfAllProperties;
   countOfAvailable = 0;
   searchColumns = [];
-  sortElem = null;
+  sortElem = 'MAF_UnitNumber_c';
 
   displayedColumns = [
     {
@@ -47,14 +47,14 @@ export class PropertiesListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Product #',
-      key: 'MAF_UnitNumber_c',
+      name: 'Product',
+      key: 'MAF_UnitModel_c',
       sort: '',
       disableSort: false
     },
     {
-      name: 'Model',
-      key: 'MAF_UnitModel_c',
+      name: 'Product #',
+      key: 'MAF_UnitNumber_c',
       sort: '',
       disableSort: false
     },

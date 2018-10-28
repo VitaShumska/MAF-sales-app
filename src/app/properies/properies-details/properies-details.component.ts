@@ -118,11 +118,22 @@ export class ProperiesDetailsComponent implements OnInit {
         this.images.push(
           {
             src: item.small,
-            w: 1200,
-            h: 800
+            w: 0,
+            h: 0
           });
       });
       const galleryImages = new PhotoSwipe(this.photoSwipeImages.nativeElement, PhotoSwipeUI_Default, this.images, options);
+      galleryImages.listen('gettingData', function(index, item) {
+        if (item.w < 1 || item.h < 1) {
+          let img = new Image();
+          img.onload = function () {
+            item.w = img.width;
+            item.h = img.height;
+            galleryImages.updateSize(true);
+          };
+          img.src = item.src;
+        }
+      });
       galleryImages.init();
     } else if (type === 'floorplan') {
       this.images = [];
@@ -131,11 +142,22 @@ export class ProperiesDetailsComponent implements OnInit {
         this.images.push(
           {
             src: item.small,
-            w: 1200,
-            h: 800
+            w: 0,
+            h: 0
           });
       });
       const galleryFloorplan = new PhotoSwipe(this.photoSwipeFloorplan.nativeElement, PhotoSwipeUI_Default, this.images, options);
+      galleryFloorplan.listen('gettingData', function(index, item) {
+        if (item.w < 1 || item.h < 1) {
+          let img = new Image();
+          img.onload = function () {
+            item.w = img.width;
+            item.h = img.height;
+            galleryFloorplan.updateSize(true);
+          };
+          img.src = item.src;
+        }
+      });
       galleryFloorplan.init();
     }
   }

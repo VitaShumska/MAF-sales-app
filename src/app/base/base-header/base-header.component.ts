@@ -38,6 +38,8 @@ export class BaseHeaderComponent implements OnInit {
     }
     if (this.headerName === 'Home' || this.headerName === 'Units') {
       window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
+    } else if (this.headerName === 'Unit Details') {
+      this.router.navigate(['/units']);
     } else {
       this.location.back();
     }

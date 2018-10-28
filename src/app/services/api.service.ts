@@ -41,7 +41,7 @@ export class ApiService {
     // headers = headers.append('Authorization', 'Bearer ' + this.token);
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit + '&q=MAF_ProjectName_c=Tilal Al Ghaf;MAF_Status_c=available;', {headers});
+    return this.http.get(this.API_URL + 'products/?totalResults=true&offset=' + offset + '&limit=' + limit + '&q=MAF_ProjectName_c=Tilal Al Ghaf;MAF_Status_c=available&orderBy=MAF_UnitNumber_c', {headers});
   }
 
   getPropertiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
