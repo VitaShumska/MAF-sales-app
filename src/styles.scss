@@ -189,14 +189,12 @@ button {
 }
 
 
-//@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0)
-//{ @supports (-webkit-appearance:none) {
-
-::-webkit-full-page-media, :future, :root .table {
+@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0)
+{ @supports (-webkit-appearance:none) {
   .table-body {
     height: calc(100vh - 68px - 45px - 56px - 20px - 50px - 70px);
   }
-}
+}}
 
 /////////////Scrollbar////////////////////
 
