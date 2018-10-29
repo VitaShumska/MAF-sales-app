@@ -8,7 +8,7 @@
     overflow-y: auto;
 
     .unit-info {
-      width: 400px;
+      width: 300px;
       padding-left: 29px;
       font-size: 16px;
       background-color: #ffffff;
@@ -26,7 +26,7 @@
       }
 
       span {
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         color: #637381;
 
         &.label {
@@ -43,8 +43,8 @@
     }
 
     .gallery {
-      width: calc(100vw - 400px);
-      margin-left: 400px;
+      width: calc(100vw - 300px);
+      margin-left: 300px;
 
       mat-tab-group {
         padding: 18px 28px;

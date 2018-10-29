@@ -53,7 +53,7 @@ export class PropertiesListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Product #',
+      name: 'Product No.',
       key: 'MAF_UnitNumber_c',
       sort: '',
       disableSort: false
