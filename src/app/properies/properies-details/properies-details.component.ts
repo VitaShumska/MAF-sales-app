@@ -70,6 +70,7 @@ export class ProperiesDetailsComponent implements OnInit {
         previewSwipe: true,
         imageSwipe: true,
         imageSize: NgxGalleryImageSize.Cover,
+        imagePercent: 100,
         arrowPrevIcon: 'fa fa-chevron-left',
         arrowNextIcon: 'fa fa-chevron-right',
         closeIcon: 'fa fa-times',
@@ -183,7 +184,7 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   getGalleryOption () {
-    let allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV'];
+    let allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV', 'STD-T1A'];
     let type;
     if ( allTypes.indexOf(this.cmsId) === -1 ) {
       this.cmsId = null;

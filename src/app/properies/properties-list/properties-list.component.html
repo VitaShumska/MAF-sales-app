@@ -19,12 +19,13 @@
       <div class="table-body">
         <div class="table-row" *ngFor="let propertie of propertiesList" (click)="goToPage('/unit-details/' + propertie.InventoryItemId)">
           <div class="table-cell unit-name">
-            <img src="assets/images/unit.png">
+            <!--<img src="assets/images/unit.png">-->
+            <img [src]="'https://mafsalesapp.com/static/t' + parseFolderName(propertie.MAF_UnitType_c) + '/title-img.jpg'">
             <div>
               <p>{{propertie.MAF_UnitType_c}}</p>
             </div>
           </div>
-          <div class="table-cell phase" [class]="propertie.MAF_PhaseName_c ? 'table-cell' : 'table-cell empty'">{{propertie.MAF_PhaseName_c}}</div>
+          <div class="table-cell phase" [class]="propertie.MAF_PhaseName_c ? 'table-cell phase' : 'table-cell phase empty'">{{propertie.MAF_PhaseName_c}}</div>
           <div class="table-cell" [class]="propertie.MAF_UnitModel_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_UnitModel_c}} </div>
           <div class="table-cell" [class]="propertie.MAF_UnitNumber_c ? 'table-cell' : 'table-cell empty'">{{propertie.MAF_UnitNumber_c}}</div>
           <div class="table-cell" [class]="propertie.MAF_PlotAreaSqFt_c ? 'table-cell plot' : 'table-cell plot empty'"> {{propertie.MAF_PlotAreaSqFt_c | number:0}} </div>
@@ -45,8 +46,8 @@
                      (page)="pageEvent = paginator($event)">
       </mat-paginator>
       <div>
-        <span>Total Units: {{countOfAllProperties}}</span>
-        <span class="available">Available: {{countOfProperties}}</span>
+        <!--<span>Total Units: {{countOfAllProperties}}</span>-->
+        <span class="available">Available: {{countOfAvailable}}</span>
       </div>
     </div>
   </div>

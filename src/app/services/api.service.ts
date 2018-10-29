@@ -29,13 +29,6 @@ export class ApiService {
               private ngxXml2jsonService: NgxXml2jsonService) {
   }
 
-  getAllProperties(): Observable<any>{
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'products/?totalResults=true', {headers});
-  }
-
   getProperties(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
     // headers = headers.append('Authorization', 'Bearer ' + this.token);

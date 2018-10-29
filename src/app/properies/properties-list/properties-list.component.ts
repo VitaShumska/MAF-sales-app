@@ -28,10 +28,15 @@ export class PropertiesListComponent implements OnInit {
   limit = 25;
   pageSizeOptions: number[] = [25, 50, 100];
   countOfProperties;
-  countOfAllProperties;
   countOfAvailable = 0;
   searchColumns = [];
-  sortElem = 'MAF_UnitNumber_c';
+  sortElem = {
+    key: 'MAF_UnitNumber_c',
+    sort: 'desc'
+  };
+  cmsId;
+  cmsTypeData;
+  cmsData;
 
   displayedColumns = [
     {
@@ -94,7 +99,6 @@ export class PropertiesListComponent implements OnInit {
     this.displayedColumns.map( item => {
       this.searchColumns.push(item.key);
     });
-    this.getCountOfAllProperties();
     if (window.sessionStorage.getItem('filterParams')) {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
       this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
@@ -115,6 +119,8 @@ export class PropertiesListComponent implements OnInit {
           this.propertiesListOriginal  =  data;
           this.propertiesListOriginal  =  this.propertiesListOriginal.items;
           this.propertiesList = this.propertiesListOriginal;
+          this.countOfAvailable = this.countOfProperties;
+          this.countOfAvailable = this.countOfProperties;
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -133,6 +139,7 @@ export class PropertiesListComponent implements OnInit {
         this.countOfProperties = data['totalResults'];
         this.propertiesListOriginal = this.propertiesListOriginal.items;
         this.propertiesList = this.propertiesListOriginal;
+        this.countOfAvailable = this.countOfProperties;
       },
       (error) => {
         this.loadingSpinner.hide();
@@ -159,13 +166,12 @@ export class PropertiesListComponent implements OnInit {
       });
   }
 
-  getCountOfAllProperties(){
-    this.loadingSpinner.show();
-    this.apiService.getAllProperties()
-      .subscribe((data:  Array<object>) => {
-        this.loadingSpinner.hide();
-        this.countOfAllProperties = data['totalResults'];
-      });
+  parseFolderName(name) {
+    const allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV', 'STD-T1A'];
+    if ( allTypes.indexOf(name) === -1 ) {
+      return '2';
+    }
+    return name.replace(/\s/g, '_');
   }
 
   sortByKey(sortElem) {
@@ -197,11 +203,22 @@ export class PropertiesListComponent implements OnInit {
 
   changeSearch(data) {
     this.propertiesList = data;
+    ///get count of available/////////
+    const searchInput = localStorage.getItem('searchText');
+    if ( searchInput === 'null') {
+      this.countOfAvailable = this.countOfProperties;
+    } else if (searchInput === '') {
+      this.countOfAvailable = this.countOfProperties;
+    } else {
+      this.countOfAvailable = this.propertiesList.length;
+    }
   }
 
   changeFilter(data) {
-    this.propertiesList = data.items;
+    this.propertiesListOriginal = data.items;
+    this.propertiesList = this.propertiesListOriginal;
     this.countOfProperties = data.totalResults;
+    this.countOfAvailable = this.countOfProperties;
   }
 
   changeFilterParams(data) {
