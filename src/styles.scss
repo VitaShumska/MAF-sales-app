@@ -195,14 +195,22 @@ button {
 }
 
 
-@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0)
-{ @supports (-webkit-appearance:none) {
+//@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0)
+//{ @supports (-webkit-appearance:none) {
+//  .table {
+//    .table-body {
+//      height: calc(100vh - 68px - 45px - 56px - 20px - 50px - 70px);
+//    }
+//  }
+//}}
+
+@supports (-webkit-marquee-repetition:infinite) and (object-fit:fill) {
   .table {
     .table-body {
       height: calc(100vh - 68px - 45px - 56px - 20px - 50px - 70px);
     }
   }
-}}
+}
 
 /////////////Scrollbar////////////////////
 
@@ -275,7 +283,12 @@ button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   border: none;
   margin-bottom: 13px;
+
+  .mat-tab-header-pagination {
+    z-index: 1;
+  }
 }
+
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
   background-color: #8a1638;
   height: 3px;

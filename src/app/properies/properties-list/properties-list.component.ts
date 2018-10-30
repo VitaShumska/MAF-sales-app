@@ -99,8 +99,10 @@ export class PropertiesListComponent implements OnInit {
     this.displayedColumns.map( item => {
       this.searchColumns.push(item.key);
     });
-    if (window.sessionStorage.getItem('filterParams')) {
+    if (window.sessionStorage.getItem('filterParams') || window.sessionStorage.getItem('limit') || window.sessionStorage.getItem('offset')) {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
+      window.sessionStorage.getItem('limit') ? this.limit = +window.sessionStorage.getItem('limit') : false;
+      window.sessionStorage.getItem('offset') ? this.offset = +window.sessionStorage.getItem('offset') : false;
       this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
     } else {
       this.getProperties(this.offset, this.limit);
@@ -199,6 +201,9 @@ export class PropertiesListComponent implements OnInit {
   goToPage(url) {
     this.router.navigate([url]);
     this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)): false;
+    window.sessionStorage.setItem('limit', this.limit.toString());
+    window.sessionStorage.setItem('offset', this.offset.toString());
+
   }
 
   changeSearch(data) {
