@@ -314,6 +314,13 @@ ngx-gallery {
   min-height: 100px;
 }
 
+@supports (-webkit-marquee-repetition:infinite) and (object-fit:fill) {
+  ngx-gallery {
+    min-height: 120px;
+    height: calc(100vh - 320px)!important;
+  }
+}
+
 ngx-gallery ngx-gallery-image .ngx-gallery-arrow {
   background-color: #000000;
   opacity: 0.31!important;

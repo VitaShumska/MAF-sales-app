@@ -42,6 +42,7 @@
     <div class="summary">
       <mat-paginator [length]="countOfProperties"
                      [pageSize]="limit"
+                     [pageIndex]="offset/limit"
                      [pageSizeOptions]="pageSizeOptions"
                      (page)="pageEvent = paginator($event)">
       </mat-paginator>
