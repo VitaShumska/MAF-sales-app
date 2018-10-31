@@ -20,7 +20,7 @@ export class PropertiesListComponent implements OnInit {
     private loadingSpinner: LoadingSpinnerService,
     public snackBar: MatSnackBar) {}
 
-  propertiesListOriginal;
+  propertiesListOriginal: any[] = [];
   propertiesList;
   filterParams;
   pageEvent: PageEvent;
@@ -33,10 +33,7 @@ export class PropertiesListComponent implements OnInit {
   sortElem = {
     key: 'MAF_UnitNumber_c',
     sort: 'desc'
-  };
-  cmsId;
-  cmsTypeData;
-  cmsData;
+  };;
 
   displayedColumns = [
     {
@@ -115,11 +112,10 @@ export class PropertiesListComponent implements OnInit {
     // this.clearSearchInput();
     this.apiService.getProperties(offset, limit)
       .subscribe(
-        (data:  Array<object>) => {
+        (data: any) => {
           this.loadingSpinner.hide();
           this.countOfProperties = data['totalResults'];
-          this.propertiesListOriginal  =  data;
-          this.propertiesListOriginal  =  this.propertiesListOriginal.items;
+          this.propertiesListOriginal  =  data['items'];
           this.propertiesList = this.propertiesListOriginal;
           this.countOfAvailable = this.countOfProperties;
           this.countOfAvailable = this.countOfProperties;
@@ -135,11 +131,11 @@ export class PropertiesListComponent implements OnInit {
     this.loadingSpinner.show();
     // this.clearSearchInput();
     this.apiService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
-      (data:  Array<object>) => {
+      (data:  any) => {
+        console.log('data', data);
         this.loadingSpinner.hide();
-        this.propertiesListOriginal = data;
+        this.propertiesListOriginal = data['items'];
         this.countOfProperties = data['totalResults'];
-        this.propertiesListOriginal = this.propertiesListOriginal.items;
         this.propertiesList = this.propertiesListOriginal;
         this.countOfAvailable = this.countOfProperties;
       },

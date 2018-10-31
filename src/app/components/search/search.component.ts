@@ -12,16 +12,14 @@ export class SearchComponent implements OnInit {
   changeSearch = _.debounce(() => {this.debouncedChangeSearch(); }, 300);
 
   @Input() searchColumns;
-  @Input() inputList;
+  @Input() inputList: any[] = [];
   @Output() searchChange = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {
     this.searchText = localStorage.getItem('searchText');
-    setTimeout(() => {
-      this.changeSearch();
-    }, 2000);
+    this.changeSearch();
   }
 
   public debouncedChangeSearch() {
