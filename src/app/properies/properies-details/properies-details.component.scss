@@ -42,6 +42,12 @@
       }
     }
 
+    @supports (-webkit-marquee-repetition:infinite) and (object-fit:fill) {
+      .unit-info {
+        padding-bottom: 70px;
+      }
+    }
+
     .gallery {
       width: calc(100vw - 300px);
       margin-left: 300px;

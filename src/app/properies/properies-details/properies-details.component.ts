@@ -80,7 +80,7 @@ export class ProperiesDetailsComponent implements OnInit {
       {
         breakpoint: 1400,
         width: '100%',
-        height: 'calc(100vh - 260px)',
+        height: 'calc(100vh - 265px)',
         imagePercent: 100,
         previewSwipe: true
       }
