@@ -1,0 +1,96 @@
+.base-header {
+  background-color: #8a1638;
+  color: #ffffff;
+  height: 68px;
+  line-height: 68px;
+  vertical-align: middle;
+
+  .logo {
+    text-align: center;
+    img {
+      vertical-align: middle;
+    }
+  }
+
+  .button {
+    padding: 0 10px;
+    vertical-align: middle;
+    button {
+      padding: 0 21px;
+      height: 38px;
+      border-radius: 19px;
+      border: 1px solid #ffffff;
+      background-color: transparent;
+      color: #ffffff;
+      font-family: Helvetica;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 38px;
+      img {
+        vertical-align: middle;
+        margin-right: 9px;
+      }
+
+      span#back-to-cloud:before {
+        content: ' Back to Sales Cloud';
+      }
+
+      span#back:before {
+        content: ' Back';
+      }
+    }
+
+    .title {
+      color: #ffffff;
+      font-family: Roboto;
+      font-size: 18px;
+      float: right;
+      display: block;
+    }
+  }
+
+  .user-name {
+    font-family: Helvetica;
+    padding: 0 20px;
+    text-align: right;
+    font-size: 14px;
+    img {
+      vertical-align: middle;
+      margin-left: 11px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 970px)  {
+  .button {
+    button {
+      span:before {
+        content: ' Back'!important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 670px)  {
+  .title {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 560px)  {
+  .button {
+    button {
+      text-align: center;
+      span:before {
+        content: ''!important;
+      }
+      img {
+        margin-right: 0!important;
+      }
+    }
+  }
+}

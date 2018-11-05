@@ -1,0 +1,89 @@
+.filter-component {
+  .custom-btn {
+    margin-left: 8px;
+    margin-top: -43px;
+    button {
+      border: none;
+      height: 35px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);
+      border-radius: 18px;
+      background-color: #ffffff;
+      line-height: 35px;
+      font-size: 18px;
+      font-family: Helvetica;
+      outline: none;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .filter-panel {
+    padding: 0 14px 0 20px;
+    p {
+      color: #000000;
+      font-family: Helvetica;
+      font-size: 15px;
+      margin: 28px 0 35px;
+      text-align: center;
+    }
+    .close-btn {
+      width: 32px;
+      height: 32px;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      position: absolute;
+      top: 15px;
+      right: 14px;
+      padding: 0;
+      img {
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    label {
+      color: #212b36;
+      font-family: Helvetica;
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 0;
+    }
+
+    input {
+      box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
+      border-radius: 18px;
+      border: 1px solid #c4cdd5;
+      background-color: #ffffff;
+      line-height: 36px;
+      width: 100%;
+      margin-bottom: 13px;
+      padding: 0 10px;
+      outline: none;
+
+      &#budget-from,
+      &#budget-to {
+        width: 48%;
+      }
+
+      &#budget-from {
+        margin-right: 4%;
+      }
+    }
+
+    .filter-btn {
+      color: #ffffff;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      background-color: #8a1638;
+      height: 40px;
+      box-shadow: none;
+      margin: 20px 0;
+    }
+  }
+}

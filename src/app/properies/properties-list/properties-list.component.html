@@ -1,0 +1,55 @@
+<div class="properties">
+  <app-search
+    [inputList]="propertiesListOriginal"
+    [searchColumns]="searchColumns"
+    (searchChange)="changeSearch($event)"
+  ></app-search>
+  <app-filter
+    (changeFilter)="changeFilter($event)"
+    (changeFilterParams)="changeFilterParams($event)"
+  ></app-filter>
+  <div class="properties-table">
+    <div class="table">
+      <div class="table-header">
+        <div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">
+          {{element.name}}
+          <i class="fa fa-chevron-down" *ngIf="element.sort"></i>
+        </div>
+      </div>
+      <div class="table-body">
+        <div class="table-row" *ngFor="let propertie of propertiesList" (click)="goToPage('/unit-details/' + propertie.InventoryItemId)">
+          <div class="table-cell unit-name">
+            <!--<img src="assets/images/unit.png">-->
+            <img [src]="'https://mafsalesapp.com/static/t' + parseFolderName(propertie.MAF_UnitType_c) + '/title-img.jpg'">
+            <div>
+              <p>{{propertie.MAF_UnitType_c}}</p>
+            </div>
+          </div>
+          <div class="table-cell phase" [class]="propertie.MAF_PhaseName_c ? 'table-cell phase' : 'table-cell phase empty'">{{propertie.MAF_PhaseName_c}}</div>
+          <div class="table-cell" [class]="propertie.MAF_UnitModel_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_UnitModel_c}} </div>
+          <div class="table-cell" [class]="propertie.MAF_UnitNumber_c ? 'table-cell' : 'table-cell empty'">{{propertie.MAF_UnitNumber_c}}</div>
+          <div class="table-cell" [class]="propertie.MAF_PlotAreaSqFt_c ? 'table-cell plot' : 'table-cell plot empty'"> {{propertie.MAF_PlotAreaSqFt_c | number:0}} </div>
+          <div class="table-cell" [class]="propertie.MAF_BuiltupAreaSqFt_c ? 'table-cell' : 'table-cell empty'"> {{propertie.MAF_BuiltupAreaSqFt_c | number:0}} </div>
+          <div class="table-cell status-column" [class]="propertie.MAF_Status_c ? 'table-cell status-column' : 'table-cell status-column empty'"> {{propertie.MAF_Status_c}} </div>
+          <div class="table-cell price" [class]="propertie.MAF_UnitPrice_c ? 'table-cell price' : 'table-cell empty price'"> {{propertie.MAF_UnitPrice_c | number:0}} </div>
+        </div>
+        <div class="scrollbar" id="style">
+          <div class="force-overflow"></div>
+        </div>
+        <p class="empty-list" *ngIf="!propertiesList?.length"> Units list is empty </p>
+      </div>
+    </div>
+    <div class="summary">
+      <mat-paginator [length]="countOfProperties"
+                     [pageSize]="limit"
+                     [pageIndex]="offset/limit"
+                     [pageSizeOptions]="pageSizeOptions"
+                     (page)="pageEvent = paginator($event)">
+      </mat-paginator>
+      <div>
+        <!--<span>Total Units: {{countOfAllProperties}}</span>-->
+        <span class="available">Available: {{countOfAvailable}}</span>
+      </div>
+    </div>
+  </div>
+</div>

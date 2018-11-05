@@ -1,0 +1,25 @@
+.properties {
+  color: #757575;
+  margin: 11px 30px 7px 30px;
+
+  .summary {
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 500;
+    width: 100%;
+    text-align: right;
+    background-color: #ffffff;
+    z-index: 2;
+    line-height: 46px;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      margin: 0 15px;
+    }
+
+    .available {
+      color: #01b1b0;
+    }
+  }
+}

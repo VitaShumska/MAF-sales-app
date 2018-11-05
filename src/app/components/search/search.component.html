@@ -1,0 +1,10 @@
+<div class="search-component custom-container" fxFlex="85" fxLayout="row">
+  <img src="assets/icons/search-icon.png">
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    [placeholder]="searchPlaceholder"
+    (ngModelChange)="changeSearch()"
+    id="searchInput"
+  >
+</div>

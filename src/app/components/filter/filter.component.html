@@ -1,0 +1,41 @@
+<div class="filter-component">
+  <div class="custom-btn" fxFlex="100" fxLayout="row-reverse">
+    <button fxFlex="14" (click)="toggleFilter()">
+      <img src="assets/icons/filter-icon.png">
+      Filter
+    </button>
+  </div>
+  <div id="light" class="filter-panel bright_content" *ngIf="filterClose.showFilter">
+    <button class="close-btn" (click)="toggleFilter()"><img src="assets/icons/cancel-icon.png"></button>
+    <p>FILTER</p>
+
+    <label for="product-type">Product Type</label>
+    <input id="product-type" type="text" maxlength="72"  [(ngModel)]="filterParams.productType">
+
+    <label for="phase">Phase</label>
+    <input id="phase" type="text" maxlength="72"  [(ngModel)]="filterParams.phase">
+
+    <label for="unit-type">Cluster</label>
+    <input id="cluster" type="text" maxlength="72"  [(ngModel)]="filterParams.cluster">
+
+    <label for="unit-type">Building Name</label>
+    <input id="building-name" type="text" maxlength="72"  [(ngModel)]="filterParams.buildingName">
+
+    <label for="unit-type">Floor</label>
+    <input id="floor" type="text" maxlength="72"  [(ngModel)]="filterParams.floor">
+
+    <label for="unit-type">Unit Type</label>
+    <input id="unit-type" type="text" maxlength="72"  [(ngModel)]="filterParams.unitType">
+
+    <label for="bedrooms">Bedrooms</label>
+    <input id="bedrooms" type="text" maxlength="72" [(ngModel)]="filterParams.bedrooms">
+
+    <label>Budget</label>
+    <br>
+    <input id="budget-from" type="text" maxlength="24" (keypress)="onlyNumberKey($event)" [(ngModel)]="filterParams.unitPriceFrom" placeholder="From">
+    <input id="budget-to" type="text" maxlength="24" (keypress)="onlyNumberKey($event)" [(ngModel)]="filterParams.unitPriceTo" placeholder="To">
+
+    <button class="filter-btn" (click)="getPropertiesWithFilter()">Search</button>
+
+  </div>
+</div>
