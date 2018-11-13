@@ -5,6 +5,7 @@
     (searchChange)="changeSearch($event)"
   ></app-search>
   <app-filter
+    [type]="'properties'"
     (changeFilter)="changeFilter($event)"
     (changeFilterParams)="changeFilterParams($event)"
   ></app-filter>

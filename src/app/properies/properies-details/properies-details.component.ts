@@ -35,7 +35,7 @@ export class ProperiesDetailsComponent implements OnInit {
 
   breadcrumbObj = {
     name: 'Unit Details',
-    url: '',
+    backUrl: '/units',
     param: 0 // because is a parent
   };
   images;

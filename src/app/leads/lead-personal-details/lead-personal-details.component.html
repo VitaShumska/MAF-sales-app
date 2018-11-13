@@ -1,0 +1,88 @@
+<div class="lead-different-details">
+  <div class="inputs-block">
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="title">Title</label>
+        <input id="title" type="text" [(ngModel)]="leadDetails.Title">
+      </div>
+
+      <div class="field-block">
+        <label for="firstName">First Name</label>
+        <input id="firstName" type="text" [(ngModel)]="leadDetails.FirstName">
+      </div>
+
+      <div class="field-block">
+        <label for="middleName">Middle Name</label>
+        <input id="middleName" type="text" [(ngModel)]="leadDetails.MiddleName">
+      </div>
+
+      <div class="field-block">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" type="text" [(ngModel)]="leadDetails.LastName">
+      </div>
+
+      <div class="field-block" *ngFor="let inputData of phoneInputs">
+        <label [for]="inputData.id">{{inputData.name}}</label>
+        <input [id]="inputData.id" type="text" [(ngModel)]="leadDetails[inputData.ngModel]" (keyup)="changes()">
+      </div>
+
+      <div class="dynamically-btn">
+        <button class="add-field-btn" (click)="addField('phone')">+ add phone</button>
+        <button class="remove-field-btn" (click)="removeField('phone')" *ngIf="phoneInputs.length > 1">- remove phone</button>
+      </div>
+
+
+      <div class="field-block" *ngFor="let inputData of emailInputs">
+        <label [for]="inputData.id">{{inputData.name}}</label>
+        <input [id]="inputData.id" type="text" [(ngModel)]="leadDetails[inputData.ngModel]" (keyup)="changes()">
+      </div>
+
+      <div class="dynamically-btn">
+        <button class="add-field-btn" (click)="addField('email')">+ add email</button>
+        <button class="remove-field-btn" (click)="removeField('email')" *ngIf="emailInputs.length > 1">- remove email</button>
+      </div>
+
+
+
+
+      <div class="attachment-block">
+        <p>Attachments:</p>
+        <angular-file-uploader
+          [config]="afuConfig">
+        </angular-file-uploader>
+      </div>
+    </div>
+
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="nationality">Nationality</label>
+        <input id="nationality" type="text" [(ngModel)]="leadDetails.Nationality_c">
+      </div>
+
+      <div class="field-block">
+        <label for="residence">Residence</label>
+        <input id="residence" type="text" [(ngModel)]="leadDetails.Residence_c">
+      </div>
+
+      <div class="field-block">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" type="text" [(ngModel)]="leadDetails.DateOfBirth">
+      </div>
+
+      <div class="field-block">
+        <label for="gender">Gender</label>
+        <input id="gender" type="text" [(ngModel)]="leadDetails.Gender">
+      </div>
+
+      <div class="field-block">
+        <label for="type">Type</label>
+        <input id="type" type="text" [(ngModel)]="leadDetails.Type">
+      </div>
+
+      <div class="field-block">
+        <label for="owner">Owner</label>
+        <input id="owner" type="text" [(ngModel)]="leadDetails.OwnerName">
+      </div>
+    </div>
+  </div>
+</div>

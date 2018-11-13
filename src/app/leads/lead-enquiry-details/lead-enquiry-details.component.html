@@ -1,0 +1,91 @@
+<div class="enquiry-table">
+  <div class="table">
+    <div class="table-header">
+      <div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">
+        {{element.name}}
+        <i class="fa fa-chevron-down" *ngIf="element.sort"></i>
+      </div>
+    </div>
+    <div class="table-body">
+      <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/lead-details/' + lead.LeadId)">
+        <div class="table-cell lead-number">
+          <div>
+            <p>{{lead.LeadNumber}}</p>
+          </div>
+        </div>
+        <div class="table-cell" [class]="lead.PrimaryContactPartyName ? 'table-cell' : 'table-cell empty'">{{lead.PrimaryContactPartyName}}</div>
+        <div class="table-cell" [class]="lead.OwnerPartyName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>
+        <div class="table-cell" [class]="lead.MAF_Project_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_Project_c}}</div>
+        <div class="table-cell" [class]="lead.MAF_ProductType_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_ProductType_c}}</div>
+        <div class="table-cell" [class]="lead.LastUpdateDate ? 'table-cell' : 'table-cell empty'"> {{lead.LastUpdateDate | date : 'shortDate' }} </div>
+        <div class="table-cell select"> <mat-checkbox></mat-checkbox> </div>
+      </div>
+      <div class="scrollbar" id="style">
+        <div class="force-overflow"></div>
+      </div>
+      <p class="empty-list" *ngIf="!leadsList?.length"> Leads list is empty </p>
+    </div>
+  </div>
+</div>
+
+<div class="lead-different-details">
+  <div class="inputs-block">
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="project">Project</label>
+        <input id="project" type="text" [(ngModel)]="leadDetails.MAF_Project_c">
+      </div>
+
+      <div class="field-block">
+        <label for="enquiry">Method of Enquiry</label>
+        <input id="enquiry" type="text" [(ngModel)]="leadDetails.MethodOfEnquiry_c">
+      </div>
+
+      <div class="field-block">
+        <label for="source">Source</label>
+        <input id="source" type="text" [(ngModel)]="leadDetails.MAF_SOURCE_c">
+      </div>
+
+      <div class="field-block">
+        <label for="chanelType">Channel Type</label>
+        <input id="chanelType" type="text" [(ngModel)]="leadDetails.ChannelType_c">
+      </div>
+
+      <div class="field-block">
+        <label for="chanelName">Channel Name</label>
+        <input id="chanelName" type="text" [(ngModel)]="leadDetails.ChannelName_c">
+      </div>
+    </div>
+
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="broker">Broker/Ambassador</label>
+        <input id="broker" type="text" [(ngModel)]="leadDetails.Partner_Id_c">
+      </div>
+
+      <div class="field-block">
+        <label for="brokerName">Broker/Ambassador Name</label>
+        <input id="brokerName" type="text" [(ngModel)]="leadDetails.Partner_c">
+      </div>
+
+      <div class="field-block">
+        <label for="owner">Owner</label>
+        <input id="owner" type="text" [(ngModel)]="leadDetails.OwnerPartyName">
+      </div>
+
+      <div class="field-block">
+        <label for="creationDate">Lead Last Creation Date</label>
+        <input id="creationDate" matInput [matDatepicker]="createdPicker" [(ngModel)]="leadDetails.CreationDate">
+        <mat-datepicker-toggle matSuffix [for]="createdPicker"></mat-datepicker-toggle>
+        <mat-datepicker #createdPicker></mat-datepicker>
+      </div>
+
+      <div class="field-block">
+        <label for="updateDate">Lead Last Updated Date</label>
+        <input id="updateDate" matInput [matDatepicker]="updatedPicker" [(ngModel)]="leadDetails.LastUpdateDate">
+        <mat-datepicker-toggle matSuffix [for]="updatedPicker"></mat-datepicker-toggle>
+        <mat-datepicker #updatedPicker></mat-datepicker>
+      </div>
+    </div>
+  </div>
+</div>

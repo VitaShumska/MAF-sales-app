@@ -54,7 +54,8 @@
       margin-bottom: 0;
     }
 
-    input {
+    input,
+    .mat-select {
       box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
       border-radius: 18px;
       border: 1px solid #c4cdd5;
@@ -73,6 +74,10 @@
       &#budget-from {
         margin-right: 4%;
       }
+    }
+
+    .mat-select-value {
+      text-align: left;
     }
 
     .filter-btn {

@@ -1,0 +1,51 @@
+<div class="leads">
+  <app-search
+    [inputList]="leadsListOriginal"
+    [searchColumns]="searchColumns"
+    (searchChange)="changeSearch($event)"
+  ></app-search>
+  <app-filter
+    [type]="'leads'"
+    (changeFilter)="changeFilter($event)"
+    (changeFilterParams)="changeFilterParams($event)"
+  ></app-filter>
+  <div class="leads-table">
+    <div class="table">
+      <div class="table-header">
+        <div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">
+          {{element.name}}
+          <i class="fa fa-chevron-down" *ngIf="element.sort"></i>
+        </div>
+      </div>
+      <div class="table-body">
+        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/lead-details/' + lead.PartyNumber)">
+          <div class="table-cell lead-number">
+            <div>
+              <p>{{lead.PartyNumber}}</p>
+            </div>
+          </div>
+          <div class="table-cell" [class]="lead.ContactName? 'table-cell' : 'table-cell empty'">{{lead.ContactName}}</div>
+          <div class="table-cell" [class]="lead.OwnerName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>
+          <div class="table-cell" [class]="lead.PersonDEO_MAF_ContactType_c ? 'table-cell' : 'table-cell empty'">{{lead.PersonDEO_MAF_ContactType_c}}</div>
+          <div class="table-cell" [class]="lead.PersonDEO_MAF_ContactType_c ? 'table-cell' : 'table-cell empty'">{{lead.PersonDEO_MAF_ContactType_c}}</div>
+          <div class="table-cell" [class]="lead.LastUpdateDate ? 'table-cell' : 'table-cell empty'"> {{lead.LastUpdateDate | date : 'shortDate' }} </div>
+        </div>
+        <div class="scrollbar" id="style">
+          <div class="force-overflow"></div>
+        </div>
+        <p class="empty-list" *ngIf="!leadsList?.length"> Leads list is empty </p>
+      </div>
+    </div>
+    <div class="summary">
+      <mat-paginator [length]="countOfLeads"
+                     [pageSize]="limit"
+                     [pageIndex]="offset/limit"
+                     [pageSizeOptions]="pageSizeOptions"
+                     (page)="pageEvent = paginator($event)">
+      </mat-paginator>
+      <div>
+        <span>Total Leads: {{countOfLeads}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="lead-details">
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        PERSONAL DETAILS
+      </ng-template>
+      <app-lead-personal-details
+        [leadDetails]="leadDetails"
+      >
+      </app-lead-personal-details>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        ARABIC DETAILS
+      </ng-template>
+      <app-lead-arabic-details
+        [leadDetails]="leadDetails"
+      >
+      </app-lead-arabic-details>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        ENQUIRY DETAILS
+      </ng-template>
+      <app-lead-enquiry-details
+        [leadDetails]="leadDetails"
+      >
+      </app-lead-enquiry-details>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        ADDRESS DETAILS
+      </ng-template>
+      <app-lead-address-details
+        [leadDetails]="leadDetails"
+      >
+      </app-lead-address-details>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        IDENTIFICATION
+      </ng-template>
+      <app-lead-identification
+        [leadDetails]="leadDetails"
+      >
+      </app-lead-identification>
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <div class="action-block" *ngIf="leadId === 'new'">
+    <button class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
+    <button>Create</button>
+  </div>
+
+  <div class="expanded-action-block" *ngIf="leadId !== 'new'">
+    <div class="price-block ">
+      <span class="price">PRICE: <b>2,229,000.000</b></span>
+      <span>Payplan: Not Selected</span>
+      <span>Discount: Not Selected</span>
+      <span>Total amount: <b>2,229,000.000</b></span>
+    </div>
+    <div class="btn-block">
+      <button class="select-bnt" (click)="openSelectPayplanDialog(leadDetails.LeadId)">Select Payplan</button>
+      <button class="apply-bnt">Apply Discount(s)</button>
+      <button class="cancel-bnt">Generate Quote</button>
+      <button>Request</button>
+    </div>
+  </div>
+</div>

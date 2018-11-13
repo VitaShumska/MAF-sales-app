@@ -18,12 +18,12 @@ export class SearchComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.searchText = localStorage.getItem('searchText');
+    this.searchText = sessionStorage.getItem('searchText');
     this.changeSearch();
   }
 
   public debouncedChangeSearch() {
-    localStorage.setItem('searchText', this.searchText);
+    sessionStorage.setItem('searchText', this.searchText);
     if (this.searchText) {
       const searchText = this.searchText.trim().toLowerCase();
       let selectedFilters = this.searchColumns;

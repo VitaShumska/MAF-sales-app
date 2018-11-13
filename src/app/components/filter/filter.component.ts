@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
-import {FilterCloseService} from "../../services/filter-close.service";
-import {MatSnackBar} from "@angular/material";
+import { FilterCloseService } from "../../services/filter-close.service";
+import { MatSnackBar } from "@angular/material";
 import * as _ from 'lodash';
 
 @Component({
@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 })
 export class FilterComponent implements OnInit {
   showFilter: boolean;
-  propertiesList;
+  responseList;
   offset = 0;
   limit = 25;
   filterParams = {
@@ -24,9 +24,18 @@ export class FilterComponent implements OnInit {
     unitType: '',
     bedrooms: '',
     unitPriceFrom: '',
-    unitPriceTo: ''
+    unitPriceTo: '',
+    leadName: '',
+    phone: '',
+    email: '',
+    leadNumber: '',
+    creation: '',
+    lastUpdate: '',
+    assignedTo: ''
   };
+  unitTypes:any[] = [];
 
+  @Input() type;
   @Output() changeFilter = new EventEmitter();
   @Output() changeFilterParams = new EventEmitter();
 
@@ -36,6 +45,7 @@ export class FilterComponent implements OnInit {
               public filterClose: FilterCloseService) { }
 
   ngOnInit() {
+    this.getDropdownOptions('MAF_PROD_UNIT_TYPE');
     if (JSON.parse(window.sessionStorage.getItem('filterParams'))) {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
     }
@@ -54,26 +64,59 @@ export class FilterComponent implements OnInit {
   }
 
   getPropertiesWithFilter () {
+    this.filterParams.creation ? (this.filterParams.creation =  new Date(this.filterParams.creation).toISOString()) : false;
+    this.filterParams.lastUpdate ? (this.filterParams.lastUpdate =  new Date(this.filterParams.lastUpdate).toISOString()) : false;
     let filterParams = this.filterParams;
     if (this.isFilterEmpty()) {
       filterParams = null;
     }
     this.clearSearchInput();
     this.loadingSpinner.show();
-    this.apiService.getPropertiesWithFilter(this.offset, this.limit, null, filterParams)
-      .subscribe((data) => {
-        this.loadingSpinner.hide();
-        this.propertiesList  =  data;
-        this.changeFilter.emit(this.propertiesList);
-        this.changeFilterParams.emit(this.filterParams);
-        this.toggleFilter();
+    if (this.type === 'properties') {
+      this.apiService.getPropertiesWithFilter(this.offset, this.limit, null, filterParams)
+        .subscribe((data) => {
+            this.loadingSpinner.hide();
+            this.responseList  =  data;
+            this.changeFilter.emit(this.responseList);
+            this.changeFilterParams.emit(this.filterParams);
+            this.toggleFilter();
+          },
+          (error) => {
+            this.toggleFilter();
+            this.loadingSpinner.hide();
+            this.openSnackBar('Server error', 'OK');
+          });
+    } else if (this.type === 'leads') {
+      this.apiService.getContactsWithFilter(this.offset, this.limit, null, filterParams)
+        .subscribe((data) => {
+            this.loadingSpinner.hide();
+            this.responseList  =  data;
+            this.changeFilter.emit(this.responseList);
+            this.changeFilterParams.emit(this.filterParams);
+            this.toggleFilter();
+          },
+          (error) => {
+            this.toggleFilter();
+            this.loadingSpinner.hide();
+            this.openSnackBar('Server error', 'OK');
+          });
+    }
+
+    window.sessionStorage.removeItem('filterParams');
+  }
+
+  getDropdownOptions(param) {
+    this.apiService.getDropdownOption(param).subscribe(
+      (data:  any) => {
+        data.items.map((item) => {
+          this.unitTypes.push(item.LookupCode);
+        });
       },
       (error) => {
-        this.toggleFilter();
         this.loadingSpinner.hide();
         this.openSnackBar('Server error', 'OK');
-      });
-    window.sessionStorage.removeItem('filterParams');
+      }
+    );
   }
 
   onlyNumberKey(event) {

@@ -33,7 +33,7 @@ export class PropertiesListComponent implements OnInit {
   sortElem = {
     key: 'MAF_UnitNumber_c',
     sort: 'desc'
-  };;
+  };
 
   displayedColumns = [
     {
@@ -88,7 +88,7 @@ export class PropertiesListComponent implements OnInit {
 
   breadcrumbObj = {
     name: 'Units',
-    url: '',
+    backUrl: '\home',
     param: 0
   };
 

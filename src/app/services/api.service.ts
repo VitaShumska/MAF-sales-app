@@ -8,26 +8,12 @@ import { NgxXml2jsonService } from 'ngx-xml2json';
 @Injectable()
 export class ApiService {
   API_URL  =  'https://ebrl-test.fa.em2.oraclecloud.com/crmRestApi/resources/11.13.17.11/';
-  token = 'MIIC0jCCAbqgAwIBAgIQMIStCylUh4xN2V8bUgGk0TANBgkqhkiG9w0BAQsFADAl' +
-    'MSMwIQYDVQQDExpBREZTIFNpZ25pbmcgLSBhZGZzLm1hZi5hZTAeFw0xNzAzMzAx' +
-    'ODA4NDNaFw0yMDAzMjkxODA4NDNaMCUxIzAhBgNVBAMTGkFERlMgU2lnbmluZyAt' +
-    'IGFkZnMubWFmLmFlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3J0f' +
-    '9aFRJGF9ZvHhIern8xdq8eLglsXAAiWM3UTOp1vsK9pCvhPDVpL7uFKk8A3pZA9U' +
-    'l0QhD8SAGfJKSYG835N6F4C63XjB4KChJ84xXxogXTgINB5k+KvtNXX80VhWIzQT' +
-    '0BdEbj4mh/zHjSdsErw1FwWM0i39RtzRbBE282dAGJdWBYLRxJ91tRANcV793+05' +
-    'gDFogz5QR6Qry6iPG+UPWVhJosYG4HGCWWTQ97EYf+caWwloTGIger7wpFubhGBn' +
-    'fy5OodQ5MKd/3b3jj8NOa6klDSBJMlYUqL07+LqwUk5Bte32jUT3V9nrd6vQLEMG' +
-    'Vt0fjeCt0BvlnUPm5QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAeCgf1VqWuspbR' +
-    'OQ6CHdWlV8PrubplO6azaBKO1pQHRxux0pPBN+HJFbAubAo/HEcq6fbqvt7M8b+S' +
-    'hc33sWspBXDwpN9N/wgEwjFegfz70/Akj47OyTkcoHdiv+hl7YwQvqFHe4MjkhsA' +
-    'oum6ufy/vm8UcWgV0chZhSut4MayGAWd4SxEcIhTqT4KYDRW4+ePp0CbKuFqFG5x' +
-    'XLwQi5SYKQtIrNzX38+CUdwrb1OCEyO/q40x1Sv2mbtJjhImYvrOWDN/Jb4ngCbH' +
-    'ySGj+3WAphLG5/FC6xIXICLrDk1s58uZsbKTDNY6EkQyiWUc6hPGLcSzZHS0lR8V' +
-    'fdnRLGGB';
 
   constructor(private http: HttpClient,
               private ngxXml2jsonService: NgxXml2jsonService) {
   }
+
+  ////////////Properties////////////////
 
   getProperties(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
@@ -68,6 +54,103 @@ export class ApiService {
     headers = headers.append('Accept', 'application/json');
     return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
+
+  ////////////Ledas////////////////
+
+  getLeads(offset, limit): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+  }
+
+  getLeadsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
+    let filterParameters;
+    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
+    let sortParameters = '';
+    if (filterParams) {
+      filterParams.leadName ? (filterParameters += 'PrimaryContactPartyName=' + filterParams.leadName + ';') : false;
+      filterParams.phone ? (filterParameters += 'MAF_ContactPhone_c=' + filterParams.phone + ';') : false;
+      filterParams.email ? (filterParameters += 'MAF_ContactEmail_c=' + filterParams.email + ';') : false;
+      filterParams.leadNumber ? (filterParameters += 'LeadNumber=' + filterParams.leadNumber + ';') : false;
+      filterParams.lastUpdate  ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + 1 + ';') : false;
+      filterParams.creation  ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
+      filterParams.assignedTo  ? (filterParameters += 'OwnerPartyName=' + filterParams.assignedTo + ';') : false;
+    }
+    sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
+  }
+
+  getLeadById(id): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + 'leads/' + id, {headers});
+  }
+
+  getDropdownOption(param): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + '/fndStaticLookups?finder=LookupTypeActiveEnabledOrBindCodeFinder%3BBindLookupType%3D' + param + '&limit=100', {headers});
+  }
+
+  getContacts(offset, limit): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + 'contacts/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+  }
+
+  getContactsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
+    let filterParameters;
+    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
+    let sortParameters = '';
+    if (filterParams) {
+      filterParams.leadName ? (filterParameters += 'ContactName=' + filterParams.leadName + ';') : false;
+      filterParams.phone ? (filterParameters += 'OverallPrimaryFormattedPhoneNumber=' + filterParams.phone + ';') : false;
+      filterParams.email ? (filterParameters += 'EmailAddress=' + filterParams.email + ';') : false;
+      filterParams.leadNumber ? (filterParameters += 'PartyNumber=' + filterParams.leadNumber + ';') : false;
+      filterParams.lastUpdate  ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + 1 + ';') : false;
+      filterParams.creation  ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
+      filterParams.assignedTo  ? (filterParameters += 'OwnerName=' + filterParams.assignedTo + ';') : false;
+    }
+    sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
+  }
+
+  getContactById(number): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + 'contacts/' + number, {headers});
+  }
+
+  getIdentificationContactData(id): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + '/MAF_Identification_c/?q=MAF_Contact_Id_c=' + id, {headers});
+  }
+
+
+
+  ///////////////Additional function//////////
 
   getXml() {
     const parser = new DOMParser();

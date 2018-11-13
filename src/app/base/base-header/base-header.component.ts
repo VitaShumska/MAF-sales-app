@@ -14,6 +14,7 @@ export class BaseHeaderComponent implements OnInit {
   href: string;
   breadcrumbsArr = [];
   headerName: string;
+  backUrl: string;
 
   constructor(
     private location: Location,
@@ -25,6 +26,7 @@ export class BaseHeaderComponent implements OnInit {
       .subscribe( breadcrumbsArr => {
         this.breadcrumbsArr = breadcrumbsArr;
         this.headerName = this.breadcrumbsArr[0].name;
+        this.backUrl = this.breadcrumbsArr[0].backUrl;
       });
   }
 
@@ -36,12 +38,10 @@ export class BaseHeaderComponent implements OnInit {
     if ( document.getElementById('light') && document.getElementById('fade') ) {
       this.filterClose.closeFilter(false);
     }
-    if (this.headerName === 'Home' || this.headerName === 'Units') {
+    if (this.headerName === 'Home') {
       window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
-    } else if (this.headerName === 'Unit Details') {
-      this.router.navigate(['/units']);
     } else {
-      this.location.back();
+      this.router.navigate([this.backUrl]);
     }
   }
 }

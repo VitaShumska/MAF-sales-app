@@ -1,0 +1,32 @@
+.lead-details {
+  color: #757575;
+  background-color: #efefef;
+  height: calc(100vh - 160px);
+  overflow-y: hidden;
+  padding-top: 5px;
+
+  mat-tab-group {
+    background-color: #ffffff;
+    margin: 0 30px;
+    height: calc(100vh - 165px);
+    overflow-y: auto;
+  }
+
+  mat-tab-body {
+    height: calc(100% - 140px);
+    overflow-y: auto;
+  }
+
+  .action-block {
+    justify-content: flex-end;
+  }
+
+  .cancel-bnt {
+    background-color: #efefef;
+    color: #000000;
+    margin-right: 0;
+  }
+}
+
+
+

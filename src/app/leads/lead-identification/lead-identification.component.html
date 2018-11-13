@@ -1,0 +1,40 @@
+<div class="lead-different-details">
+  <div class="inputs-block">
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="type">Identification Type</label>
+        <input id="type" type="text" [(ngModel)]="leadDetails">
+      </div>
+
+      <div class="field-block">
+        <label for="number">Identification No.</label>
+        <input id="number" type="text" [(ngModel)]="leadDetails">
+      </div>
+
+      <div class="field-block">
+        <label for="authority">Issuing Authority</label>
+        <input id="authority" type="text" [(ngModel)]="leadDetails">
+      </div>
+
+      <div class="attachment-block">
+        <p>Attachments:</p>
+        <angular-file-uploader
+          [config]="afuConfig">
+        </angular-file-uploader>
+      </div>
+
+    </div>
+
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="issueDate">Issue Date</label>
+        <input id="issueDate" type="text" [(ngModel)]="leadDetails">
+      </div>
+
+      <div class="field-block">
+        <label for="expiryDate">Expiry Date</label>
+        <input id="expiryDate" type="text" [(ngModel)]="leadDetails.ExpirationDate">
+      </div>
+    </div>
+  </div>
+</div>
