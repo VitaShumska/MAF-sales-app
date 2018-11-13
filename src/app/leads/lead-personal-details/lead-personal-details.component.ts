@@ -11,9 +11,7 @@ export class LeadPersonalDetailsComponent implements OnInit {
   @Input() leadDetails: any = {};
   @ViewChild('phone') phone: ElementRef;
 
-  registerForm: FormGroup;
   group: FormGroup;
-  submitted = false;
 
   afuConfig = {
     uploadAPI: {
