@@ -18,16 +18,16 @@
         </div>
       </div>
       <div class="table-body">
-        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/lead-details/' + lead.PartyNumber)">
+        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/lead-details/' + lead.PrimaryContactPartyName)">
           <div class="table-cell lead-number">
             <div>
-              <p>{{lead.PartyNumber}}</p>
+              <p>{{lead.LeadNumber}}</p>
             </div>
           </div>
-          <div class="table-cell" [class]="lead.ContactName? 'table-cell' : 'table-cell empty'">{{lead.ContactName}}</div>
-          <div class="table-cell" [class]="lead.OwnerName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>
-          <div class="table-cell" [class]="lead.PersonDEO_MAF_ContactType_c ? 'table-cell' : 'table-cell empty'">{{lead.PersonDEO_MAF_ContactType_c}}</div>
-          <div class="table-cell" [class]="lead.PersonDEO_MAF_ContactType_c ? 'table-cell' : 'table-cell empty'">{{lead.PersonDEO_MAF_ContactType_c}}</div>
+          <div class="table-cell" [class]="lead.PrimaryContactPartyName ? 'table-cell' : 'table-cell empty'">{{lead.PrimaryContactPartyName}}</div>
+          <div class="table-cell" [class]="lead.OwnerPartyName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>
+          <div class="table-cell" [class]="lead.MAF_Project_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_Project_c}}</div>
+          <div class="table-cell" [class]="lead.MAF_ProductType_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_ProductType_c}}</div>
           <div class="table-cell" [class]="lead.LastUpdateDate ? 'table-cell' : 'table-cell empty'"> {{lead.LastUpdateDate | date : 'shortDate' }} </div>
         </div>
         <div class="scrollbar" id="style">

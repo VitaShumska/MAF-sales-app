@@ -17,6 +17,7 @@ export class LeadDetailsComponent implements OnInit {
   sub;
   leadId;
   leadDetails: any = {};
+  identificationContactData: any = {};
   breadcrumbObj = {
     name: 'Lead Details',
     backUrl: '/leads',
@@ -35,13 +36,13 @@ export class LeadDetailsComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.leadId = params['leadId'];
+      console.log('contact', this.leadId);
       if (this.leadId) {
         this.getContactById();
       } else {
       }
     });
     this.breadcrumbsArr();
-    this.getContacts();
   }
 
   getContactById () {
@@ -49,8 +50,8 @@ export class LeadDetailsComponent implements OnInit {
     this.apiService.getContactById(this.leadId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          this.leadDetails = data;
-          console.log('contact', data);
+          this.leadDetails = data.items[0];
+          this. getIdentificationContactData();
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -58,12 +59,13 @@ export class LeadDetailsComponent implements OnInit {
         });
   }
 
-  getContacts() {
+  getIdentificationContactData () {
     this.loadingSpinner.show();
-    this.apiService.getContacts(0, 25)
+    this.apiService.getIdentificationContactData(this.leadDetails.PartyId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('contacts', data);
+          this.identificationContactData = data.items[0];
+          console.log('contact', this.identificationContactData);
         },
         (error) => {
           this.loadingSpinner.hide();

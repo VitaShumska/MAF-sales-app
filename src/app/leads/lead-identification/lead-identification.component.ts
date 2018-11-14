@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class LeadIdentificationComponent implements OnInit {
 
-  @Input() leadDetails: any = {};
+  @Input() identificationContactData: any = {};
 
   afuConfig = {
     uploadAPI: {

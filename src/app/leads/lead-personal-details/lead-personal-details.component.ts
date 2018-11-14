@@ -48,6 +48,7 @@ export class LeadPersonalDetailsComponent implements OnInit {
         this.createInput()
       ])
     });
+    console.log('contact', this.leadDetails);
   }
 
   createInput() {

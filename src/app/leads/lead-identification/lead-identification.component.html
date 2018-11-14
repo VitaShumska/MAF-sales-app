@@ -3,17 +3,17 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="type">Identification Type</label>
-        <input id="type" type="text" [(ngModel)]="leadDetails">
+        <input id="type" type="text" [(ngModel)]="identificationContactData.MAF_IdentificationType_c">
       </div>
 
       <div class="field-block">
         <label for="number">Identification No.</label>
-        <input id="number" type="text" [(ngModel)]="leadDetails">
+        <input id="number" type="text" [(ngModel)]="identificationContactData.MAF_IDNo_c">
       </div>
 
       <div class="field-block">
         <label for="authority">Issuing Authority</label>
-        <input id="authority" type="text" [(ngModel)]="leadDetails">
+        <input id="authority" type="text" [(ngModel)]="identificationContactData.MAF_IssuingAuthority_c">
       </div>
 
       <div class="attachment-block">
@@ -28,12 +28,12 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="issueDate">Issue Date</label>
-        <input id="issueDate" type="text" [(ngModel)]="leadDetails">
+        <input id="issueDate" type="text" [(ngModel)]="identificationContactData.MAF_IssueDate_c">
       </div>
 
       <div class="field-block">
         <label for="expiryDate">Expiry Date</label>
-        <input id="expiryDate" type="text" [(ngModel)]="leadDetails.ExpirationDate">
+        <input id="expiryDate" type="text" [(ngModel)]="identificationContactData.MAF_ExpiryDate_c">
       </div>
     </div>
   </div>

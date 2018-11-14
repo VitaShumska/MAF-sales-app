@@ -132,12 +132,20 @@ export class ApiService {
     return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
   }
 
-  getContactById(number): Observable<any> {
+  getContactById(name): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'contacts/' + number, {headers});
+    return this.http.get(this.API_URL + 'contacts/?q=ContactName=' + name, {headers});
+  }
+
+  getLeadsByPrimaryContact(name): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(this.API_URL + 'leads/?q=PrimaryContactPartyName=' + name, {headers});
   }
 
   getIdentificationContactData(id): Observable<any> {

@@ -13,6 +13,7 @@ import {BreadcrumbsService} from "../../services/breadcrumbs.service";
 export class LeadEnquiryDetailsComponent implements OnInit {
 
   @Input() leadDetails: any = {};
+  @Input() leadId: any = {};
 
   displayedColumns = [
     {
@@ -68,17 +69,19 @@ export class LeadEnquiryDetailsComponent implements OnInit {
               public snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    this.getLeads(0, 5);
+    console.log(this.leadId, this.leadDetails);
+    this.getLeadsByPrimaryContact(this.leadId);
   }
 
-  getLeads(offset, limit) {
+  getLeadsByPrimaryContact(name) {
     this.loadingSpinner.show();
-    this.apiService.getLeads(offset, limit)
+    this.apiService.getLeadsByPrimaryContact(name)
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();
           this.leadsListOriginal  =  data['items'];
           this.leadsList = this.leadsListOriginal;
+          console.log('leadDetails', this.leadDetails);
         },
         (error) => {
           this.loadingSpinner.hide();

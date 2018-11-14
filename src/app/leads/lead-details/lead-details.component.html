@@ -24,6 +24,7 @@
       </ng-template>
       <app-lead-enquiry-details
         [leadDetails]="leadDetails"
+        [leadId]="leadId"
       >
       </app-lead-enquiry-details>
     </mat-tab>
@@ -41,7 +42,7 @@
         IDENTIFICATION
       </ng-template>
       <app-lead-identification
-        [leadDetails]="leadDetails"
+        [identificationContactData]="identificationContactData"
       >
       </app-lead-identification>
     </mat-tab>

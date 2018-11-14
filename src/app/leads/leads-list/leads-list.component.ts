@@ -36,7 +36,7 @@ export class LeadsListComponent implements OnInit {
   // };
   displayedColumns = [
     {
-      name: 'Lead Number',
+      name: 'Lead No.',
       key: 'LeadNumber',
       sort: '',
       disableSort: false
@@ -48,7 +48,7 @@ export class LeadsListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Secondary Purchaser',
+      name: 'Lead Owner',
       key: 'OwnerPartyName',
       sort: '',
       disableSort: false
@@ -60,7 +60,7 @@ export class LeadsListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Unit Number',
+      name: 'Unit No.',
       key: 'MAF_ProductType_c',
       sort: '',
       disableSort: false
@@ -87,9 +87,11 @@ export class LeadsListComponent implements OnInit {
       this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
       window.sessionStorage.getItem('limit') ? this.limit = +window.sessionStorage.getItem('limit') : false;
       window.sessionStorage.getItem('offset') ? this.offset = +window.sessionStorage.getItem('offset') : false;
-      this.getContactsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+      this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
     } else {
-      this.getContacts(this.offset, this.limit);
+      // this.getContacts(this.offset, this.limit);
+      this.getLeads(this.offset, this.limit);
+      // this.getProperties(this.offset, this.limit);
     }
     this.breadcrumbsArr();
   }
@@ -103,6 +105,24 @@ export class LeadsListComponent implements OnInit {
           this.countOfLeads = data['totalResults'];
           this.leadsListOriginal  =  data['items'];
           this.leadsList = this.leadsListOriginal;
+          console.log('contacts', this.leadsList);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+  getLeads(offset, limit) {
+    this.loadingSpinner.show();
+    this.apiService.getLeads(offset, limit)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          this.countOfLeads = data['totalResults'];
+          this.leadsListOriginal  =  data['items'];
+          this.leadsList = this.leadsListOriginal;
+          console.log('contacts', data);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -111,9 +131,24 @@ export class LeadsListComponent implements OnInit {
       );
   }
 
-  getContactsWithFilter(offset, limit, sortParam?, filterParams?) {
+  getProperties(offset, limit) {
     this.loadingSpinner.show();
-    this.apiService.getContactsWithFilter(offset, limit, sortParam, filterParams).subscribe(
+    this.apiService.getProperties(offset, limit)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          console.log('contacts', data);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  getLeadsWithFilter(offset, limit, sortParam?, filterParams?) {
+    this.loadingSpinner.show();
+    this.apiService.getLeadsWithFilter(offset, limit, sortParam, filterParams).subscribe(
       (data:  any) => {
         this.loadingSpinner.hide();
         this.leadsListOriginal = data['items'];
@@ -140,7 +175,7 @@ export class LeadsListComponent implements OnInit {
         item.sort = '';
       }
     });
-    this.getContactsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+    this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
   }
 
   goToPage(url) {
@@ -179,9 +214,9 @@ export class LeadsListComponent implements OnInit {
     this.offset = event.pageIndex * event.pageSize;
     this.limit = event.pageSize;
     if (this.filterParams || this.sortElem) {
-      this.getContactsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+      this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
     } else {
-      this.getContacts(this.offset, this.limit);
+      this.getLeads(this.offset, this.limit);
     }
   }
 
