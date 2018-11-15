@@ -3,13 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize} from 'ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
+import { PropertiesService } from '../../services/properties.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar } from '@angular/material';
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import { FullScreenGalleryComponent } from "../../components/full-screen-gallery/full-screen-gallery.component";
-
-// import 'hammerjs';
 
 @Component({
   selector: 'app-ptoperies-details',
@@ -24,13 +23,12 @@ export class ProperiesDetailsComponent implements OnInit {
   sub;
   unitId;
   unitDetails;
+  unitContent;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   galleryFloorplanImages: NgxGalleryImage[];
   galleryVideos: any = [];
   cmsId;
-  cmsData;
-  cmsTypeData;
   index;
 
   breadcrumbObj = {
@@ -44,6 +42,7 @@ export class ProperiesDetailsComponent implements OnInit {
               private breadcrumbs:  BreadcrumbsService,
               private router: Router,
               private apiService: ApiService,
+              private propertiesService: PropertiesService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) {
   }
@@ -106,9 +105,6 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   onClick(event, type) {
-
-    // this.fullScreenGallery.openGalleryOnCick(event);
-
     const options = {
       index: event.index
     };
@@ -170,7 +166,22 @@ export class ProperiesDetailsComponent implements OnInit {
         this.loadingSpinner.hide();
         this.unitDetails = data;
         this.cmsId = this.unitDetails['MAF_UnitType_c'];
-        this.getXml();
+        this.getPropertiesContent(this.cmsId);
+      },
+      (error) => {
+        this.loadingSpinner.hide();
+        this.openSnackBar('Server error', 'OK');
+      });
+  }
+
+  getPropertiesContent(type) {
+    this.loadingSpinner.show();
+    this.propertiesService.getPropertiesContent(type)
+      .subscribe(data => {
+        this.loadingSpinner.hide();
+        this.unitContent = data;
+        this.getGalleryOption();
+        console.log('unitContent', this.unitContent);
       },
       (error) => {
         this.loadingSpinner.hide();
@@ -184,93 +195,41 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   getGalleryOption () {
-    let allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV', 'STD-T1A'];
-    let type;
-    if ( allTypes.indexOf(this.cmsId) === -1 ) {
-      this.cmsId = null;
-    }
-    if (this.cmsId) {
-      type = 't' + this.cmsId.replace(/\s/g, '_');
-      this.cmsTypeData = this.cmsData[type];
-    } else {
-      type = 't2';
-      this.cmsTypeData = this.cmsData[type];
-    }
-
-    ////////get url for videos////////////
-    const videos = this.cmsTypeData.videos.video;
-    if (typeof videos === 'string') {
-      this.galleryVideos = [];
-      this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + videos);
-    } else if (videos === undefined) {
-      // return this.galleryVideos;
-    } else {
+    ////////get url for videos///////////////
+    const videos = this.unitContent.videos;
+    if (videos.length > 0) {
       this.galleryVideos = [];
       videos.map(item => {
-        this.galleryVideos.push('https://mafsalesapp.com/static/' + type + '/videos/' + item);
+        this.galleryVideos.push(item);
       });
     }
 
     ////////get url for images///////////////
-    const images = this.cmsTypeData.images.image;
-    if (typeof images === 'string') {
-      this.galleryImages = [
-        {
-          small: 'https://mafsalesapp.com/static/' + type + '/images/' + images,
-          medium: 'https://mafsalesapp.com/static/' + type + '/images/' + images,
-          big: 'https://mafsalesapp.com/static/' + type + '/images/' + images
-        }
-      ];
-    } else if (images === undefined) {
-      return this.galleryImages;
-    } else {
-      this.galleryImages = [];
-      images.map(item => {
-        this.galleryImages.push({
-          small: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
-          medium: 'https://mafsalesapp.com/static/' + type + '/images/' + item,
-          big: 'https://mafsalesapp.com/static/' + type + '/images/' + item
+    const images = this.unitContent.images;
+    if (images.length > 0) {
+        this.galleryImages = [];
+        images.map(item => {
+          this.galleryImages.push({
+            small: item.image,
+            medium: item.image,
+            big: item.image
+          });
         });
-      });
     }
 
     ////////get url for floorplans////////////
-    const floorplans = this.cmsTypeData.floorplans.floorplan;
-    if (typeof floorplans === 'string') {
-      this.galleryFloorplanImages = [
-        {
-          small: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + floorplans,
-          medium: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + floorplans,
-          big: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + floorplans
-        }
-      ];
-    } else if (floorplans === undefined) {
-      return this.galleryFloorplanImages;
-    } else {
+    const floorplans = this.unitContent.floorplans;
+    if (floorplans.length > 0) {
       this.galleryFloorplanImages = [];
       floorplans.map(item => {
         this.galleryFloorplanImages.push({
-          small: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + item,
-          medium: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + item,
-          big: 'https://mafsalesapp.com/static/' + type + '/floorplans/' + item
+          small: item.image,
+          medium: item.image,
+          big: item.image
         });
       });
     }
   }
-  getXml() {
-    this.loadingSpinner.show();
-    this.apiService.getXml()
-      .subscribe(xmlData => {
-          this.loadingSpinner.hide();
-        this.cmsData = xmlData['CMS']['Types'];
-        this.getGalleryOption ();
-      },
-      (error) => {
-        this.loadingSpinner.hide();
-        // this.openSnackBar('Server error', 'OK');
-      });
-  }
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,

@@ -14,6 +14,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ApiService } from './services/api.service';
+import { PropertiesService } from './services/properties.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
 import { LoadingSpinnerService } from './services/loading-spinner.service';
 import { FilterCloseService } from './services/filter-close.service';
@@ -61,6 +62,7 @@ import { FullScreenGalleryComponent } from './components/full-screen-gallery/ful
 ],
   providers: [
     ApiService,
+    PropertiesService,
     BreadcrumbsService,
     LoadingSpinnerService,
     FilterCloseService
