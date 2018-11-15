@@ -6,14 +6,14 @@ import { MatSnackBar } from '@angular/material';
 import {BreadcrumbsService} from "../../services/breadcrumbs.service";
 
 @Component({
-  selector: 'app-lead-enquiry-details',
-  templateUrl: './lead-enquiry-details.component.html',
-  styleUrls: ['./lead-enquiry-details.component.scss']
+  selector: 'app-contact-enquiry-details',
+  templateUrl: './contact-enquiry-details.component.html',
+  styleUrls: ['./contact-enquiry-details.component.scss']
 })
-export class LeadEnquiryDetailsComponent implements OnInit {
+export class ContactEnquiryDetailsComponent implements OnInit {
 
+  @Input() contactId;
   @Input() leadDetails: any = {};
-  @Input() leadId: any = {};
 
   displayedColumns = [
     {
@@ -69,8 +69,7 @@ export class LeadEnquiryDetailsComponent implements OnInit {
               public snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    console.log(this.leadId, this.leadDetails);
-    this.getLeadsByPrimaryContact(this.leadId);
+    this.getLeadsByPrimaryContact(this.contactId);
   }
 
   getLeadsByPrimaryContact(name) {
@@ -81,7 +80,6 @@ export class LeadEnquiryDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           this.leadsListOriginal  =  data['items'];
           this.leadsList = this.leadsListOriginal;
-          console.log('leadDetails', this.leadDetails);
         },
         (error) => {
           this.loadingSpinner.hide();

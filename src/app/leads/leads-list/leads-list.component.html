@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="table-body">
-        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/lead-details/' + lead.PrimaryContactPartyName)">
+        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/contact-details/' + lead.PrimaryContactId + '/' + lead.LeadId)">
           <div class="table-cell lead-number">
             <div>
               <p>{{lead.LeadNumber}}</p>

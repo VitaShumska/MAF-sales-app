@@ -4,65 +4,67 @@
       <ng-template mat-tab-label>
         PERSONAL DETAILS
       </ng-template>
-      <app-lead-personal-details
+      <button class="edit-btn"><img src="assets/icons/edit-icon.png"> Edit</button>
+      <app-contact-personal-details
         [leadDetails]="leadDetails"
+        [contactDetails]="contactDetails"
       >
-      </app-lead-personal-details>
+      </app-contact-personal-details>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
         ARABIC DETAILS
       </ng-template>
-      <app-lead-arabic-details
-        [leadDetails]="leadDetails"
+      <app-contact-arabic-details
+        [contactDetails]="contactDetails"
       >
-      </app-lead-arabic-details>
+      </app-contact-arabic-details>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
         ENQUIRY DETAILS
       </ng-template>
-      <app-lead-enquiry-details
+      <app-contact-enquiry-details
         [leadDetails]="leadDetails"
-        [leadId]="leadId"
+        [contactId]="contactId"
       >
-      </app-lead-enquiry-details>
+      </app-contact-enquiry-details>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
         ADDRESS DETAILS
       </ng-template>
-      <app-lead-address-details
-        [leadDetails]="leadDetails"
+      <app-contact-address-details
+        [contactDetails]="contactDetails"
       >
-      </app-lead-address-details>
+      </app-contact-address-details>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
         IDENTIFICATION
       </ng-template>
-      <app-lead-identification
+      <app-contact-identification
         [identificationContactData]="identificationContactData"
       >
-      </app-lead-identification>
+      </app-contact-identification>
     </mat-tab>
   </mat-tab-group>
 
 
-  <div class="action-block" *ngIf="leadId === 'new'">
+  <div class="action-block" *ngIf="contactId === 'new'">
     <button class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
     <button>Create</button>
   </div>
 
-  <div class="expanded-action-block" *ngIf="leadId !== 'new'">
+  <div class="expanded-action-block" *ngIf="contactId !== 'new'">
     <div class="price-block ">
-      <span class="price">PRICE: <b>2,229,000.000</b></span>
+      <span class="price">PRICE: <b>{{leadDetails.Price}}</b></span>
       <span>Payplan: Not Selected</span>
       <span>Discount: Not Selected</span>
       <span>Total amount: <b>2,229,000.000</b></span>
     </div>
     <div class="btn-block">
-      <button class="select-bnt" (click)="openSelectPayplanDialog(leadDetails.LeadId)">Select Payplan</button>
+      <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payplan</button>
       <button class="apply-bnt">Apply Discount(s)</button>
       <button class="cancel-bnt">Generate Quote</button>
       <button>Request</button>

@@ -1,32 +1,32 @@
-<div class="enquiry-table">
-  <div class="table">
-    <div class="table-header">
-      <div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">
-        {{element.name}}
-        <i class="fa fa-chevron-down" *ngIf="element.sort"></i>
-      </div>
-    </div>
-    <div class="table-body">
-      <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/lead-details/' + lead.LeadId)">
-        <div class="table-cell lead-number">
-          <div>
-            <p>{{lead.LeadNumber}}</p>
-          </div>
-        </div>
-        <div class="table-cell" [class]="lead.PrimaryContactPartyName ? 'table-cell' : 'table-cell empty'">{{lead.PrimaryContactPartyName}}</div>
-        <div class="table-cell" [class]="lead.OwnerPartyName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>
-        <div class="table-cell" [class]="lead.MAF_Project_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_Project_c}}</div>
-        <div class="table-cell" [class]="lead.MAF_ProductType_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_ProductType_c}}</div>
-        <div class="table-cell" [class]="lead.LastUpdateDate ? 'table-cell' : 'table-cell empty'"> {{lead.LastUpdateDate | date : 'shortDate' }} </div>
-        <div class="table-cell select"> <mat-checkbox></mat-checkbox> </div>
-      </div>
-      <div class="scrollbar" id="style">
-        <div class="force-overflow"></div>
-      </div>
-      <p class="empty-list" *ngIf="!leadsList?.length"> Leads list is empty </p>
-    </div>
-  </div>
-</div>
+<!--<div class="enquiry-table">-->
+  <!--<div class="table">-->
+    <!--<div class="table-header">-->
+      <!--<div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">-->
+        <!--{{element.name}}-->
+        <!--<i class="fa fa-chevron-down" *ngIf="element.sort"></i>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="table-body">-->
+      <!--<div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/contact-details/' + lead.LeadId)">-->
+        <!--<div class="table-cell lead-number">-->
+          <!--<div>-->
+            <!--<p>{{lead.LeadNumber}}</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="table-cell" [class]="lead.PrimaryContactPartyName ? 'table-cell' : 'table-cell empty'">{{lead.PrimaryContactPartyName}}</div>-->
+        <!--<div class="table-cell" [class]="lead.OwnerPartyName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>-->
+        <!--<div class="table-cell" [class]="lead.MAF_Project_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_Project_c}}</div>-->
+        <!--<div class="table-cell" [class]="lead.MAF_ProductType_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_ProductType_c}}</div>-->
+        <!--<div class="table-cell" [class]="lead.LastUpdateDate ? 'table-cell' : 'table-cell empty'"> {{lead.LastUpdateDate | date : 'shortDate' }} </div>-->
+        <!--<div class="table-cell select"> <mat-checkbox></mat-checkbox> </div>-->
+      <!--</div>-->
+      <!--<div class="scrollbar" id="style">-->
+        <!--<div class="force-overflow"></div>-->
+      <!--</div>-->
+      <!--<p class="empty-list" *ngIf="!leadsList?.length"> Leads list is empty </p>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
 
 <div class="lead-different-details">
   <div class="inputs-block">

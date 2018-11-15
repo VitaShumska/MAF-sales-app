@@ -1,13 +1,15 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-lead-personal-details',
-  templateUrl: './lead-personal-details.component.html',
-  styleUrls: ['./lead-personal-details.component.scss']
+  selector: 'app-contact-personal-details',
+  templateUrl: './contact-personal-details.component.html',
+  styleUrls: ['./contact-personal-details.component.scss']
 })
-export class LeadPersonalDetailsComponent implements OnInit {
+export class ContactPersonalDetailsComponent implements OnInit {
 
+  @Input() contactDetails: any = {};
   @Input() leadDetails: any = {};
   @ViewChild('phone') phone: ElementRef;
 
@@ -38,17 +40,20 @@ export class LeadPersonalDetailsComponent implements OnInit {
     ngModel: 'EmailAddress'
   }];
 
-  constructor(private formBuilder: FormBuilder) { }
+  addUnit = false;
+
+  constructor(private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit() {
     this.group = this.formBuilder.group({
-      firstName: [this.leadDetails.PrimaryContactPersonFirstName],
+      firstName: [this.contactDetails.PrimaryContactPersonFirstName],
       food: [],
       phone: this.formBuilder.array([
         this.createInput()
       ])
     });
-    console.log('contact', this.leadDetails);
+    console.log('contact', this.contactDetails);
   }
 
   createInput() {
@@ -70,7 +75,9 @@ export class LeadPersonalDetailsComponent implements OnInit {
        name: 'Email ' + (this.emailInputs.length + 1),
        ngModel: 'PrimaryContactPhone' + (this.emailInputs.length + 1)
      });
-   }
+   } else if (type === 'unit') {
+      this.addUnit = true;
+    }
   }
 
   removeField(type) {
@@ -81,8 +88,12 @@ export class LeadPersonalDetailsComponent implements OnInit {
     }
   }
 
+  goToPage(url) {
+    this.router.navigate([url]);
+  }
+
   changes() {
-    console.log(this.leadDetails);
+    console.log(this.contactDetails);
   }
 
 }

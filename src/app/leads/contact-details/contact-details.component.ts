@@ -8,18 +8,20 @@ import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { SelectPayplanDialogComponent } from '../../dialogs/select-payplan-dialog/select-payplan-dialog.component';
 
 @Component({
-  selector: 'app-lead-details',
-  templateUrl: './lead-details.component.html',
-  styleUrls: ['./lead-details.component.scss']
+  selector: 'app-contact-details',
+  templateUrl: './contact-details.component.html',
+  styleUrls: ['./contact-details.component.scss']
 })
-export class LeadDetailsComponent implements OnInit {
+export class ContactDetailsComponent implements OnInit {
 
   sub;
+  contactId;
   leadId;
+  contactDetails: any = {};
   leadDetails: any = {};
   identificationContactData: any = {};
   breadcrumbObj = {
-    name: 'Lead Details',
+    name: 'Contact Details',
     backUrl: '/leads',
     param: 0 // because is a parent
   };
@@ -35,10 +37,13 @@ export class LeadDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
+      this.contactId = params['contactId'];
       this.leadId = params['leadId'];
-      console.log('contact', this.leadId);
-      if (this.leadId) {
+      console.log('contact', this.contactId, this.leadId);
+      if (this.contactId) {
         this.getContactById();
+        this.getIdentificationContactData();
+        this.getLeadById();
       } else {
       }
     });
@@ -47,11 +52,10 @@ export class LeadDetailsComponent implements OnInit {
 
   getContactById () {
     this.loadingSpinner.show();
-    this.apiService.getContactById(this.leadId)
+    this.apiService.getContactById(this.contactId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          this.leadDetails = data.items[0];
-          this. getIdentificationContactData();
+          this.contactDetails = data.items[0];
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -61,11 +65,23 @@ export class LeadDetailsComponent implements OnInit {
 
   getIdentificationContactData () {
     this.loadingSpinner.show();
-    this.apiService.getIdentificationContactData(this.leadDetails.PartyId)
+    this.apiService.getIdentificationContactData(this.contactId)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.identificationContactData = data.items[0];
-          console.log('contact', this.identificationContactData);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  getLeadById() {
+    this.loadingSpinner.show();
+    this.apiService.getLeadById(this.leadId)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.leadDetails = data;
         },
         (error) => {
           this.loadingSpinner.hide();

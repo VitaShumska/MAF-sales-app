@@ -137,7 +137,7 @@ export class ApiService {
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'contacts/?q=ContactName=' + name, {headers});
+    return this.http.get(this.API_URL + 'contacts/?q=PartyId=' + name, {headers});
   }
 
   getLeadsByPrimaryContact(name): Observable<any> {

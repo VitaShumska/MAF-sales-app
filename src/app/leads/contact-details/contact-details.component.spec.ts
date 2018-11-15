@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeadArabicDetailsComponent } from './lead-arabic-details.component';
+import { LeadDetailsComponent } from './contact-details.component';
 
-describe('LeadArabicDetailsComponent', () => {
-  let component: LeadArabicDetailsComponent;
-  let fixture: ComponentFixture<LeadArabicDetailsComponent>;
+describe('LeadDetailsComponent', () => {
+  let component: LeadDetailsComponent;
+  let fixture: ComponentFixture<LeadDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LeadArabicDetailsComponent ]
+      declarations: [ LeadDetailsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LeadArabicDetailsComponent);
+    fixture = TestBed.createComponent(LeadDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

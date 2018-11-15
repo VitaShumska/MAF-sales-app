@@ -1,0 +1,38 @@
+<div class="lead-different-details">
+  <div class="inputs-block">
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="country">Country</label>
+        <input id="country" type="text" [(ngModel)]="contactDetails.Country">
+      </div>
+
+      <div class="field-block">
+        <label for="address1">Address Line 1 or P.O. Box</label>
+        <input id="address1" type="text" [(ngModel)]="contactDetails.AddressLine1">
+      </div>
+
+      <div class="field-block" *ngIf="contactDetails.PrimaryContactAddress3">
+        <label for="arabicAddress">Arabic Address 3</label>
+        <input id="arabicAddress" type="text" [(ngModel)]="contactDetails.PrimaryContactAddress3">
+      </div>
+
+    </div>
+
+    <div fxFlex="50">
+      <div class="field-block" *ngIf="contactDetails.AddressLine2">
+        <label for="address2">Address Line 2</label>
+        <input id="address2" type="text" [(ngModel)]="contactDetails.AddressLine2">
+      </div>
+
+      <div class="field-block" *ngIf="contactDetails.PrimaryContactAddress4">
+        <label for="address4">Address Line 4</label>
+        <input id="address4" type="text" [(ngModel)]="contactDetails.PrimaryContactAddress4">
+      </div>
+
+      <div class="field-block">
+        <label for="arabicFirstNameMother">City</label>
+        <input id="arabicFirstNameMother" type="text" [(ngModel)]="contactDetails.City">
+      </div>
+    </div>
+  </div>
+</div>

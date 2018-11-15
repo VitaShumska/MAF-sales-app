@@ -18,7 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material";
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatRadioModule } from '@angular/material/radio'
+import { MatRadioModule } from '@angular/material/radio';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 import { ApiService } from './services/api.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
@@ -36,13 +37,12 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ProperiesDetailsComponent } from './properies/properies-details/properies-details.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { FullScreenGalleryComponent } from './components/full-screen-gallery/full-screen-gallery.component';
-import { LeadPersonalDetailsComponent } from './leads/lead-personal-details/lead-personal-details.component';
-import { LeadDetailsComponent } from './leads/lead-details/lead-details.component';
-import { AngularFileUploaderModule } from "angular-file-uploader";
-import { LeadArabicDetailsComponent } from './leads/lead-arabic-details/lead-arabic-details.component';
-import { LeadAddressDetailsComponent } from './leads/lead-address-details/lead-address-details.component';
-import { LeadIdentificationComponent } from './leads/lead-identification/lead-identification.component';
-import { LeadEnquiryDetailsComponent } from './leads/lead-enquiry-details/lead-enquiry-details.component';
+import { ContactPersonalDetailsComponent } from './leads/contact-personal-details/contact-personal-details.component';
+import { ContactDetailsComponent } from './leads/contact-details/contact-details.component';
+import { ContactArabicDetailsComponent } from './leads/contact-arabic-details/contact-arabic-details.component';
+import { ContactAddressDetailsComponent } from './leads/contact-address-details/contact-address-details.component';
+import { ContactIdentificationComponent } from './leads/contact-identification/contact-identification.component';
+import { ContactEnquiryDetailsComponent } from './leads/contact-enquiry-details/contact-enquiry-details.component';
 import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/select-payplan-dialog.component';
 
 @NgModule({
@@ -58,12 +58,12 @@ import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/se
     ProperiesDetailsComponent,
     LoadingSpinnerComponent,
     FullScreenGalleryComponent,
-    LeadPersonalDetailsComponent,
-    LeadDetailsComponent,
-    LeadArabicDetailsComponent,
-    LeadAddressDetailsComponent,
-    LeadIdentificationComponent,
-    LeadEnquiryDetailsComponent,
+    ContactPersonalDetailsComponent,
+    ContactDetailsComponent,
+    ContactArabicDetailsComponent,
+    ContactAddressDetailsComponent,
+    ContactIdentificationComponent,
+    ContactEnquiryDetailsComponent,
     SelectPayplanDialogComponent
   ],
   imports: [

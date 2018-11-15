@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-lead-identification',
-  templateUrl: './lead-identification.component.html',
-  styleUrls: ['./lead-identification.component.scss']
+  selector: 'app-contact-identification',
+  templateUrl: './contact-identification.component.html',
+  styleUrls: ['./contact-identification.component.scss']
 })
-export class LeadIdentificationComponent implements OnInit {
+export class ContactIdentificationComponent implements OnInit {
 
   @Input() identificationContactData: any = {};
 

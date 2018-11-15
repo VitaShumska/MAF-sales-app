@@ -3,27 +3,27 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="title">Title</label>
-        <input id="title" type="text" [(ngModel)]="leadDetails.Title">
+        <input id="title" type="text" [(ngModel)]="contactDetails.Title">
       </div>
 
       <div class="field-block">
         <label for="firstName">First Name</label>
-        <input id="firstName" type="text" [(ngModel)]="leadDetails.FirstName">
+        <input id="firstName" type="text" [(ngModel)]="contactDetails.FirstName">
       </div>
 
       <div class="field-block">
         <label for="middleName">Middle Name</label>
-        <input id="middleName" type="text" [(ngModel)]="leadDetails.MiddleName">
+        <input id="middleName" type="text" [(ngModel)]="contactDetails.MiddleName">
       </div>
 
       <div class="field-block">
         <label for="lastName">Last Name</label>
-        <input id="lastName" type="text" [(ngModel)]="leadDetails.LastName">
+        <input id="lastName" type="text" [(ngModel)]="contactDetails.LastName">
       </div>
 
       <div class="field-block" *ngFor="let inputData of phoneInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="leadDetails[inputData.ngModel]" (keyup)="changes()">
+        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
       </div>
 
       <div class="dynamically-btn">
@@ -34,7 +34,7 @@
 
       <div class="field-block" *ngFor="let inputData of emailInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="leadDetails[inputData.ngModel]" (keyup)="changes()">
+        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
       </div>
 
       <div class="dynamically-btn">
@@ -42,8 +42,16 @@
         <button class="remove-field-btn" (click)="removeField('email')" *ngIf="emailInputs.length > 1">- remove email</button>
       </div>
 
+      <div class="field-block">
+        <label for="unit">Unit</label>
+        <p id="unit">{{leadDetails.PrimaryInventoryItemId}}vhbjbb</p>
+        <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="leadDetails.PrimaryInventoryItemId">+ add property</button>
+      </div>
 
-
+      <div class="dynamically-btn" style="justify-content: flex-end">
+        <button class="add-field-btn" (click)="goToPage('/unit-details/300000008883186')" *ngIf="!leadDetails.PrimaryInventoryItemId">SHOW INFO</button>
+        <button class="change-btn" (click)="goToPage('/units')" *ngIf="!leadDetails.PrimaryInventoryItemId">CHANGE</button>
+      </div>
 
       <div class="attachment-block">
         <p>Attachments:</p>
@@ -56,32 +64,32 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="nationality">Nationality</label>
-        <input id="nationality" type="text" [(ngModel)]="leadDetails.Nationality_c">
+        <input id="nationality" type="text" [(ngModel)]="contactDetails.Nationality_c">
       </div>
 
       <div class="field-block">
         <label for="residence">Residence</label>
-        <input id="residence" type="text" [(ngModel)]="leadDetails.Residence_c">
+        <input id="residence" type="text" [(ngModel)]="contactDetails.Residence_c">
       </div>
 
       <div class="field-block">
         <label for="dateOfBirth">Date of Birth</label>
-        <input id="dateOfBirth" type="text" [(ngModel)]="leadDetails.DateOfBirth">
+        <input id="dateOfBirth" type="text" [(ngModel)]="contactDetails.DateOfBirth">
       </div>
 
       <div class="field-block">
         <label for="gender">Gender</label>
-        <input id="gender" type="text" [(ngModel)]="leadDetails.Gender">
+        <input id="gender" type="text" [(ngModel)]="contactDetails.Gender">
       </div>
 
       <div class="field-block">
         <label for="type">Type</label>
-        <input id="type" type="text" [(ngModel)]="leadDetails.Type">
+        <input id="type" type="text" [(ngModel)]="contactDetails.Type">
       </div>
 
       <div class="field-block">
         <label for="owner">Owner</label>
-        <input id="owner" type="text" [(ngModel)]="leadDetails.OwnerName">
+        <input id="owner" type="text" [(ngModel)]="contactDetails.OwnerName">
       </div>
     </div>
   </div>

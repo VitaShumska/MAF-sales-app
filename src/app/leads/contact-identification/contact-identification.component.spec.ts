@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeadIdentificationComponent } from './lead-identification.component';
+import { LeadIdentificationComponent } from './contact-identification.component';
 
 describe('LeadIdentificationComponent', () => {
   let component: LeadIdentificationComponent;

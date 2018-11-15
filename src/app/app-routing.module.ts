@@ -6,7 +6,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LeadsListComponent } from './leads/leads-list/leads-list.component';
 import { PropertiesListComponent } from './properies/properties-list/properties-list.component';
 import { ProperiesDetailsComponent } from './properies/properies-details/properies-details.component';
-import { LeadDetailsComponent } from './leads/lead-details/lead-details.component';
+import { ContactDetailsComponent } from './leads/contact-details/contact-details.component';
 
 const routes: Routes = [
   // { path: '', component: BaseComponent },
@@ -19,7 +19,7 @@ const routes: Routes = [
       { path: 'leads', component: LeadsListComponent },
       { path: 'units', component: PropertiesListComponent },
       { path: 'unit-details/:unitId', component: ProperiesDetailsComponent },
-      { path: 'lead-details/:leadId', component: LeadDetailsComponent }
+      { path: 'contact-details/:contactId/:leadId', component: ContactDetailsComponent }
     ]
   },
   { path: '**', redirectTo: '/home'}
