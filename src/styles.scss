@@ -71,16 +71,6 @@ button {
     z-index: 9;
     padding: 0 6px 0 0;
 
-    .properties-table .table-cell:first-child {
-      flex: 1.5;
-      padding-left: 15px;
-    }
-
-    .properties-table .table-cell:nth-child(2),
-    .properties-table .table-cell:nth-child(5) {
-      flex: 0.7
-    }
-
     .table-cell {
       &.asc {
         i {
@@ -203,6 +193,19 @@ button {
   }
 }
 
+.properties-table {
+  .table .table-header {
+    .table-cell:first-child {
+      flex: 1.5;
+      padding-left: 15px;
+    }
+
+    .table-cell:nth-child(2),
+    .table-cell:nth-child(5) {
+      flex: 0.7
+    }
+  }
+}
 
 @supports (-webkit-marquee-repetition:infinite) and (object-fit:fill) {
   .table {

@@ -5,6 +5,7 @@ import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { PageEvent } from '@angular/material';
+import {PropertiesService} from "../../services/properties.service";
 
 
 @Component({
@@ -15,6 +16,7 @@ import { PageEvent } from '@angular/material';
 export class PropertiesListComponent implements OnInit {
   constructor(
     private apiService: ApiService,
+    private propertiesService: PropertiesService,
     private router: Router,
     private breadcrumbs:  BreadcrumbsService,
     private loadingSpinner: LoadingSpinnerService,
@@ -22,6 +24,7 @@ export class PropertiesListComponent implements OnInit {
 
   propertiesListOriginal: any[] = [];
   propertiesList;
+  propertiesListContent;
   filterParams;
   pageEvent: PageEvent;
   offset = 0;
@@ -105,6 +108,7 @@ export class PropertiesListComponent implements OnInit {
       this.getProperties(this.offset, this.limit);
     }
     this.breadcrumbsArr();
+    this.getPropertiesContentList();
   }
 
   getProperties(offset, limit) {
@@ -146,6 +150,22 @@ export class PropertiesListComponent implements OnInit {
     );
   }
 
+  getPropertiesContentList() {
+    this.loadingSpinner.show();
+    this.propertiesService.getPropertiesContentList().subscribe(
+      (data:  any) => {
+        this.loadingSpinner.hide();
+        this.propertiesListContent = data;
+        console.log('contet', this.propertiesListContent);
+        console.log('!!!!!!!!!', this.getTitleImage('1BED-T2'));
+      },
+      (error) => {
+        this.loadingSpinner.hide();
+        this.openSnackBar('Server error', 'OK');
+      }
+    );
+  }
+
   getCountOfAvailable () {
     this.loadingSpinner.show();
     let filterParams;
@@ -164,16 +184,20 @@ export class PropertiesListComponent implements OnInit {
       });
   }
 
-  parseFolderName(name) {
-    const allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV', 'STD-T1A'];
-    if ( allTypes.indexOf(name) === -1 ) {
-      return '2';
+  getTitleImage(type) {
+    const index = this.propertiesListContent.map(item => item.type).indexOf(type);
+    if (index !== -1) {
+      if (this.propertiesListContent[index].image_preview === null) {
+        return 'assets/images/image-overlay.png';
+      } else {
+        return this.propertiesListContent[index].image_preview;
+      }
+    } else {
+      return 'assets/images/image-overlay.png';
     }
-    return name.replace(/\s/g, '_');
   }
 
   sortByKey(sortElem) {
-    // this.clearSearchInput();
     this.sortElem = sortElem;
     this.displayedColumns.forEach(item => {
       if (sortElem.key === item.key) {
