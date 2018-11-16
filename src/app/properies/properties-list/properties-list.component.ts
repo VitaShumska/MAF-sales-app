@@ -136,7 +136,6 @@ export class PropertiesListComponent implements OnInit {
     // this.clearSearchInput();
     this.apiService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
       (data:  any) => {
-        console.log('data', data);
         this.loadingSpinner.hide();
         this.propertiesListOriginal = data['items'];
         this.countOfProperties = data['totalResults'];
@@ -156,8 +155,6 @@ export class PropertiesListComponent implements OnInit {
       (data:  any) => {
         this.loadingSpinner.hide();
         this.propertiesListContent = data;
-        console.log('contet', this.propertiesListContent);
-        console.log('!!!!!!!!!', this.getTitleImage('1BED-T2'));
       },
       (error) => {
         this.loadingSpinner.hide();

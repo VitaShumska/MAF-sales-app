@@ -44,7 +44,7 @@
 
       <div class="field-block">
         <label for="unit">Unit</label>
-        <p id="unit">{{leadDetails.PrimaryInventoryItemId}}vhbjbb</p>
+        <p id="unit">{{leadDetails.PrimaryInventoryItemId}}</p>
         <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="leadDetails.PrimaryInventoryItemId">+ add property</button>
       </div>
 
@@ -64,12 +64,12 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="nationality">Nationality</label>
-        <input id="nationality" type="text" [(ngModel)]="contactDetails.Nationality_c">
+        <input id="nationality" type="text" [(ngModel)]="contactDetails.PersonDEO_Nationality_c">
       </div>
 
       <div class="field-block">
         <label for="residence">Residence</label>
-        <input id="residence" type="text" [(ngModel)]="contactDetails.Residence_c">
+        <input id="residence" type="text" [(ngModel)]="contactDetails.PersonDEO_Residence_c">
       </div>
 
       <div class="field-block">

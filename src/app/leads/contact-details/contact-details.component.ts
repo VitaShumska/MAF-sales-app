@@ -25,6 +25,42 @@ export class ContactDetailsComponent implements OnInit {
     backUrl: '/leads',
     param: 0 // because is a parent
   };
+  editAllow = true;
+  newContact = {
+    'FirstName' : '',
+    'LastName' : '',
+    'LastNamePrefix' : '',
+    'MiddleName' : '',
+    'OwnerName' : '',
+    'Type' : '',
+    'DateOfBirth' : '',
+    'PlaceOfBirth' : '',
+    'Gender' : '',
+    'Title' : '',
+    'CreationDate' : '',
+    'LastUpdateDate' : '',
+    'LastUpdatedBy' : '',
+    'MobileCountryCode' : '',
+    'MobileNumber' : '',
+    'EmailAddress' : '',
+    'ContactUniqueName' : '',
+    'AddressNumber' : '',
+    'AddressLine1' : '',
+    'AddressLine2' : '',
+    'AddressLine3' : '',
+    'AddressLine4' : '',
+    'City' : '',
+    'Country' : '',
+    'PersonDEO_ArabicFirstName_c' : '',
+    'PersonDEO_ArabicMiddleName_c' : '',
+    'PersonDEO_ArabicLastName_c' : '',
+    'PersonDEO_Nationality_c' : 'Andorra',
+    'PersonDEO_Residence_c' : '',
+    'PersonDEO_MAF_FirstNameOfFather_c' : '',
+    'PersonDEO_MAF_ArabicFirstNameOfFather_c' : '',
+    'PersonDEO_MAF_ArabicFirstNameOfMother_c' : '',
+    'PersonDEO_MAF_AddressArb_c' : '',
+  };
 
   constructor(private route: ActivatedRoute,
               private breadcrumbs:  BreadcrumbsService,
@@ -40,11 +76,13 @@ export class ContactDetailsComponent implements OnInit {
       this.contactId = params['contactId'];
       this.leadId = params['leadId'];
       console.log('contact', this.contactId, this.leadId);
-      if (this.contactId) {
+      if (this.contactId !== 'new' && this.leadId !== 'new') {
         this.getContactById();
         this.getIdentificationContactData();
         this.getLeadById();
+        this.editAllow = false;
       } else {
+        this.contactDetails = this.newContact;
       }
     });
     this.breadcrumbsArr();
@@ -56,6 +94,9 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.contactDetails = data.items[0];
+          delete this.contactDetails.UpdateFlag;
+          delete this.contactDetails.DeleteFlag;
+          delete this.contactDetails.links;
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -72,7 +113,7 @@ export class ContactDetailsComponent implements OnInit {
         },
         (error) => {
           this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
+          this.openSnackBar('Server error', 'OK')
         });
   }
 
@@ -89,6 +130,36 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
+  updateContact(id) {
+    this.loadingSpinner.show();
+    console.log('update', this.contactDetails);
+    this.apiService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          console.log('updated!!!!', data);
+          this.editAllow = false;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  createContact() {
+    this.loadingSpinner.show();
+    console.log('cerate', this.contactDetails);
+    this.apiService.createContact(this.contactDetails)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          console.log('created!!!!', data);
+          this.editAllow = false;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
   goToPage(url) {
     this.router.navigate([url]);
   }
@@ -96,6 +167,10 @@ export class ContactDetailsComponent implements OnInit {
   breadcrumbsArr() {
     this.breadcrumbObj['url'] = this.router.url;
     this.breadcrumbs.createArr(this.breadcrumbObj);
+  }
+
+  changeEditAccess() {
+    this.editAllow = true;
   }
 
   openSnackBar(message: string, action: string) {

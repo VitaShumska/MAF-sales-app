@@ -1,10 +1,10 @@
-<div class="lead-details">
+<div class="contact-details" [class]="editAllow ? 'contact-details edit' : 'contact-details'">
+  <button *ngIf="!editAllow" class="edit-btn" (click)="changeEditAccess()"><img src="assets/icons/edit-icon.png"></button>
   <mat-tab-group>
     <mat-tab>
       <ng-template mat-tab-label>
         PERSONAL DETAILS
       </ng-template>
-      <button class="edit-btn"><img src="assets/icons/edit-icon.png"> Edit</button>
       <app-contact-personal-details
         [leadDetails]="leadDetails"
         [contactDetails]="contactDetails"
@@ -51,12 +51,13 @@
   </mat-tab-group>
 
 
-  <div class="action-block" *ngIf="contactId === 'new'">
+  <div class="action-block" *ngIf="editAllow">
     <button class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
-    <button>Create</button>
+    <button *ngIf="contactId === 'new'" (click)="createContact()">Create</button>
+    <button *ngIf="contactId !== 'new'" (click)="updateContact()">Update</button>
   </div>
 
-  <div class="expanded-action-block" *ngIf="contactId !== 'new'">
+  <div class="expanded-action-block" *ngIf="!editAllow">
     <div class="price-block ">
       <span class="price">PRICE: <b>{{leadDetails.Price}}</b></span>
       <span>Payplan: Not Selected</span>

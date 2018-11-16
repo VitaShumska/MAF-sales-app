@@ -1,4 +1,4 @@
-.lead-details {
+.contact-details {
   color: #757575;
   background-color: #efefef;
   height: calc(100vh - 160px);
@@ -29,8 +29,16 @@
 
   .edit-btn {
     color: #8a1638;
-    background-color: transparent;
     border: none;
+    position: absolute;
+    background-color: #ffffff;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.24), 0 0 6px rgba(0, 0, 0, 0.12);
+    border-radius: 28px;
+    z-index: 2;
+    top: 115px;
+    right: 40px;
   }
 }
 

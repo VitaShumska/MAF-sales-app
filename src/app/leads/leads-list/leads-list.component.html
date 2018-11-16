@@ -1,4 +1,4 @@
-<div class="leads">
+<div class="leads new">
   <app-search
     [inputList]="leadsListOriginal"
     [searchColumns]="searchColumns"
@@ -48,4 +48,5 @@
       </div>
     </div>
   </div>
+  <button class="add-new-btn" (click)="goToPage('/contact-details/new/new')">+</button>
 </div>

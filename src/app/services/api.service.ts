@@ -156,6 +156,22 @@ export class ApiService {
     return this.http.get(this.API_URL + '/MAF_Identification_c/?q=MAF_Contact_Id_c=' + id, {headers});
   }
 
+  createContact(data): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.post(this.API_URL + 'contacts', data,{headers});
+  }
+
+  updateContact(id, data): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    // headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    // headers = headers.append('Accept', 'application/json');
+    return this.http.patch(this.API_URL + 'contacts/' + id, data,{headers});
+  }
+
 
 
   ///////////////Additional function//////////
