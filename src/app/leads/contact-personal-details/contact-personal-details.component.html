@@ -45,12 +45,12 @@
       <div class="field-block">
         <label for="unit">Unit</label>
         <p id="unit">{{leadDetails.PrimaryInventoryItemId}}</p>
-        <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="leadDetails.PrimaryInventoryItemId">+ add property</button>
+        <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="!leadDetails.PrimaryInventoryItemId">+ add property</button>
       </div>
 
       <div class="dynamically-btn" style="justify-content: flex-end">
-        <button class="add-field-btn" (click)="goToPage('/unit-details/300000008883186')" *ngIf="!leadDetails.PrimaryInventoryItemId">SHOW INFO</button>
-        <button class="change-btn" (click)="goToPage('/units')" *ngIf="!leadDetails.PrimaryInventoryItemId">CHANGE</button>
+        <button class="add-field-btn" (click)="goToPage('/unit-details/300000008883186')" *ngIf="leadDetails.PrimaryInventoryItemId">SHOW INFO</button>
+        <button class="change-btn" (click)="goToPage('/units')" *ngIf="leadDetails.PrimaryInventoryItemId">CHANGE</button>
       </div>
 
       <div class="attachment-block">

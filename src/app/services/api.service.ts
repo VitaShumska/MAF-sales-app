@@ -94,6 +94,13 @@ export class ApiService {
     return this.http.get(this.API_URL + 'leads/' + id, {headers});
   }
 
+  createLead(data): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.post(this.API_URL + '/leads', data,{headers});
+  }
+
   getDropdownOption(param): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
@@ -159,8 +166,7 @@ export class ApiService {
   createContact(data): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
+    headers = headers.append('Content-Type', 'application/json');
     return this.http.post(this.API_URL + 'contacts', data,{headers});
   }
 

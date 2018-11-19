@@ -7,6 +7,7 @@ import { LeadsListComponent } from './leads/leads-list/leads-list.component';
 import { PropertiesListComponent } from './properies/properties-list/properties-list.component';
 import { ProperiesDetailsComponent } from './properies/properies-details/properies-details.component';
 import { ContactDetailsComponent } from './leads/contact-details/contact-details.component';
+import {CreateLeadComponent} from "./leads/create-lead/create-lead.component";
 
 const routes: Routes = [
   // { path: '', component: BaseComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
       { path: 'leads', component: LeadsListComponent },
       { path: 'units', component: PropertiesListComponent },
       { path: 'unit-details/:unitId', component: ProperiesDetailsComponent },
-      { path: 'contact-details/:contactId/:leadId', component: ContactDetailsComponent }
+      { path: 'contact-details/:contactId/:leadId', component: ContactDetailsComponent },
+      { path: 'create-lead', component: CreateLeadComponent }
     ]
   },
   { path: '**', redirectTo: '/home'}

@@ -53,8 +53,8 @@
 
   <div class="action-block" *ngIf="editAllow">
     <button class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
-    <button *ngIf="contactId === 'new'" (click)="createContact()">Create</button>
-    <button *ngIf="contactId !== 'new'" (click)="updateContact()">Update</button>
+    <button *ngIf="contactId === 'new'" (click)="createContact()" [disabled]="!contactDetails.EmailAddress">Create</button>
+    <button *ngIf="contactId !== 'new'" (click)="updateContact()" [disabled]="!contactDetails.EmailAddress">Update</button>
   </div>
 
   <div class="expanded-action-block" *ngIf="!editAllow">
@@ -65,10 +65,10 @@
       <span>Total amount: <b>2,229,000.000</b></span>
     </div>
     <div class="btn-block">
-      <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payplan</button>
-      <button class="apply-bnt">Apply Discount(s)</button>
-      <button class="cancel-bnt">Generate Quote</button>
-      <button>Request</button>
+      <button class="select-bnt" disabled (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payplan</button>
+      <button class="apply-bnt" disabled>Apply Discount(s)</button>
+      <button class="cancel-bnt" disabled>Generate Quote</button>
+      <button disabled>Request</button>
     </div>
   </div>
 </div>

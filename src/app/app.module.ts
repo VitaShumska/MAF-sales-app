@@ -45,6 +45,7 @@ import { ContactAddressDetailsComponent } from './leads/contact-address-details/
 import { ContactIdentificationComponent } from './leads/contact-identification/contact-identification.component';
 import { ContactEnquiryDetailsComponent } from './leads/contact-enquiry-details/contact-enquiry-details.component';
 import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/select-payplan-dialog.component';
+import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/se
     ContactAddressDetailsComponent,
     ContactIdentificationComponent,
     ContactEnquiryDetailsComponent,
-    SelectPayplanDialogComponent
+    SelectPayplanDialogComponent,
+    CreateLeadComponent
   ],
   imports: [
     BrowserModule,

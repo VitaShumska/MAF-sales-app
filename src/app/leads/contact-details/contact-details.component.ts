@@ -29,37 +29,37 @@ export class ContactDetailsComponent implements OnInit {
   newContact = {
     'FirstName' : '',
     'LastName' : '',
-    'LastNamePrefix' : '',
+    // 'LastNamePrefix' : '',
     'MiddleName' : '',
-    'OwnerName' : '',
-    'Type' : '',
-    'DateOfBirth' : '',
-    'PlaceOfBirth' : '',
-    'Gender' : '',
-    'Title' : '',
-    'CreationDate' : '',
-    'LastUpdateDate' : '',
-    'LastUpdatedBy' : '',
-    'MobileCountryCode' : '',
+    // 'OwnerName' : '',
+    // 'Type' : '',
+    // 'DateOfBirth' : '',
+    // 'PlaceOfBirth' : '',
+    // 'Gender' : '',
+    // 'Title' : '',
+    // 'CreationDate' : '',
+    // 'LastUpdateDate' : '',
+    // 'LastUpdatedBy' : '',
+    // 'MobileCountryCode' : '',
     'MobileNumber' : '',
     'EmailAddress' : '',
-    'ContactUniqueName' : '',
-    'AddressNumber' : '',
-    'AddressLine1' : '',
-    'AddressLine2' : '',
-    'AddressLine3' : '',
-    'AddressLine4' : '',
-    'City' : '',
-    'Country' : '',
-    'PersonDEO_ArabicFirstName_c' : '',
-    'PersonDEO_ArabicMiddleName_c' : '',
-    'PersonDEO_ArabicLastName_c' : '',
-    'PersonDEO_Nationality_c' : 'Andorra',
-    'PersonDEO_Residence_c' : '',
-    'PersonDEO_MAF_FirstNameOfFather_c' : '',
-    'PersonDEO_MAF_ArabicFirstNameOfFather_c' : '',
-    'PersonDEO_MAF_ArabicFirstNameOfMother_c' : '',
-    'PersonDEO_MAF_AddressArb_c' : '',
+    // 'ContactUniqueName' : '',
+    // 'AddressNumber' : '',
+    // 'AddressLine1' : '',
+    // 'AddressLine2' : '',
+    // 'AddressLine3' : '',
+    // 'AddressLine4' : '',
+    // 'City' : '',
+    // 'Country' : '',
+    // 'PersonDEO_ArabicFirstName_c' : '',
+    // 'PersonDEO_ArabicMiddleName_c' : '',
+    // 'PersonDEO_ArabicLastName_c' : '',
+    // 'PersonDEO_Nationality_c' : '',
+    // 'PersonDEO_Residence_c' : '',
+    // 'PersonDEO_MAF_FirstNameOfFather_c' : '',
+    // 'PersonDEO_MAF_ArabicFirstNameOfFather_c' : '',
+    // 'PersonDEO_MAF_ArabicFirstNameOfMother_c' : '',
+    // 'PersonDEO_MAF_AddressArb_c' : ''
   };
 
   constructor(private route: ActivatedRoute,
@@ -76,9 +76,9 @@ export class ContactDetailsComponent implements OnInit {
       this.contactId = params['contactId'];
       this.leadId = params['leadId'];
       if (this.contactId !== 'new' && this.leadId !== 'new') {
-        this.getContactById();
+        this.getContactById(this.contactId);
         this.getIdentificationContactData();
-        this.getLeadById();
+        this.getLeadById(this.leadId);
         this.editAllow = false;
       } else {
         this.contactDetails = this.newContact;
@@ -87,9 +87,9 @@ export class ContactDetailsComponent implements OnInit {
     this.breadcrumbsArr();
   }
 
-  getContactById () {
+  getContactById (id) {
     this.loadingSpinner.show();
-    this.apiService.getContactById(this.contactId)
+    this.apiService.getContactById(id)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.contactDetails = data.items[0];
@@ -125,9 +125,9 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
-  getLeadById() {
+  getLeadById(id) {
     this.loadingSpinner.show();
-    this.apiService.getLeadById(this.leadId)
+    this.apiService.getLeadById(id)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.leadDetails = data;
@@ -138,8 +138,9 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
-  updateContact(id) {
+  updateContact() {
     this.loadingSpinner.show();
+    console.log('update', this.contactDetails.PartyNumber, this.contactDetails);
     this.apiService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
@@ -159,6 +160,7 @@ export class ContactDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           console.log('created!!!!', data);
           this.editAllow = false;
+          this.goToPage('/contact-details/' + data.PartyId + '/new');
         },
         (error) => {
           this.loadingSpinner.hide();

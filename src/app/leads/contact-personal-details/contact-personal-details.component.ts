@@ -31,7 +31,8 @@ export class ContactPersonalDetailsComponent implements OnInit {
   phoneInputs = [{
     id: 1,
     name: 'Phone',
-    ngModel: 'OverallPrimaryFormattedPhoneNumber'
+    ngModel: 'MobileNumber'
+    // ngModel: 'OverallPrimaryFormattedPhoneNumber'
   }];
 
   emailInputs = [{
