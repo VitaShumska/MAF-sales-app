@@ -1,0 +1,37 @@
+<div class="create-lead">
+  <div class="inputs-block">
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="primary">Primary Purchaser</label>
+        <input id="primary" type="text" [(ngModel)]="newLead.primaryPurchaser">
+      </div>
+
+      <div class="field-block">
+        <label for="secondary">Secondary Purchaser</label>
+        <input id="secondary" type="text" [(ngModel)]="newLead.secondaryPurchaser">
+      </div>
+
+      <div class="field-block">
+        <label for="owner">Lead Owner</label>
+        <input id="owner" type="text" [(ngModel)]="newLead.leadOwner">
+      </div>
+    </div>
+
+    <div fxFlex="50">
+      <div class="field-block">
+        <label for="unitType">Unit/Type</label>
+        <input id="unitType" type="text" [(ngModel)]="newLead.UnitType">
+      </div>
+
+      <div class="field-block">
+        <label for="unitNo">Unit Number</label>
+        <input id="unitNo" type="text" [(ngModel)]="newLead.unitNumber">
+      </div>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <button class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
+    <button (click)="createLead()">Create</button>
+  </div>
+</div>
