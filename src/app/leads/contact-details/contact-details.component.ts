@@ -75,7 +75,6 @@ export class ContactDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.contactId = params['contactId'];
       this.leadId = params['leadId'];
-      console.log('contact', this.contactId, this.leadId);
       if (this.contactId !== 'new' && this.leadId !== 'new') {
         this.getContactById();
         this.getIdentificationContactData();
@@ -110,6 +109,15 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.identificationContactData = data.items[0];
+          if (data.items.length === 0){
+            this.identificationContactData = {
+              'MAF_IdentificationType_c': '',
+              'MAF_IDNo_c': '',
+              'MAF_IssuingAuthority_c': '',
+              'MAF_IssueDate_c': '',
+              'MAF_ExpiryDate_c': ''
+            };
+          }
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -132,11 +140,9 @@ export class ContactDetailsComponent implements OnInit {
 
   updateContact(id) {
     this.loadingSpinner.show();
-    console.log('update', this.contactDetails);
     this.apiService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('updated!!!!', data);
           this.editAllow = false;
         },
         (error) => {
@@ -186,7 +192,6 @@ export class ContactDetailsComponent implements OnInit {
     const dialogRef = this.dialog.open(SelectPayplanDialogComponent, config);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('dialog', id);
       }
     });
   }
