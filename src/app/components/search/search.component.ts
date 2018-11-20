@@ -10,6 +10,7 @@ export class SearchComponent implements OnInit {
   searchText;
   searchPlaceholder = 'Search';
   changeSearch = _.debounce(() => {this.debouncedChangeSearch(); }, 300);
+  location;
 
   @Input() searchColumns;
   @Input() inputList: any[] = [];
@@ -20,6 +21,8 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.searchText = sessionStorage.getItem('searchText');
     this.changeSearch();
+    this.location = location.href;
+    console.log('location', this.location);
   }
 
   public debouncedChangeSearch() {

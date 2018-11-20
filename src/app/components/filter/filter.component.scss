@@ -45,6 +45,19 @@
         height: 100%;
       }
     }
+    .clear-btn {
+      border: none;
+      height: 30px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);
+      border-radius: 15px;
+      background-color: #8a1638;
+      line-height: 30px;
+      font-size: 14px;
+      font-family: Helvetica;
+      outline: none;
+      margin-top: 14px;
+      color: #ffffff;
+    }
 
     label {
       color: #212b36;

@@ -580,6 +580,7 @@ ngx-gallery-preview {
         color: #212b36;
         line-height: 20px;
         margin-bottom: 4px;
+        pointer-events: none;
       }
     }
     .attachment-block {
@@ -632,13 +633,34 @@ ngx-gallery-preview {
       }
     }
   }
+  .google-btn {
+    background-color: #efefef;
+    width: 173px;
+    height: 45px;
+    border-radius: 20px;
+    font-family: Helvetica;
+    font-size: 16px;
+    color: #000000;
+    border: none;
+    margin: 0 20px 22px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .contact-details.edit {
-  .lead-different-details .inputs-block .field-block input {
-    box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
-    border: 1px solid #c4cdd5;
-    pointer-events: all;
+  .lead-different-details .inputs-block .field-block {
+
+    input {
+      box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
+      border: 1px solid #c4cdd5;
+      pointer-events: all;
+    }
+    label {
+      pointer-events: all;
+    }
   }
 }
 

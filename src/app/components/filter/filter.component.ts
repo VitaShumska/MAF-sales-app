@@ -87,7 +87,7 @@ export class FilterComponent implements OnInit {
             this.openSnackBar('Server error', 'OK');
           });
     } else if (this.type === 'leads') {
-      this.apiService.getContactsWithFilter(this.offset, this.limit, null, filterParams)
+      this.apiService.getLeadsWithFilter(this.offset, this.limit, null, filterParams)
         .subscribe((data) => {
             this.loadingSpinner.hide();
             this.responseList  =  data;
@@ -132,6 +132,27 @@ export class FilterComponent implements OnInit {
   clearSearchInput() {
     const searchInput = document.getElementById('searchInput');
     searchInput['value'] = '';
+  }
+
+  clearAllFilters() {
+    this.filterParams = {
+      productType: '',
+      phase: '',
+      cluster: '',
+      buildingName: '',
+      floor: '',
+      unitType: '',
+      bedrooms: '',
+      unitPriceFrom: '',
+      unitPriceTo: '',
+      leadName: '',
+      phone: '',
+      email: '',
+      leadNumber: '',
+      creation: '',
+      lastUpdate: '',
+      assignedTo: ''
+    };
   }
 
   isFilterEmpty () {
