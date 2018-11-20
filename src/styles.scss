@@ -52,6 +52,11 @@ button {
   cursor: pointer;
 }
 
+.base-content {
+  min-width: 800px;
+  background-color: #efefef;
+}
+
 ////Table////
 .table {
   font-size: 14px!important;
@@ -408,6 +413,7 @@ ngx-gallery-preview {
   position: absolute;
   bottom: 0;
   width: 100%;
+  min-width: 800px;
   height: 90px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   background-color: #ffffff;
@@ -454,6 +460,7 @@ ngx-gallery-preview {
   position: absolute;
   bottom: 0;
   width: 100%;
+  min-width: 800px;
   //height: 138px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   background-color: #ffffff;
