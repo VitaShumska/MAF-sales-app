@@ -205,4 +205,8 @@ export class ApiService {
     }
     return filterEmpty;
   }
+
+  googleTranslateElementInit(url): Observable<any> {
+    return this.http.get(url);
+  }
 }

@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { MatMenuModule } from '@angular/material/menu';
 
 import { ApiService } from './services/api.service';
 import { PropertiesService } from './services/properties.service';
@@ -46,6 +47,7 @@ import { ContactIdentificationComponent } from './leads/contact-identification/c
 import { ContactEnquiryDetailsComponent } from './leads/contact-enquiry-details/contact-enquiry-details.component';
 import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/select-payplan-dialog.component';
 import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
+import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
     ContactIdentificationComponent,
     ContactEnquiryDetailsComponent,
     SelectPayplanDialogComponent,
-    CreateLeadComponent
+    CreateLeadComponent,
+    DiscountDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +93,7 @@ import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
     MatSelectModule,
     MatDialogModule,
     MatRadioModule,
+    MatMenuModule,
     MDBBootstrapModule.forRoot()
 ],
   providers: [
@@ -101,7 +105,8 @@ import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    SelectPayplanDialogComponent
+    SelectPayplanDialogComponent,
+    DiscountDialogComponent
   ]
 })
 export class AppModule { }

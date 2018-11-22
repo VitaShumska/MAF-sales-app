@@ -66,9 +66,14 @@
     </div>
     <div class="btn-block">
       <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payplan</button>
-      <button class="apply-bnt" disabled>Apply Discount(s)</button>
+      <button class="apply-bnt" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
       <button class="cancel-bnt" disabled>Generate Quote</button>
-      <button disabled>Request</button>
+      <button [matMenuTriggerFor]="requestMenu">Request</button>
+      <mat-menu #requestMenu="matMenu">
+        <button mat-menu-item>Block</button>
+        <button mat-menu-item>Reserve</button>
+        <button mat-menu-item>Sale</button>
+      </mat-menu>
     </div>
   </div>
 </div>

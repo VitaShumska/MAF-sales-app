@@ -6,6 +6,7 @@ import { ApiService } from '../../services/api.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { SelectPayplanDialogComponent } from '../../dialogs/select-payplan-dialog/select-payplan-dialog.component';
+import { DiscountDialogComponent } from '../../dialogs/discount-dialog/discount-dialog.component';
 
 @Component({
   selector: 'app-contact-details',
@@ -85,6 +86,7 @@ export class ContactDetailsComponent implements OnInit {
       }
     });
     this.breadcrumbsArr();
+    this.googleTranslateElementInit();
   }
 
   getContactById (id) {
@@ -196,6 +198,33 @@ export class ContactDetailsComponent implements OnInit {
       if (result) {
       }
     });
+  }
+
+  openDiscountDialog(id: number): void {
+    const config = new MatDialogConfig();
+    // config.data = _.clone(mandant);
+
+    const dialogRef = this.dialog.open(DiscountDialogComponent, config);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
+  }
+
+  googleTranslateElementInit() {
+    // new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    let url = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyCZMgtddy1pj0JBTIzyZFo35qwCvMudiRo";
+    url += "&source=en";
+    url += "&target=ar";
+    url += "&q=text";
+    // url += "&q=text" + escape($("#txtSource").val());
+    this.apiService.googleTranslateElementInit(url)
+      .subscribe(data => {
+        console.log('translate!!!!', data);
+      },
+      (error) => {
+        this.openSnackBar('Server error', 'OK');
+      });
   }
 
 }

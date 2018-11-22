@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Select Discount</h2>
+
+<mat-dialog-content>
+
+  <div class="new-discount" fxLayoutAlign="center">
+    <div fxFlex="27" class="inputs-block">
+      <label for="type">Type</label>
+      <mat-select id="type" [(value)]="newDiscount.type">
+        <mat-option value="">Select unit type</mat-option>
+        <mat-option *ngFor="let item of unitTypes" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div fxFlex="27" class="inputs-block">
+      <label for="amount">Amount/Percentage</label>
+      <input id="amount" type="text" [(ngModel)]="newDiscount.amount">
+    </div>
+    <div fxFlex="27" class="inputs-block">
+      <label for="discount">Discount</label>
+      <input id="discount" type="text" [(ngModel)]="newDiscount.discount">
+    </div>
+    <div fxFlex="16">
+      <button>ADD</button>
+    </div>
+  </div>
+
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        DISCOUNTS
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        GENERATED QUOTE
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button cancel-bnt" [mat-dialog-close]="false">Cancel</button>
+  <button class="mat-raised-button" type="submit" [mat-dialog-close]="true">Apply Discount(s)</button>
+</mat-dialog-actions>
