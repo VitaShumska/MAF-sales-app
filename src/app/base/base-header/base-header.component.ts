@@ -34,6 +34,11 @@ export class BaseHeaderComponent implements OnInit {
     this.href = this.router.url;
   }
 
+   goToPage(url) {
+     this.router.navigate([url]);
+   }
+
+
   goBack(): void {
     if ( document.getElementById('light') && document.getElementById('fade') ) {
       this.filterClose.closeFilter(false);
