@@ -29,11 +29,10 @@ export class LeadsListComponent implements OnInit {
   pageSizeOptions: number[] = [25, 50, 100];
   countOfLeads;
   searchColumns = [];
-  sortElem;
-  // sortElem = {
-  //   key: '',
-  //   sort: ''
-  // };
+  sortElem = {
+    key: 'LeadNumber',
+    sort: 'desc'
+  };
   displayedColumns = [
     {
       name: 'Lead No.',

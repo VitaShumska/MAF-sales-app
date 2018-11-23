@@ -61,7 +61,7 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + '&orderBy=LeadNumber:desc', {headers});
   }
 
   getLeadsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
@@ -129,6 +129,9 @@ export class ApiService {
       filterParams.lastUpdate  ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + 1 + ';') : false;
       filterParams.creation  ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
       filterParams.assignedTo  ? (filterParameters += 'OwnerName=' + filterParams.assignedTo + ';') : false;
+      filterParams.rank  ? (filterParameters += 'Rank=' + filterParams.rank + ';') : false;
+      filterParams.qualification  ? (filterParameters += 'QualificationScore=' + filterParams.qualification + ';') : false;
+      filterParams.nationality  ? (filterParameters += 'OwnerName=' + filterParams.assignedTo + ';') : false;
     }
     sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
 
@@ -203,6 +206,7 @@ export class ApiService {
         }
       });
     }
+    console.log('filter', filterEmpty);
     return filterEmpty;
   }
 
