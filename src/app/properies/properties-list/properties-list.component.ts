@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import {PropertiesService} from "../../services/properties.service";
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
@@ -16,12 +17,14 @@ export class PropertiesListComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private router: Router,
+    private propertiesService: PropertiesService,
     private breadcrumbs:  BreadcrumbsService,
     private loadingSpinner: LoadingSpinnerService,
     public snackBar: MatSnackBar) {}
 
   propertiesListOriginal: any[] = [];
   propertiesList;
+  propertiesListContent: any = {};
   filterParams;
   pageEvent: PageEvent;
   offset = 0;
@@ -105,6 +108,7 @@ export class PropertiesListComponent implements OnInit {
       this.getProperties(this.offset, this.limit);
     }
     this.breadcrumbsArr();
+    this.getPropertiesContentList();
   }
 
   getProperties(offset, limit) {
@@ -131,8 +135,7 @@ export class PropertiesListComponent implements OnInit {
     this.loadingSpinner.show();
     // this.clearSearchInput();
     this.apiService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
-      (data:  any) => {
-        console.log('data', data);
+      (data:  any) => {;
         this.loadingSpinner.hide();
         this.propertiesListOriginal = data['items'];
         this.countOfProperties = data['totalResults'];
@@ -144,6 +147,33 @@ export class PropertiesListComponent implements OnInit {
         this.openSnackBar('Server error', 'OK');
       }
     );
+  }
+
+  getPropertiesContentList() {
+    this.loadingSpinner.show();
+    this.propertiesService.getPropertiesContentList().subscribe(
+      (data:  any) => {
+        this.loadingSpinner.hide();
+        this.propertiesListContent = data;
+      },
+      (error) => {
+        this.loadingSpinner.hide();
+        this.openSnackBar('Server error', 'OK');
+      }
+    );
+  }
+
+  getTitleImage(type) {
+    const index = this.propertiesListContent.map(item => item.type).indexOf(type);
+    if (index !== -1) {
+      if (this.propertiesListContent[index].image_preview === null) {
+        return 'assets/images/image-overlay.png';
+      } else {
+        return this.propertiesListContent[index].image_preview;
+      }
+    } else {
+      return 'assets/images/image-overlay.png';
+    }
   }
 
   getCountOfAvailable () {

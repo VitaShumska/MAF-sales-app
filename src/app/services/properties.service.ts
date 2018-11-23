@@ -58,16 +58,10 @@ export class PropertiesService {
     return this.http.get(this.CMS_API_URL + '?type=' + type, {headers});
   }
 
-  getXml() {
-    const parser = new DOMParser();
+  getPropertiesContentList(): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get('https://mafsalesapp.com/static/cms_links.xml', {headers, responseType: 'text'})
-      .map (xmlFile => {
-        const xml = parser.parseFromString(xmlFile, 'text/xml');
-        const obj = this.ngxXml2jsonService.xmlToJson(xml);
-        return obj;
-      });
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.get(this.CMS_API_URL + 'unit-types/previews/', {headers});
   }
 
   isFilterEmpty (filter) {
