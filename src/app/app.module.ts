@@ -14,13 +14,13 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from "@angular/material";
+import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from "@angular/material";
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { MatMenuModule } from '@angular/material/menu';
+import { DateFormat } from './date-format';
 
 import { ApiService } from './services/api.service';
 import { PropertiesService } from './services/properties.service';
@@ -102,6 +102,7 @@ import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dial
     BreadcrumbsService,
     LoadingSpinnerService,
     FilterCloseService,
+    { provide: DateAdapter, useClass: DateFormat }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -109,4 +110,9 @@ import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dial
     DiscountDialogComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    dateAdapter.setLocale('en-in');
+  }
+}
+

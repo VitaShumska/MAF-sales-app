@@ -86,7 +86,7 @@ export class ContactDetailsComponent implements OnInit {
       }
     });
     this.breadcrumbsArr();
-    this.googleTranslateElementInit();
+    // this.googleTranslateElementInit();
   }
 
   getContactById (id) {

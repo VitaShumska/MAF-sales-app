@@ -28,12 +28,14 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="issueDate">Issue Date</label>
-        <input id="issueDate" type="text" [(ngModel)]="identificationContactData.MAF_IssueDate_c">
+        <input id="issueDate" matInput [matDatepicker]="issueDatePicker" [(ngModel)]="identificationContactData.MAF_IssueDate_c" disabled>
+        <mat-datepicker #issueDatePicker disabled></mat-datepicker>
       </div>
 
       <div class="field-block">
         <label for="expiryDate">Expiry Date</label>
-        <input id="expiryDate" type="text" [(ngModel)]="identificationContactData.MAF_ExpiryDate_c">
+        <input id="expiryDate" matInput [matDatepicker]="expiryDatePicker" [(ngModel)]="identificationContactData.MAF_ExpiryDate_c" disabled>
+        <mat-datepicker #expiryDatePicker disabled></mat-datepicker>
       </div>
     </div>
   </div>

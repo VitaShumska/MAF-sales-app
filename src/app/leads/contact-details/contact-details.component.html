@@ -8,6 +8,7 @@
       <app-contact-personal-details
         [leadDetails]="leadDetails"
         [contactDetails]="contactDetails"
+        [editAllow]="editAllow"
       >
       </app-contact-personal-details>
     </mat-tab>
@@ -27,6 +28,7 @@
       <app-contact-enquiry-details
         [leadDetails]="leadDetails"
         [contactId]="contactId"
+        [editAllow]="editAllow"
       >
       </app-contact-enquiry-details>
     </mat-tab>
@@ -41,10 +43,11 @@
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-        IDENTIFICATION
+        IDENTIFICATIONS
       </ng-template>
       <app-contact-identification
         [identificationContactData]="identificationContactData"
+        [editAllow]="editAllow"
       >
       </app-contact-identification>
     </mat-tab>
@@ -52,7 +55,8 @@
 
 
   <div class="action-block" *ngIf="editAllow">
-    <button class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
+    <button *ngIf="contactId === 'new'" class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
+    <button *ngIf="contactId !== 'new'" class="cancel-bnt" (click)="editAllow=false">Cancel</button>
     <button *ngIf="contactId === 'new'" (click)="createContact()" [disabled]="!contactDetails.EmailAddress">Create</button>
     <button *ngIf="contactId !== 'new'" (click)="updateContact()" [disabled]="!contactDetails.EmailAddress">Update</button>
   </div>
@@ -60,12 +64,12 @@
   <div class="expanded-action-block" *ngIf="!editAllow">
     <div class="price-block ">
       <span class="price">PRICE: <b>{{leadDetails.Price}}</b></span>
-      <span>Payplan: Not Selected</span>
+      <span>Payment Plan: Not Selected</span>
       <span>Discount: Not Selected</span>
       <span>Total amount: <b>2,229,000.000</b></span>
     </div>
     <div class="btn-block">
-      <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payplan</button>
+      <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payment Plan</button>
       <button class="apply-bnt" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
       <button class="cancel-bnt" disabled>Generate Quote</button>
       <button [matMenuTriggerFor]="requestMenu">Request</button>

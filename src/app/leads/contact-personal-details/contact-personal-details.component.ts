@@ -11,6 +11,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
 
   @Input() contactDetails: any = {};
   @Input() leadDetails: any = {};
+  @Input() editAllow: boolean;
   @ViewChild('phone') phone: ElementRef;
 
   group: FormGroup;
@@ -30,14 +31,14 @@ export class ContactPersonalDetailsComponent implements OnInit {
 
   phoneInputs = [{
     id: 1,
-    name: 'Phone',
+    name: 'Primary Phone',
     ngModel: 'MobileNumber'
     // ngModel: 'OverallPrimaryFormattedPhoneNumber'
   }];
 
   emailInputs = [{
     id: 1,
-    name: 'Email',
+    name: 'Primary Email',
     ngModel: 'EmailAddress'
   }];
 

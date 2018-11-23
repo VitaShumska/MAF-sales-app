@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ContactIdentificationComponent implements OnInit {
 
   @Input()identificationContactData: any = {};
+  @Input()editAllow: boolean;
 
   afuConfig = {
     uploadAPI: {

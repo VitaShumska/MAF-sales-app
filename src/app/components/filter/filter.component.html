@@ -54,6 +54,20 @@
       <label for="email">Email</label>
       <input id="email" type="text" maxlength="72"  [(ngModel)]="filterParams.email">
 
+      <label for="rank">Rank</label>
+      <mat-select id="rank" [(value)]="filterParams.rank">
+        <mat-option value="">Select rank</mat-option>
+        <mat-option value="Hot">Hot</mat-option>
+        <mat-option value="Warm">Warm</mat-option>
+        <mat-option value="Cold">Cold</mat-option>
+      </mat-select>
+
+      <label for="qualification">Qualification</label>
+      <input id="qualification" type="text" maxlength="72"  [(ngModel)]="filterParams.qualification">
+
+      <label for="nationality">Nationality</label>
+      <input id="nationality" type="text" maxlength="72"  [(ngModel)]="filterParams.nationality">
+
       <label for="lead-number">Lead Number</label>
       <input id="lead-number" type="text" maxlength="72"  [(ngModel)]="filterParams.leadNumber">
 

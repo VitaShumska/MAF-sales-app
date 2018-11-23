@@ -2,7 +2,7 @@
   <div class="inputs-block">
     <div fxFlex="50">
       <div class="field-block">
-        <label for="title">Title</label>
+        <label for="title">Prefix</label>
         <input id="title" type="text" [(ngModel)]="contactDetails.Title">
       </div>
 
@@ -21,31 +21,30 @@
         <input id="lastName" type="text" [(ngModel)]="contactDetails.LastName">
       </div>
 
-      <div class="field-block" *ngFor="let inputData of phoneInputs">
-        <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
-      </div>
-
-      <div class="dynamically-btn">
-        <button class="add-field-btn" (click)="addField('phone')">+ add phone</button>
-        <button class="remove-field-btn" (click)="removeField('phone')" *ngIf="phoneInputs.length > 1">- remove phone</button>
-      </div>
-
-
       <div class="field-block" *ngFor="let inputData of emailInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
         <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
       </div>
 
-      <div class="dynamically-btn">
+      <div class="dynamically-btn" *ngIf="editAllow">
         <button class="add-field-btn" (click)="addField('email')">+ add email</button>
         <button class="remove-field-btn" (click)="removeField('email')" *ngIf="emailInputs.length > 1">- remove email</button>
+      </div>
+
+      <div class="field-block" *ngFor="let inputData of phoneInputs">
+        <label [for]="inputData.id">{{inputData.name}}</label>
+        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
+      </div>
+
+      <div class="dynamically-btn" *ngIf="editAllow">
+        <button class="add-field-btn" (click)="addField('phone')">+ add phone</button>
+        <button class="remove-field-btn" (click)="removeField('phone')" *ngIf="phoneInputs.length > 1">- remove phone</button>
       </div>
 
       <div class="field-block">
         <label for="unit">Unit</label>
         <p id="unit">{{leadDetails.PrimaryInventoryItemId}}</p>
-        <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="!leadDetails.PrimaryInventoryItemId">+ add property</button>
+        <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="!leadDetails.PrimaryInventoryItemId && editAllow">+ add property</button>
       </div>
 
       <div class="dynamically-btn" style="justify-content: flex-end">
@@ -56,6 +55,7 @@
       <div class="attachment-block">
         <p>Attachments:</p>
         <angular-file-uploader
+          *ngIf="editAllow"
           [config]="afuConfig">
         </angular-file-uploader>
       </div>
@@ -68,23 +68,29 @@
       </div>
 
       <div class="field-block">
+        <label for="type">Type</label>
+        <input *ngIf="contactDetails.Type" id="type" type="text" [(ngModel)]="contactDetails.Type">
+        <input *ngIf="!contactDetails.Type" id="type" type="text" value="Prospect" disabled style="background-color: transparent">
+      </div>
+
+      <div class="field-block">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" matInput [matDatepicker]="birthDatePicker" [(ngModel)]="contactDetails.DateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="birthDatePicker" *ngIf="editAllow"></mat-datepicker-toggle>
+        <mat-datepicker #birthDatePicker></mat-datepicker>
+      </div>
+
+      <div class="field-block">
         <label for="residence">Residence</label>
         <input id="residence" type="text" [(ngModel)]="contactDetails.PersonDEO_Residence_c">
       </div>
 
       <div class="field-block">
-        <label for="dateOfBirth">Date of Birth</label>
-        <input id="dateOfBirth" type="text" [(ngModel)]="contactDetails.DateOfBirth">
-      </div>
-
-      <div class="field-block">
         <label for="gender">Gender</label>
-        <input id="gender" type="text" [(ngModel)]="contactDetails.Gender">
-      </div>
-
-      <div class="field-block">
-        <label for="type">Type</label>
-        <input id="type" type="text" [(ngModel)]="contactDetails.Type">
+        <mat-select id="gender" [(value)]="contactDetails.Gender">
+          <mat-option value="Male">Male</mat-option>
+          <mat-option value="Female">Female</mat-option>
+        </mat-select>
       </div>
 
       <div class="field-block">

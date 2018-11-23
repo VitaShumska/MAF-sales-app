@@ -560,10 +560,12 @@ ngx-gallery-preview {
       max-width: 400px;
       min-width: 100px;
       position: relative;
+      height: 50px;
 
       input,
       .mat-select {
-        width: 100%;
+        width: 60%;
+        //width: 100%;
         color: #637381;
         box-shadow: none;
         border: none;
@@ -574,13 +576,22 @@ ngx-gallery-preview {
         padding: 0 10px;
         outline: none;
         pointer-events: none;
+        margin-top: 8px;
+        &:disabled {
+          background-color: transparent;
+          cursor: not-allowed;
+        }
       }
       label {
-        width: 100%;
+        width: 35%;
+        //width: 100%;
         color: #212b36;
         line-height: 20px;
         margin-bottom: 4px;
         pointer-events: none;
+      }
+      .mat-select-value {
+        text-align: left;
       }
     }
     .attachment-block {
@@ -653,10 +664,15 @@ ngx-gallery-preview {
 .contact-details.edit {
   .lead-different-details .inputs-block .field-block {
 
-    input {
+    input,
+    .mat-select {
       box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
       border: 1px solid #c4cdd5;
       pointer-events: all;
+      &:disabled {
+        border: none;
+        box-shadow: none;
+      }
     }
     label {
       pointer-events: all;
@@ -685,6 +701,14 @@ ngx-gallery-preview {
 
 .cdk-overlay-pane.mat-datepicker-popup {
   z-index: 1003;
+}
+
+svg {
+  vertical-align: text-bottom;
+}
+
+.mat-icon-button .mat-button-wrapper {
+  vertical-align: text-bottom;
 }
 
 

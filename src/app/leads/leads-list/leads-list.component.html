@@ -1,7 +1,7 @@
 <div class="leads new">
   <div style="display: flex">
-    <button fxFlex="19" class="get-lead-btn" (click)="goToPage('/create-lead')">GET NEXT LEAD</button>
-    <div fxFlex="80">
+    <!--<button fxFlex="19" class="get-lead-btn" (click)="goToPage('/create-lead')">GET NEXT LEAD</button>-->
+    <div fxFlex="100">
       <app-search
         [inputList]="leadsListOriginal"
         [searchColumns]="searchColumns"
@@ -29,11 +29,12 @@
               <p>{{lead.LeadNumber}}</p>
             </div>
           </div>
-          <div class="table-cell" [class]="lead.PrimaryContactPartyName ? 'table-cell' : 'table-cell empty'">{{lead.PrimaryContactPartyName}}</div>
-          <div class="table-cell" [class]="lead.OwnerPartyName ? 'table-cell' : 'table-cell empty'"> {{lead.OwnerPartyName}} </div>
-          <div class="table-cell" [class]="lead.MAF_Project_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_Project_c}}</div>
-          <div class="table-cell" [class]="lead.MAF_ProductType_c ? 'table-cell' : 'table-cell empty'">{{lead.MAF_ProductType_c}}</div>
-          <div class="table-cell" [class]="lead.LastUpdateDate ? 'table-cell' : 'table-cell empty'"> {{lead.LastUpdateDate | date : 'shortDate' }} </div>
+          <div class="table-cell">{{lead.PrimaryContactPartyName}}</div>
+          <div class="table-cell"> {{lead.OwnerPartyName}} </div>
+          <div class="table-cell">{{lead.MAF_Project_c}}</div>
+          <div class="table-cell">{{lead.MAF_ProductType_c}}</div>
+          <div class="table-cell"> {{lead.CreationDate | date : 'dd/MM/yyyy' }} </div>
+          <div class="table-cell"> {{lead.LastUpdateDate | date : 'dd/MM/yyyy' }} </div>
         </div>
         <div class="scrollbar" id="style">
           <div class="force-overflow"></div>

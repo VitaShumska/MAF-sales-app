@@ -13,6 +13,7 @@ import {BreadcrumbsService} from "../../services/breadcrumbs.service";
 export class ContactEnquiryDetailsComponent implements OnInit {
 
   @Input() contactId;
+  @Input() editAllow;
   @Input() leadDetails: any = {};
 
   displayedColumns = [

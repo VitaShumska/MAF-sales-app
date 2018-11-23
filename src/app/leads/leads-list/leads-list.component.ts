@@ -66,7 +66,13 @@ export class LeadsListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Last Updater',
+      name: 'Created Date',
+      key: 'CreationDate',
+      sort: '',
+      disableSort: false
+    },
+    {
+      name: 'Last Update',
       key: 'LastUpdateDate',
       sort: '',
       disableSort: false
