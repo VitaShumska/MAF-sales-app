@@ -194,14 +194,6 @@ export class PropertiesListComponent implements OnInit {
       });
   }
 
-  parseFolderName(name) {
-    const allTypes = ['1BED-T1', '1BED-T2', '1BED-T3', '2BED-T1', '2BED-T3', '2BED-T4', '4B BGL', '4B LV', '5B BGL', '5B LV', '5B TYP', '6B LV', '6B ULV', 'STD-T1A'];
-    if ( allTypes.indexOf(name) === -1 ) {
-      return '2';
-    }
-    return name.replace(/\s/g, '_');
-  }
-
   sortByKey(sortElem) {
     // this.clearSearchInput();
     this.sortElem = sortElem;
