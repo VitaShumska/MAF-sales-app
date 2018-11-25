@@ -213,4 +213,9 @@ export class ApiService {
   googleTranslateElementInit(url): Observable<any> {
     return this.http.get(url);
   }
+
+  public getJSON(): Observable<any> {
+    return this.http.get("./../phoneCodes.json")
+      .map((res: any) => res.json());
+  }
 }

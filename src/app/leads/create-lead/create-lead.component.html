@@ -4,7 +4,7 @@
       <div fxFlex="50">
         <div class="field-block">
           <label for="primary">Primary Purchaser</label>
-          <input id="primary" type="text" [(ngModel)]="newLead.primaryPurchaser">
+          <input id="primary" type="text" [(ngModel)]="newLead.MAF_PrimaryContact_c">
         </div>
 
         <div class="field-block">
@@ -14,14 +14,14 @@
 
         <div class="field-block">
           <label for="owner">Lead Owner</label>
-          <input id="owner" type="text" [(ngModel)]="newLead.leadOwner">
+          <input id="owner" type="text" [(ngModel)]="newLead.OwnerPartyName">
         </div>
       </div>
 
       <div fxFlex="50">
         <div class="field-block">
           <label for="unitType">Unit/Type</label>
-          <input id="unitType" type="text" [(ngModel)]="newLead.UnitType">
+          <input id="unitType" type="text" [(ngModel)]="newLead.MAF_UnitType_c">
         </div>
 
         <div class="field-block">

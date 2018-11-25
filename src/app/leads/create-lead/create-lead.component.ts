@@ -13,10 +13,10 @@ import {MatDialog, MatSnackBar} from "@angular/material";
 export class CreateLeadComponent implements OnInit {
 
   newLead: any = {
-    'primaryPurchaser': '',
+    'MAF_PrimaryContact_c': '',
     'secondaryPurchaser': '',
-    'leadOwner': '',
-    'unitType': '',
+    'OwnerPartyName': '',
+    'MAF_UnitType_c': '',
     'unitNumber': ''
   };
   breadcrumbObj = {

@@ -26,6 +26,7 @@ export class ContactDetailsComponent implements OnInit {
     backUrl: '/leads',
     param: 0 // because is a parent
   };
+  phoneCodes = [];
   editAllow = true;
   newContact = {
     'FirstName' : '',
@@ -87,6 +88,8 @@ export class ContactDetailsComponent implements OnInit {
     });
     this.breadcrumbsArr();
     // this.googleTranslateElementInit();
+    this.apiService.getJSON().subscribe(data => this.phoneCodes = data, error => console.log(error));
+    console.log('phne', this.phoneCodes);
   }
 
   getContactById (id) {
