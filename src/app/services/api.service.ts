@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -55,52 +55,6 @@ export class ApiService {
     return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
 
-  ////////////Ledas////////////////
-
-  getLeads(offset, limit): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + '&orderBy=LeadNumber:desc', {headers});
-  }
-
-  getLeadsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
-    let filterParameters;
-    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
-    let sortParameters = '';
-    if (filterParams) {
-      filterParams.leadName ? (filterParameters += 'PrimaryContactPartyName=' + filterParams.leadName + ';') : false;
-      filterParams.phone ? (filterParameters += 'MAF_ContactPhone_c=' + filterParams.phone + ';') : false;
-      filterParams.email ? (filterParameters += 'MAF_ContactEmail_c=' + filterParams.email + ';') : false;
-      filterParams.leadNumber ? (filterParameters += 'LeadNumber=' + filterParams.leadNumber + ';') : false;
-      filterParams.lastUpdate  ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + 1 + ';') : false;
-      filterParams.creation  ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
-      filterParams.assignedTo  ? (filterParameters += 'OwnerPartyName=' + filterParams.assignedTo + ';') : false;
-    }
-    sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
-
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
-  }
-
-  getLeadById(id): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'leads/' + id, {headers});
-  }
-
-  createLead(data): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/json');
-    return this.http.post(this.API_URL + '/leads', data,{headers});
-  }
-
   getDropdownOption(param): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
@@ -109,80 +63,6 @@ export class ApiService {
     return this.http.get(this.API_URL + '/fndStaticLookups?finder=LookupTypeActiveEnabledOrBindCodeFinder%3BBindLookupType%3D' + param + '&limit=100', {headers});
   }
 
-  getContacts(offset, limit): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'contacts/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
-  }
-
-  getContactsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
-    let filterParameters;
-    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
-    let sortParameters = '';
-    if (filterParams) {
-      filterParams.leadName ? (filterParameters += 'ContactName=' + filterParams.leadName + ';') : false;
-      filterParams.phone ? (filterParameters += 'OverallPrimaryFormattedPhoneNumber=' + filterParams.phone + ';') : false;
-      filterParams.email ? (filterParameters += 'EmailAddress=' + filterParams.email + ';') : false;
-      filterParams.leadNumber ? (filterParameters += 'PartyNumber=' + filterParams.leadNumber + ';') : false;
-      filterParams.lastUpdate  ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + 1 + ';') : false;
-      filterParams.creation  ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
-      filterParams.assignedTo  ? (filterParameters += 'OwnerName=' + filterParams.assignedTo + ';') : false;
-      filterParams.rank  ? (filterParameters += 'Rank=' + filterParams.rank + ';') : false;
-      filterParams.qualification  ? (filterParameters += 'QualificationScore=' + filterParams.qualification + ';') : false;
-      filterParams.nationality  ? (filterParameters += 'OwnerName=' + filterParams.assignedTo + ';') : false;
-    }
-    sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
-
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
-  }
-
-  getContactById(name): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'contacts/?q=PartyId=' + name, {headers});
-  }
-
-  getLeadsByPrimaryContact(name): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'leads/?q=PrimaryContactPartyName=' + name, {headers});
-  }
-
-  getIdentificationContactData(id): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + '/MAF_Identification_c/?q=MAF_Contact_Id_c=' + id, {headers});
-  }
-
-  createContact(data): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/json');
-    return this.http.post(this.API_URL + 'contacts', data,{headers});
-  }
-
-  updateContact(id, data): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    // headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // headers = headers.append('Accept', 'application/json');
-    return this.http.patch(this.API_URL + 'contacts/' + id, data,{headers});
-  }
-
-
-
   ///////////////Additional function//////////
 
   getXml() {
@@ -190,18 +70,18 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get('https://mafsalesapp.com/static/cms_links.xml', {headers, responseType: 'text'})
-      .map (xmlFile => {
+      .map(xmlFile => {
         const xml = parser.parseFromString(xmlFile, 'text/xml');
         const obj = this.ngxXml2jsonService.xmlToJson(xml);
         return obj;
       });
   }
 
-  isFilterEmpty (filter) {
+  isFilterEmpty(filter) {
     let filterEmpty = true;
     if (filter) {
       Object.keys(filter).map(key => {
-        if ( filter[key] !== '' ) {
+        if (filter[key] !== '') {
           filterEmpty = false;
         }
       });
@@ -214,8 +94,40 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  public getJSON(): Observable<any> {
-    return this.http.get("./../phoneCodes.json")
-      .map((res: any) => res.json());
+  soapCall() {
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('POST', 'https://ebrl-test.fa.em2.oraclecloud.com:443/crmService/OpportunityService', true);
+
+    // The following variable contains the xml SOAP request.
+    const sr =
+      `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/sales/opptyMgmt/opportunities/opportunityService/types/" xmlns:opp="http://xmlns.oracle.com/apps/sales/opptyMgmt/opportunities/opportunityService/" xmlns:rev="http://xmlns.oracle.com/apps/sales/opptyMgmt/revenues/revenueService/" xmlns:not="http://xmlns.oracle.com/apps/crmCommon/notes/noteService" xmlns:not1="http://xmlns.oracle.com/apps/crmCommon/notes/flex/noteDff/" xmlns:rev1="http://xmlns.oracle.com/oracle/apps/sales/opptyMgmt/revenues/revenueService/" xmlns:act="http://xmlns.oracle.com/apps/crmCommon/activities/activitiesService/">
+       <soapenv:Header/>
+       <soapenv:Body>
+          <typ:createOpportunity>
+             <typ:opportunity>
+                <opp:Name>Merve Can</opp:Name>
+                <opp:KeyContactId>300000009315760</opp:KeyContactId>
+             </typ:opportunity>
+          </typ:createOpportunity>
+       </soapenv:Body>
+    </soapenv:Envelope>`;
+
+    xmlhttp.onreadystatechange =  () => {
+      console.log('here!!!!!!', xmlhttp.responseXML, xmlhttp.readyState, xmlhttp.status);
+      if (xmlhttp.readyState == 4) {
+        if (xmlhttp.status == 200) {
+          const xml = xmlhttp.responseXML;
+          // Here I'm getting the value contained by the <return> node.
+          const response_number = parseInt(xml.getElementsByTagName('return')[0].childNodes[0].nodeValue);
+          // Print result square number.
+          console.log(xml);
+        }
+      }
+    };
+    // Send the POST request.
+    xmlhttp.setRequestHeader('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+    xmlhttp.responseType = 'document';
+    xmlhttp.send(sr);
   }
 }

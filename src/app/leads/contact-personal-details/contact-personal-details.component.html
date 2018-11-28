@@ -23,7 +23,15 @@
 
       <div class="field-block" *ngFor="let inputData of emailInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
+        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll()">
+        <mat-error *ngIf="!validateEmail(contactDetails[inputData.ngModel]) && contactDetails[inputData.ngModel]">
+          Please enter a valid email address
+        </mat-error>
+      </div>
+      <div class="required-err">
+        <mat-error *ngIf="!contactDetails[emailInputs[0].ngModel]">
+          Email is <strong>required</strong>
+        </mat-error>
       </div>
 
       <div class="dynamically-btn" *ngIf="editAllow">
@@ -33,7 +41,21 @@
 
       <div class="field-block" *ngFor="let inputData of phoneInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="changes()">
+        <mat-select id="inputData.id" class="select-phone" [(value)]="leadDetails.PrimaryPhoneCountryCode">
+          <mat-option *ngFor="let item of countries" [value]="item.code">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+        <span class="phone-code">{{leadDetails.PrimaryPhoneCountryCode}}</span>
+        <input class="phone-input" [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll()">
+        <mat-error *ngIf="!validatePhoneNumber(contactDetails[inputData.ngModel]) && contactDetails[inputData.ngModel]">
+          Please enter a valid phone number
+        </mat-error>
+      </div>
+      <div class="required-err">
+        <mat-error *ngIf="!contactDetails[phoneInputs[0].ngModel]">
+          Phone is <strong>required</strong>
+        </mat-error>
       </div>
 
       <div class="dynamically-btn" *ngIf="editAllow">

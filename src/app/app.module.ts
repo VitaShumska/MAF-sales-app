@@ -24,6 +24,7 @@ import { DateFormat } from './date-format';
 
 import { ApiService } from './services/api.service';
 import { PropertiesService } from './services/properties.service';
+import { LeadsService } from './services/leads.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
 import { LoadingSpinnerService } from './services/loading-spinner.service';
 import { FilterCloseService } from './services/filter-close.service';
@@ -48,6 +49,7 @@ import { ContactEnquiryDetailsComponent } from './leads/contact-enquiry-details/
 import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/select-payplan-dialog.component';
 import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
 import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dialog.component';
+import { OpportunitiesListComponent } from './opportunities/opportunities-list/opportunities-list.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dial
     ContactEnquiryDetailsComponent,
     SelectPayplanDialogComponent,
     CreateLeadComponent,
-    DiscountDialogComponent
+    DiscountDialogComponent,
+    OpportunitiesListComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dial
 ],
   providers: [
     ApiService,
+    LeadsService,
     PropertiesService,
     BreadcrumbsService,
     LoadingSpinnerService,

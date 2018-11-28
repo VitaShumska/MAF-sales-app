@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
-import { ApiService } from '../../services/api.service';
+import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import {MatDialog, MatSnackBar} from "@angular/material";
 
@@ -28,7 +28,7 @@ export class CreateLeadComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private breadcrumbs:  BreadcrumbsService,
               private router: Router,
-              private apiService: ApiService,
+              private leadsService: LeadsService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) {
   }
@@ -40,7 +40,7 @@ export class CreateLeadComponent implements OnInit {
   createLead() {
     this.loadingSpinner.show();
     console.log('cerate', this.newLead);
-    this.apiService.createLead(this.newLead)
+    this.leadsService.createLead(this.newLead)
       .subscribe(data => {
           this.loadingSpinner.hide();
           console.log('created!!!!', data);

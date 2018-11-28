@@ -129,7 +129,8 @@ button {
       vertical-align: middle;
     }
 
-    &.lead-number {
+    &.lead-number,
+    &.opportunity-number {
       div {
         margin-top: 17px;
         text-align: center;
@@ -144,6 +145,14 @@ button {
         }
       }
     }
+
+  &.opportunity-number {
+    div {
+      p {
+        background-color: #f89716;
+      }
+    }
+  }
 
     &.unit-name {
       flex: 1.5;
@@ -569,9 +578,7 @@ ngx-gallery-preview {
         color: #637381;
         box-shadow: none;
         border: none;
-        //box-shadow: inset 0 1px 2px rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
         border-radius: 18px;
-        //border: 1px solid #c4cdd5;
         line-height: 32px;
         padding: 0 10px;
         outline: none;
@@ -593,6 +600,9 @@ ngx-gallery-preview {
       .mat-select-value {
         text-align: left;
       }
+      .mat-select-arrow-wrapper {
+        display: none;
+      }
     }
     .attachment-block {
       display: flex;
@@ -608,6 +618,17 @@ ngx-gallery-preview {
       }
     }
 
+    .mat-error {
+      font-size: 12px;
+    }
+
+    .required-err {
+      width: 90%;
+      margin: 0 auto;
+      max-width: 400px;
+      min-width: 100px;
+    }
+
     .add-field-btn {
       background-color: transparent;
       border: none;
@@ -620,7 +641,7 @@ ngx-gallery-preview {
       width: 90%;
       max-width: 400px;
       min-width: 100px;
-      margin: -18px auto 18px;
+      margin: 5px auto 18px;
 
       .add-field-btn {
         background-color: transparent;
@@ -674,6 +695,9 @@ ngx-gallery-preview {
         box-shadow: none;
       }
     }
+    .mat-select-arrow-wrapper {
+      display: block;
+    }
     label {
       pointer-events: all;
     }
@@ -701,10 +725,6 @@ ngx-gallery-preview {
 
 .cdk-overlay-pane.mat-datepicker-popup {
   z-index: 1003;
-}
-
-svg {
-  vertical-align: text-bottom;
 }
 
 .mat-icon-button .mat-button-wrapper {
@@ -759,4 +779,27 @@ mat-dialog-container.mat-dialog-container {
 
 .mat-radio-button.mat-accent .mat-radio-inner-circle {
   background-color: #8a1638;
+}
+
+//////////Select phone code/////////
+.mat-select.select-phone {
+  width: 50px!important;
+  position: absolute;
+  left: 43%;
+  border: none!important;
+  box-shadow: none!important;
+
+  .mat-select-value {
+    display: none;
+  }
+}
+
+.phone-code {
+  position: absolute;
+  top: 15px;
+  left: 38%;
+}
+
+input.phone-input {
+  padding-left: 70px!important;
 }

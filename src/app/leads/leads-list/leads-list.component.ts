@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { LeadsService } from '../../services/leads.service';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
@@ -15,6 +16,7 @@ export class LeadsListComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private leadsService: LeadsService,
     private router: Router,
     private breadcrumbs:  BreadcrumbsService,
     private loadingSpinner: LoadingSpinnerService,
@@ -94,54 +96,20 @@ export class LeadsListComponent implements OnInit {
       window.sessionStorage.getItem('offset') ? this.offset = +window.sessionStorage.getItem('offset') : false;
       this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
     } else {
-      // this.getContacts(this.offset, this.limit);
       this.getLeads(this.offset, this.limit);
-      // this.getProperties(this.offset, this.limit);
     }
     this.breadcrumbsArr();
   }
 
-  getContacts(offset, limit) {
-    this.loadingSpinner.show();
-    this.apiService.getContacts(offset, limit)
-      .subscribe(
-        (data: any) => {
-          this.loadingSpinner.hide();
-          this.countOfLeads = data['totalResults'];
-          this.leadsListOriginal  =  data['items'];
-          this.leadsList = this.leadsListOriginal;
-          console.log('contacts', this.leadsList);
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        }
-      );
-  }
   getLeads(offset, limit) {
     this.loadingSpinner.show();
-    this.apiService.getLeads(offset, limit)
+    this.leadsService.getLeads(offset, limit)
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();
           this.countOfLeads = data['totalResults'];
           this.leadsListOriginal  =  data['items'];
           this.leadsList = this.leadsListOriginal;
-          console.log('contacts', data);
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        }
-      );
-  }
-
-  getProperties(offset, limit) {
-    this.loadingSpinner.show();
-    this.apiService.getProperties(offset, limit)
-      .subscribe(
-        (data: any) => {
-          this.loadingSpinner.hide();
           console.log('contacts', data);
         },
         (error) => {
@@ -153,7 +121,7 @@ export class LeadsListComponent implements OnInit {
 
   getLeadsWithFilter(offset, limit, sortParam?, filterParams?) {
     this.loadingSpinner.show();
-    this.apiService.getLeadsWithFilter(offset, limit, sortParam, filterParams).subscribe(
+    this.leadsService.getLeadsWithFilter(offset, limit, sortParam, filterParams).subscribe(
       (data:  any) => {
         this.loadingSpinner.hide();
         this.leadsListOriginal = data['items'];

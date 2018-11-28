@@ -61,7 +61,11 @@
     <button *ngIf="contactId !== 'new'" (click)="updateContact()" [disabled]="!contactDetails.EmailAddress">Update</button>
   </div>
 
-  <div class="expanded-action-block" *ngIf="!editAllow">
+  <div class="action-block" *ngIf="!editAllow &&!leadDetails.PrimaryInventoryItemId">
+    <button (click)="addUnit()">Add Unit</button>
+  </div>
+
+  <div class="expanded-action-block" *ngIf="!editAllow && leadDetails.PrimaryInventoryItemId">
     <div class="price-block ">
       <span class="price">PRICE: <b>{{leadDetails.Price}}</b></span>
       <span>Payment Plan: Not Selected</span>

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -64,7 +64,7 @@ export class ContactEnquiryDetailsComponent implements OnInit {
   leadsListOriginal: any[] = [];
   leadsList: any[] = [];
 
-  constructor(private apiService: ApiService,
+  constructor(private leadsService: LeadsService,
               private router: Router,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) {}
@@ -75,7 +75,7 @@ export class ContactEnquiryDetailsComponent implements OnInit {
 
   getLeadsByPrimaryContact(name) {
     this.loadingSpinner.show();
-    this.apiService.getLeadsByPrimaryContact(name)
+    this.leadsService.getLeadsByPrimaryContact(name)
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();

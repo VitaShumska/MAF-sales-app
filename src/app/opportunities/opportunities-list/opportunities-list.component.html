@@ -1,0 +1,58 @@
+<div class="opportunities">
+  <div style="display: flex">
+    <div fxFlex="100">
+      <app-search
+        [inputList]="opportunitiesListOriginal"
+        [searchColumns]="searchColumns"
+        (searchChange)="changeSearch($event)"
+      ></app-search>
+      <app-filter
+        [type]="'opportunities'"
+        (changeFilter)="changeFilter($event)"
+        (changeFilterParams)="changeFilterParams($event)"
+      ></app-filter>
+    </div>
+  </div>
+  <div class="opportunities-table">
+    <div class="table">
+      <div class="table-header">
+        <!--<div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">-->
+        <div class="table-cell" *ngFor="let element of displayedColumns" [class]="'table-cell ' + element.sort">
+          {{element.name}}
+          <i class="fa fa-chevron-down" *ngIf="element.sort"></i>
+        </div>
+      </div>
+      <div class="table-body">
+        <div class="table-row" *ngFor="let opportunity of opportunitiesList">
+          <div class="table-cell opportunity-number">
+            <div>
+              <p>{{opportunity.OptyNumber}}</p>
+            </div>
+          </div>
+          <div class="table-cell">{{opportunity.PrimaryContactPartyName}}</div>
+          <div class="table-cell"> {{opportunity.StatusCode}} </div>
+          <div class="table-cell">{{opportunity.UnitType_c}}</div>
+          <div class="table-cell">{{opportunity.UnitNumber_c}}</div>
+          <div class="table-cell"> {{opportunity.CreationDate | date : 'dd/MM/yyyy' }} </div>
+          <div class="table-cell"> {{opportunity.LastUpdateDate | date : 'dd/MM/yyyy' }} </div>
+        </div>
+        <div class="scrollbar" id="style">
+          <div class="force-overflow"></div>
+        </div>
+        <p class="empty-list" *ngIf="!opportunitiesList?.length"> Opportunities list is empty </p>
+      </div>
+    </div>
+    <div class="summary">
+      <mat-paginator [length]="countOfOpportunities"
+                     [pageSize]="limit"
+                     [pageIndex]="offset/limit"
+                     [pageSizeOptions]="pageSizeOptions"
+                     (page)="pageEvent = paginator($event)">
+      </mat-paginator>
+      <div>
+        <span>Total opportunities: {{countOfOpportunities}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

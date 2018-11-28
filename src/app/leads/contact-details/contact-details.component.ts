@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize} from 'ngx-gallery';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
+import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { SelectPayplanDialogComponent } from '../../dialogs/select-payplan-dialog/select-payplan-dialog.component';
@@ -68,6 +69,7 @@ export class ContactDetailsComponent implements OnInit {
               private breadcrumbs:  BreadcrumbsService,
               private router: Router,
               private apiService: ApiService,
+              private leadsService: LeadsService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {
@@ -88,13 +90,11 @@ export class ContactDetailsComponent implements OnInit {
     });
     this.breadcrumbsArr();
     // this.googleTranslateElementInit();
-    this.apiService.getJSON().subscribe(data => this.phoneCodes = data, error => console.log(error));
-    console.log('phne', this.phoneCodes);
   }
 
   getContactById (id) {
     this.loadingSpinner.show();
-    this.apiService.getContactById(id)
+    this.leadsService.getContactById(id)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.contactDetails = data.items[0];
@@ -110,7 +110,7 @@ export class ContactDetailsComponent implements OnInit {
 
   getIdentificationContactData () {
     this.loadingSpinner.show();
-    this.apiService.getIdentificationContactData(this.contactId)
+    this.leadsService.getIdentificationContactData(this.contactId)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.identificationContactData = data.items[0];
@@ -126,13 +126,13 @@ export class ContactDetailsComponent implements OnInit {
         },
         (error) => {
           this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK')
+          this.openSnackBar('Server error', 'OK');
         });
   }
 
   getLeadById(id) {
     this.loadingSpinner.show();
-    this.apiService.getLeadById(id)
+    this.leadsService.getLeadById(id)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.leadDetails = data;
@@ -146,7 +146,7 @@ export class ContactDetailsComponent implements OnInit {
   updateContact() {
     this.loadingSpinner.show();
     console.log('update', this.contactDetails.PartyNumber, this.contactDetails);
-    this.apiService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
+    this.leadsService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.editAllow = false;
@@ -160,7 +160,7 @@ export class ContactDetailsComponent implements OnInit {
   createContact() {
     this.loadingSpinner.show();
     console.log('cerate', this.contactDetails);
-    this.apiService.createContact(this.contactDetails)
+    this.leadsService.createContact(this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
           console.log('created!!!!', data);
@@ -171,6 +171,12 @@ export class ContactDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           this.openSnackBar('Server error', 'OK');
         });
+  }
+
+  addUnit() {
+    this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
+    this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
+    this.goToPage('/units');
   }
 
   goToPage(url) {
@@ -215,7 +221,6 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   googleTranslateElementInit() {
-    // new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
     let url = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyCZMgtddy1pj0JBTIzyZFo35qwCvMudiRo";
     url += "&source=en";
     url += "&target=ar";

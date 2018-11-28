@@ -1,6 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import {Router} from "@angular/router";
+import {
+  DEFAULT_ERROR_MESSAGE,
+  EMAIL_REGEXP,
+  PHONE_NUMBER_REGEXP,
+  COUNTRIES
+} from '../../constants';
 
 @Component({
   selector: 'app-contact-personal-details',
@@ -13,8 +19,6 @@ export class ContactPersonalDetailsComponent implements OnInit {
   @Input() leadDetails: any = {};
   @Input() editAllow: boolean;
   @ViewChild('phone') phone: ElementRef;
-
-  group: FormGroup;
 
   afuConfig = {
     uploadAPI: {
@@ -42,26 +46,65 @@ export class ContactPersonalDetailsComponent implements OnInit {
     ngModel: 'EmailAddress'
   }];
 
+  countries = COUNTRIES;
   addUnit = false;
+  errorMessage: any = '';
+  successMessage: any = '';
+  emailRegExp = EMAIL_REGEXP;
+  phoneNumberRegExp = PHONE_NUMBER_REGEXP;
+  isValid: boolean = false;
+  enableSignUpButton: boolean = false;
+  isValidEmail: boolean = true;
+  isValidPhoneNumber: boolean = true;
+  selectedCountry;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router) { }
 
-  ngOnInit() {
-    this.group = this.formBuilder.group({
-      firstName: [this.contactDetails.PrimaryContactPersonFirstName],
-      food: [],
-      phone: this.formBuilder.array([
-        this.createInput()
-      ])
-    });
-    console.log('contact', this.contactDetails);
+  ngOnInit() {}
+
+  public clearError() {
+    this.errorMessage = '';
+    this.successMessage = '';
   }
 
-  createInput() {
-    return this.formBuilder.group({
-      phone1: ['', Validators.required]
-    });
+  public showErrorMessage(message?: string) {
+    this.successMessage = '';
+    this.errorMessage = message ? message : DEFAULT_ERROR_MESSAGE;
+  }
+
+  public showSuccessMessage(message?: string) {
+    this.errorMessage = '';
+    this.successMessage = message;
+  }
+
+  public validateEmail(email?) {
+    // this.emailInputs.map(item => {
+      this.isValidEmail = this.emailRegExp.test(email);
+      // console.log(this.isValidEmail, this.contactDetails[item.ngModel], item.ngModel);
+    // });
+    // console.log(this.isValidEmail);
+    return this.isValidEmail;
+  }
+
+  public validatePhoneNumber(phone?) {
+    this.isValidPhoneNumber = this.phoneNumberRegExp.test(phone);
+    return this.isValidPhoneNumber;
+  }
+
+  validateAll() {
+    this.clearError();
+    this.enableSignUpButton = this.leadDetails.EmailAddress && this.leadDetails.MobileNumber;
+
+    this.emailInputs.map(item => this.isValid = this.isValid &&  this.validateEmail(item));
+    if (!this.isValid) {
+      return this.isValid;
+    }
+
+    this.phoneInputs.map(item => this.isValid = this.isValid && this.validatePhoneNumber(item));
+    if (!this.isValid) {
+      return this.isValid;
+    }
   }
 
   addField(type) {
@@ -93,9 +136,4 @@ export class ContactPersonalDetailsComponent implements OnInit {
   goToPage(url) {
     this.router.navigate([url]);
   }
-
-  changes() {
-    console.log(this.contactDetails);
-  }
-
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { FilterCloseService } from "../../services/filter-close.service";
 import { MatSnackBar } from "@angular/material";
@@ -43,6 +44,7 @@ export class FilterComponent implements OnInit {
   @Output() changeFilterParams = new EventEmitter();
 
   constructor(private apiService: ApiService,
+              private leadsService: LeadsService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar,
               public filterClose: FilterCloseService) { }
@@ -90,7 +92,7 @@ export class FilterComponent implements OnInit {
             this.openSnackBar('Server error', 'OK');
           });
     } else if (this.type === 'leads') {
-      this.apiService.getLeadsWithFilter(this.offset, this.limit, null, filterParams)
+      this.leadsService.getLeadsWithFilter(this.offset, this.limit, null, filterParams)
         .subscribe((data) => {
             this.loadingSpinner.hide();
             this.responseList  =  data;

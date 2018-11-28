@@ -4,6 +4,7 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImag
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { ApiService } from '../../services/api.service';
 import { PropertiesService } from '../../services/properties.service';
+import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar } from '@angular/material';
 import PhotoSwipe from 'photoswipe';
@@ -43,6 +44,7 @@ export class ProperiesDetailsComponent implements OnInit {
               private router: Router,
               private apiService: ApiService,
               private propertiesService: PropertiesService,
+              private leadsService: LeadsService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) {
   }
@@ -187,6 +189,14 @@ export class ProperiesDetailsComponent implements OnInit {
         this.loadingSpinner.hide();
         this.openSnackBar('Server error', 'OK');
       });
+  }
+
+  createNewOpportunity() {
+    const contactName = this.leadsService.contactName;
+    const keyContactId = this.leadsService.keyContactId;
+    this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
+    this.openSnackBar('Opportunity created.', 'OK');
+    this.router.navigate(['/opportunities']);
   }
 
   breadcrumbsArr() {
