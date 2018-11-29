@@ -9,6 +9,7 @@
         [leadDetails]="leadDetails"
         [contactDetails]="contactDetails"
         [editAllow]="editAllow"
+        (isAllowedSave)="isAllowed($event)"
       >
       </app-contact-personal-details>
     </mat-tab>
@@ -57,8 +58,8 @@
   <div class="action-block" *ngIf="editAllow">
     <button *ngIf="contactId === 'new'" class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
     <button *ngIf="contactId !== 'new'" class="cancel-bnt" (click)="editAllow=false">Cancel</button>
-    <button *ngIf="contactId === 'new'" (click)="createContact()" [disabled]="!contactDetails.EmailAddress">Create</button>
-    <button *ngIf="contactId !== 'new'" (click)="updateContact()" [disabled]="!contactDetails.EmailAddress">Update</button>
+    <button *ngIf="contactId === 'new'" (click)="createContact()">Create</button>
+    <button *ngIf="contactId !== 'new'" (click)="updateContact()">Update</button>
   </div>
 
   <div class="action-block" *ngIf="!editAllow &&!leadDetails.PrimaryInventoryItemId">

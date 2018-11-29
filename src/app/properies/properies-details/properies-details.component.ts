@@ -208,6 +208,7 @@ export class ProperiesDetailsComponent implements OnInit {
         },
         (error) => {
           this.loadingSpinner.hide();
+          this.router.navigate([this.leadsService.backUrl]);
           this.openSnackBar('Server error', 'OK');
         });
   }

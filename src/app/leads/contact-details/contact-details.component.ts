@@ -29,6 +29,7 @@ export class ContactDetailsComponent implements OnInit {
   };
   phoneCodes = [];
   editAllow = true;
+  isAllowedSave: boolean;
   newContact = {
     'FirstName' : '',
     'LastName' : '',
@@ -208,6 +209,11 @@ export class ContactDetailsComponent implements OnInit {
       if (result) {
       }
     });
+  }
+
+  isAllowed(data) {
+    this.isAllowedSave = data;
+    console.log('allow', this.isAllowedSave);
   }
 
   openDiscountDialog(id: number): void {

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { LeadsService } from '../../services/leads.service'
 import {Router} from "@angular/router";
 import {
   DEFAULT_ERROR_MESSAGE,
@@ -18,6 +19,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
   @Input() contactDetails: any = {};
   @Input() leadDetails: any = {};
   @Input() editAllow: boolean;
+  @Output() isAllowedSave = new EventEmitter();
   @ViewChild('phone') phone: ElementRef;
 
   afuConfig = {
@@ -53,13 +55,13 @@ export class ContactPersonalDetailsComponent implements OnInit {
   emailRegExp = EMAIL_REGEXP;
   phoneNumberRegExp = PHONE_NUMBER_REGEXP;
   isValid: boolean = false;
-  enableSignUpButton: boolean = false;
+  enableSaveButton: boolean = false;
   isValidEmail: boolean = true;
   isValidPhoneNumber: boolean = true;
-  selectedCountry;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private leadsService: LeadsService) { }
 
   ngOnInit() {}
 
@@ -92,10 +94,10 @@ export class ContactPersonalDetailsComponent implements OnInit {
     return this.isValidPhoneNumber;
   }
 
-  validateAll(event) {
+  validateAll() {
     this.clearError();
-    this.enableSignUpButton = this.leadDetails.EmailAddress && this.leadDetails.MobileNumber;
-
+    // this.enableSaveButton = this.leadDetails.EmailAddress && this.leadDetails.MobileNumber;
+    // this.isAllowedSave.emit();
     this.emailInputs.map(item => this.isValid = this.isValid &&  this.validateEmail(item));
     if (!this.isValid) {
       return this.isValid;
@@ -105,13 +107,21 @@ export class ContactPersonalDetailsComponent implements OnInit {
     if (!this.isValid) {
       return this.isValid;
     }
+  }
 
-    // let iKeyCode = (event.which) ? event.which : event.keyCode;
-    // if (iKeyCode !== 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57)) {
-    //   return false;
-    // } else {
-    //   return true;
-    // }
+  isNumberKey(evt) {
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode !== 46 && charCode > 31
+      && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
+
+  addigUnit() {
+    this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
+    this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
+    this.leadsService.backUrl = window.location.pathname;
+    this.goToPage('/units');
   }
 
   addField(type) {

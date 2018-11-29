@@ -23,7 +23,7 @@
 
       <div class="field-block" *ngFor="let inputData of emailInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll($event)">
+        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll()">
         <mat-error *ngIf="!validateEmail(contactDetails[inputData.ngModel]) && contactDetails[inputData.ngModel]">
           Please enter a valid email address
         </mat-error>
@@ -47,7 +47,7 @@
           </mat-option>
         </mat-select>
         <span class="phone-code">{{leadDetails.PrimaryPhoneCountryCode}}</span>
-        <input class="phone-input" [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll($event)">
+        <input class="phone-input" [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keypress)="isNumberKey($event)" (keyup)="validateAll()">
         <mat-error *ngIf="!validatePhoneNumber(contactDetails[inputData.ngModel]) && contactDetails[inputData.ngModel]">
           Please enter a valid phone number
         </mat-error>
@@ -66,7 +66,7 @@
       <div class="field-block">
         <label for="unit">Unit</label>
         <p id="unit">{{leadDetails.PrimaryInventoryItemId}}</p>
-        <button class="add-field-btn" (click)="goToPage('/units')" *ngIf="!leadDetails.PrimaryInventoryItemId && editAllow">+ add property</button>
+        <button class="add-field-btn" (click)="addigUnit()" *ngIf="!leadDetails.PrimaryInventoryItemId && editAllow">+ add property</button>
       </div>
 
       <div class="dynamically-btn" style="justify-content: flex-end">
