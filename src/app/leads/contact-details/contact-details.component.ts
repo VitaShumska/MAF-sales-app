@@ -176,6 +176,7 @@ export class ContactDetailsComponent implements OnInit {
   addUnit() {
     this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
     this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
+    this.leadsService.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
     this.goToPage('/units');
   }
 

@@ -23,7 +23,7 @@
 
       <div class="field-block" *ngFor="let inputData of emailInputs">
         <label [for]="inputData.id">{{inputData.name}}</label>
-        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll()">
+        <input [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll($event)">
         <mat-error *ngIf="!validateEmail(contactDetails[inputData.ngModel]) && contactDetails[inputData.ngModel]">
           Please enter a valid email address
         </mat-error>
@@ -47,7 +47,7 @@
           </mat-option>
         </mat-select>
         <span class="phone-code">{{leadDetails.PrimaryPhoneCountryCode}}</span>
-        <input class="phone-input" [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll()">
+        <input class="phone-input" [id]="inputData.id" type="text" [(ngModel)]="contactDetails[inputData.ngModel]" (keyup)="validateAll($event)">
         <mat-error *ngIf="!validatePhoneNumber(contactDetails[inputData.ngModel]) && contactDetails[inputData.ngModel]">
           Please enter a valid phone number
         </mat-error>

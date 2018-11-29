@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { FilterCloseService } from '../../services/filter-close.service';
+import { LeadsService } from '../../services/leads.service';
 
 @Component({
   selector: 'app-base-header',
@@ -20,7 +21,8 @@ export class BaseHeaderComponent implements OnInit {
     private location: Location,
     private router: Router,
     private breadcrumbs: BreadcrumbsService,
-    private filterClose: FilterCloseService
+    private filterClose: FilterCloseService,
+    private leadsService: LeadsService
   ) {
     this.breadcrumbs.breadcrumbsEmitter
       .subscribe( breadcrumbsArr => {
@@ -43,10 +45,20 @@ export class BaseHeaderComponent implements OnInit {
     if ( document.getElementById('light') && document.getElementById('fade') ) {
       this.filterClose.closeFilter(false);
     }
-    if (this.headerName === 'Home') {
-      window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
-    } else {
-      this.router.navigate([this.backUrl]);
+
+    switch(this.headerName) {
+      case 'Home': {
+        window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
+        break;
+      }
+      case 'Units': {
+        this.leadsService.backUrl ? this.router.navigate([this.leadsService.backUrl]) : this.router.navigate([this.backUrl]);
+        break;
+      }
+      default: {
+        this.router.navigate([this.backUrl]);
+        break;
+      }
     }
   }
 }

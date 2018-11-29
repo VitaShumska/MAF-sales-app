@@ -92,7 +92,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
     return this.isValidPhoneNumber;
   }
 
-  validateAll() {
+  validateAll(event) {
     this.clearError();
     this.enableSignUpButton = this.leadDetails.EmailAddress && this.leadDetails.MobileNumber;
 
@@ -105,6 +105,13 @@ export class ContactPersonalDetailsComponent implements OnInit {
     if (!this.isValid) {
       return this.isValid;
     }
+
+    // let iKeyCode = (event.which) ? event.which : event.keyCode;
+    // if (iKeyCode !== 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57)) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
   }
 
   addField(type) {

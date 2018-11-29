@@ -194,9 +194,22 @@ export class ProperiesDetailsComponent implements OnInit {
   createNewOpportunity() {
     const contactName = this.leadsService.contactName;
     const keyContactId = this.leadsService.keyContactId;
-    this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
-    this.openSnackBar('Opportunity created.', 'OK');
-    this.router.navigate(['/opportunities']);
+    // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
+    this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          console.log('create opp', data);
+          this.openSnackBar('Opportunity created.', 'OK');
+          this.router.navigate(['/opportunities']);
+          // this.router.navigate([this.leadsService.backUrl]);
+          this.leadsService.contactName = '';
+          this.leadsService.keyContactId = '';
+          this.leadsService.backUrl = '';
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
   }
 
   breadcrumbsArr() {

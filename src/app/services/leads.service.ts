@@ -11,6 +11,7 @@ export class LeadsService {
   //////Values for creating opportunity/////
   contactName;
   keyContactId;
+  backUrl;
 
   constructor(private http: HttpClient,
               private ngxXml2jsonService: NgxXml2jsonService) {
@@ -161,6 +162,20 @@ export class LeadsService {
       'StatusCode': 'WON'
     };
     return this.http.patch(this.API_URL + 'opportunities/37244', data, {headers});
+  }
+
+  createRestOpportunity(name, contactId, unitId): Observable<any> {
+    console.log('create');
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Content-Type', 'application/json');
+    // headers = headers.append('Accept', 'application/json');
+    const data = {
+      // 'Name': name,
+      'KeyContactId': contactId,
+      // 'UnitNumber_c': unitId
+    };
+    return this.http.post(this.API_URL + 'opportunities', data, {headers});
   }
 
   getDiscount(id): Observable<any> {
