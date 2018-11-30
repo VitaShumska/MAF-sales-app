@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
-import {MatDialog, MatSnackBar} from "@angular/material";
+import { MatDialog, MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-create-lead',
@@ -13,11 +13,12 @@ import {MatDialog, MatSnackBar} from "@angular/material";
 export class CreateLeadComponent implements OnInit {
 
   newLead: any = {
-    'MAF_PrimaryContact_c': '',
-    'secondaryPurchaser': '',
-    'OwnerPartyName': '',
-    'MAF_UnitType_c': '',
-    'unitNumber': ''
+    // 'MAF_PrimaryContact_c': '',
+    // 'secondaryPurchaser': '',
+    // 'OwnerPartyName': '',
+    // 'MAF_UnitType_c': '',
+    // 'unitNumber': ''
+    'Name': 'test'
   };
   breadcrumbObj = {
     name: 'Create Lead',
@@ -35,6 +36,7 @@ export class CreateLeadComponent implements OnInit {
 
   ngOnInit() {
     this.breadcrumbsArr();
+    // this.newLead.unitNumber = this.leadsService.unitId;
   }
 
   createLead() {

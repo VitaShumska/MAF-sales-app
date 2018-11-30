@@ -191,9 +191,18 @@ export class ProperiesDetailsComponent implements OnInit {
       });
   }
 
-  createNewOpportunity() {
+  selectUnit() {
     const contactName = this.leadsService.contactName;
     const keyContactId = this.leadsService.keyContactId;
+    if (contactName && keyContactId) {
+      this.createNewOpportunity(contactName, keyContactId);
+    } else {
+      this.leadsService.unitId = this.unitDetails.MAF_UnitNumber_c;
+      this.router.navigate(['/leads']);
+    }
+  }
+
+  createNewOpportunity(contactName, keyContactId) {
     // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
     this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c)
       .subscribe(data => {

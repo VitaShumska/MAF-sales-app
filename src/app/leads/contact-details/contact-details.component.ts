@@ -91,6 +91,7 @@ export class ContactDetailsComponent implements OnInit {
     });
     this.breadcrumbsArr();
     // this.googleTranslateElementInit();
+    console.log('unitid', this.leadsService.unitId);
   }
 
   getContactById (id) {
@@ -178,8 +179,32 @@ export class ContactDetailsComponent implements OnInit {
     this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
     this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
     this.leadsService.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
-    this.goToPage('/units');
+    if(this.leadsService.unitId) {
+      this.createNewOpportunity(this.leadsService.contactName, this.leadsService.keyContactId, this.leadsService.unitId);
+    }
+    else {
+      this.goToPage('/units');
+    }
   }
+
+  createNewOpportunity(contactName, keyContactId, unitId) {
+    // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
+    this.leadsService.createRestOpportunity(contactName, keyContactId, unitId)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          console.log('create opp', data);
+          this.openSnackBar('Unit added. Opportunity created.', 'OK');
+          this.leadsService.contactName = '';
+          this.leadsService.keyContactId = '';
+          this.leadsService.backUrl = '';
+          this.leadsService.unitId = '';
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
 
   goToPage(url) {
     this.router.navigate([url]);

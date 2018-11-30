@@ -50,6 +50,7 @@ import { SelectPayplanDialogComponent } from './dialogs/select-payplan-dialog/se
 import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
 import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dialog.component';
 import { OpportunitiesListComponent } from './opportunities/opportunities-list/opportunities-list.component';
+import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { OpportunitiesListComponent } from './opportunities/opportunities-list/o
     SelectPayplanDialogComponent,
     CreateLeadComponent,
     DiscountDialogComponent,
-    OpportunitiesListComponent
+    OpportunitiesListComponent,
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,8 @@ import { OpportunitiesListComponent } from './opportunities/opportunities-list/o
   bootstrap: [AppComponent],
   entryComponents: [
     SelectPayplanDialogComponent,
-    DiscountDialogComponent
+    DiscountDialogComponent,
+    InfoDialogComponent
   ]
 })
 export class AppModule {

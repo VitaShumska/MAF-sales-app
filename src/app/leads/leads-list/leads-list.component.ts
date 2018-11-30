@@ -4,8 +4,9 @@ import { LeadsService } from '../../services/leads.service';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
 import { PageEvent } from '@angular/material';
+import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 
 @Component({
   selector: 'app-leads-list',
@@ -20,7 +21,8 @@ export class LeadsListComponent implements OnInit {
     private router: Router,
     private breadcrumbs:  BreadcrumbsService,
     private loadingSpinner: LoadingSpinnerService,
-    public snackBar: MatSnackBar) {}
+    public snackBar: MatSnackBar,
+    public dialog: MatDialog) {}
 
   leadsListOriginal: any[] = [];
   leadsList;
@@ -175,6 +177,17 @@ export class LeadsListComponent implements OnInit {
   breadcrumbsArr() {
     this.breadcrumbObj['url'] = this.router.url;
     this.breadcrumbs.createArr(this.breadcrumbObj);
+  }
+
+  openInfoDialog(data): void {
+    const config = new MatDialogConfig();
+    config.data = data;
+
+    const dialogRef = this.dialog.open(InfoDialogComponent, config);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
   }
 
   openSnackBar(message: string, action: string) {

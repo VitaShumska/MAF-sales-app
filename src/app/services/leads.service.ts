@@ -12,6 +12,7 @@ export class LeadsService {
   contactName;
   keyContactId;
   backUrl;
+  unitId;
 
   constructor(private http: HttpClient,
               private ngxXml2jsonService: NgxXml2jsonService) {
@@ -175,6 +176,7 @@ export class LeadsService {
       'KeyContactId': contactId,
       // 'UnitNumber_c': unitId
     };
+
     return this.http.post(this.API_URL + 'opportunities', data, {headers});
   }
 
