@@ -694,6 +694,9 @@ ngx-gallery-preview {
         border: none;
         box-shadow: none;
       }
+      &.error-field {
+        border: 1px solid red;
+      }
     }
     .mat-select-arrow-wrapper {
       display: block;
@@ -730,6 +733,12 @@ ngx-gallery-preview {
 .mat-icon-button .mat-button-wrapper {
   vertical-align: text-bottom;
   line-height: 60px!important;
+}
+
+.mat-datepicker-toggle.personal-details-date {
+  .mat-icon-button .mat-button-wrapper {
+    line-height: 50px!important;
+  }
 }
 
 
