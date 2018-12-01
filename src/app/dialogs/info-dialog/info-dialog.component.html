@@ -1,12 +1,19 @@
 <!--<h2 mat-dialog-title>New lead</h2>-->
+<div class="close-btn">
+  <button [mat-dialog-close]="false"><img src="./assets/icons/cancel-icon.png"></button>
+</div>
 
 <mat-dialog-content>
 
-  <p>Please, create new lead in Oracle Sales Cloud</p>
+  <p>{{data.text}}</p>
+
+  <div *ngIf="data.type === 'success'" class="success-icon">
+    <img src="./assets/icons/success_icon.png">
+  </div>
 
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="data.type === 'create-lead'">
   <button class="mat-raised-button cancel-bnt" [mat-dialog-close]="false">Cancel</button>
   <button class="mat-raised-button" type="submit" (click) = "submit()" [mat-dialog-close]="true">Go to Oracle</button>
 </mat-dialog-actions>

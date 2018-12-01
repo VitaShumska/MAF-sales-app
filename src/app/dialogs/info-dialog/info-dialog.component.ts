@@ -1,6 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
+export interface DialogData {
+  text: string;
+  type: string;
+}
+
 @Component({
   selector: 'app-info-dialog',
   templateUrl: './info-dialog.component.html',
@@ -9,11 +14,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 export class InfoDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<InfoDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) data) { }
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 
   submit() {
     window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';

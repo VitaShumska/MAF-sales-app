@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="table-body">
-        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/contact-details/' + lead.PrimaryContactId + '/' + lead.LeadId)">
+        <div class="table-row" *ngFor="let lead of leadsList" (click)="goToPage('/contact-details/' + (lead.PrimaryContactId ? lead.PrimaryContactId : 'new') + '/' + lead.LeadId)">
           <div class="table-cell lead-number">
             <div>
               <p>{{lead.LeadNumber}}</p>
@@ -54,6 +54,6 @@
       </div>
     </div>
   </div>
-  <button class="add-new-btn" (click)="goToPage('/contact-details/new/new')">+</button>
-  <!--<button class="add-new-btn" (click)="goToPage('/create-lead')">+</button>-->
+  <!--<button class="add-new-btn" (click)="goToPage('/contact-details/new/new')">+</button>-->
+  <button class="add-new-btn" (click)="openInfoDialog('Please, create new lead in Oracle Sales Cloud', 'create-lead')">+</button>
 </div>

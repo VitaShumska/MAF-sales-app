@@ -4,7 +4,7 @@ import { LeadsService } from '../../services/leads.service';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { PageEvent } from '@angular/material';
 import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 
@@ -179,11 +179,14 @@ export class LeadsListComponent implements OnInit {
     this.breadcrumbs.createArr(this.breadcrumbObj);
   }
 
-  openInfoDialog(data): void {
-    const config = new MatDialogConfig();
-    config.data = data;
-
-    const dialogRef = this.dialog.open(InfoDialogComponent, config);
+  openInfoDialog(text,type): void {
+    const dialogRef = this.dialog.open(InfoDialogComponent, {
+      width: '60vw',
+      data: {
+        text: text,
+        type: type
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
       }

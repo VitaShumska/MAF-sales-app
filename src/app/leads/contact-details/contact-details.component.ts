@@ -8,6 +8,7 @@ import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { SelectPayplanDialogComponent } from '../../dialogs/select-payplan-dialog/select-payplan-dialog.component';
 import { DiscountDialogComponent } from '../../dialogs/discount-dialog/discount-dialog.component';
+import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 
 @Component({
   selector: 'app-contact-details',
@@ -188,12 +189,13 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   createNewOpportunity(contactName, keyContactId, unitId) {
+    this.loadingSpinner.show();
     // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
     this.leadsService.createRestOpportunity(contactName, keyContactId, unitId)
       .subscribe(data => {
           this.loadingSpinner.hide();
           console.log('create opp', data);
-          this.openSnackBar('Unit added. Opportunity created.', 'OK');
+          this.openInfoDialog('Unit added. Opportunity created.', 'success');
           this.leadsService.contactName = '';
           this.leadsService.keyContactId = '';
           this.leadsService.backUrl = '';
@@ -217,6 +219,20 @@ export class ContactDetailsComponent implements OnInit {
 
   changeEditAccess() {
     this.editAllow = true;
+  }
+
+  openInfoDialog(text,type): void {
+    const dialogRef = this.dialog.open(InfoDialogComponent, {
+      width: '60vw',
+      data: {
+        text: text,
+        type: type
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
   }
 
   openSnackBar(message: string, action: string) {

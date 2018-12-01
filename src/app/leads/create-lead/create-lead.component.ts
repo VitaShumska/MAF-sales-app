@@ -18,7 +18,7 @@ export class CreateLeadComponent implements OnInit {
     // 'OwnerPartyName': '',
     // 'MAF_UnitType_c': '',
     // 'unitNumber': ''
-    'Name': 'test'
+    'Name': 'test 55'
   };
   breadcrumbObj = {
     name: 'Create Lead',

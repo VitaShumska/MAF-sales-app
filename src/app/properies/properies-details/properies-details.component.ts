@@ -6,10 +6,12 @@ import { ApiService } from '../../services/api.service';
 import { PropertiesService } from '../../services/properties.service';
 import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import { FullScreenGalleryComponent } from "../../components/full-screen-gallery/full-screen-gallery.component";
+import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
+
 
 @Component({
   selector: 'app-ptoperies-details',
@@ -46,7 +48,8 @@ export class ProperiesDetailsComponent implements OnInit {
               private propertiesService: PropertiesService,
               private leadsService: LeadsService,
               private loadingSpinner: LoadingSpinnerService,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -203,13 +206,16 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   createNewOpportunity(contactName, keyContactId) {
+    this.loadingSpinner.show();
     // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
     this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c)
       .subscribe(data => {
           this.loadingSpinner.hide();
           console.log('create opp', data);
-          this.openSnackBar('Opportunity created.', 'OK');
-          this.router.navigate(['/opportunities']);
+          this.openInfoDialog('Opportunity created', 'success');
+          setTimeout(function(){
+            this.router.navigate(['/opportunities']);
+          }, 3000);
           // this.router.navigate([this.leadsService.backUrl]);
           this.leadsService.contactName = '';
           this.leadsService.keyContactId = '';
@@ -262,6 +268,20 @@ export class ProperiesDetailsComponent implements OnInit {
         });
       });
     }
+  }
+
+  openInfoDialog(text,type): void {
+    const dialogRef = this.dialog.open(InfoDialogComponent, {
+      width: '60vw',
+      data: {
+        text: text,
+        type: type
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
   }
 
   openSnackBar(message: string, action: string) {

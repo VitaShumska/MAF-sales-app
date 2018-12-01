@@ -743,7 +743,9 @@ ngx-gallery-preview {
 
 
 ///////////////////////Dialog window/////////
-
+mat-dialog-container.mat-dialog-container .mat-dialog-content {
+  padding: 0;
+}
 mat-dialog-container.mat-dialog-container {
   width: 75vw;
   border-radius: 9px;
