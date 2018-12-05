@@ -3,31 +3,33 @@
     <div class="inputs-block">
       <div fxFlex="50">
         <div class="field-block">
-          <label for="primary">Primary Purchaser</label>
-          <input id="primary" type="text" [(ngModel)]="newLead.MAF_PrimaryContact_c">
+          <label for="primary">Lead Name</label>
+          <input id="primary" type="text" [(ngModel)]="newLead.Name" placeholder="300000007072390">
         </div>
 
         <div class="field-block">
-          <label for="secondary">Secondary Purchaser</label>
-          <input id="secondary" type="text" [(ngModel)]="newLead.secondaryPurchaser">
+          <label for="secondary">Project</label>
+          <input id="secondary" type="text" [(ngModel)]="newLead.MAF_Project_c" placeholder="Tilal Al Ghaf - Dubai">
         </div>
 
-        <div class="field-block">
-          <label for="owner">Lead Owner</label>
-          <input id="owner" type="text" [(ngModel)]="newLead.OwnerPartyName">
-        </div>
       </div>
 
       <div fxFlex="50">
+
         <div class="field-block">
-          <label for="unitType">Unit/Type</label>
-          <input id="unitType" type="text" [(ngModel)]="newLead.MAF_UnitType_c">
+          <label for="owner">Source</label>
+          <input id="owner" type="text" [(ngModel)]="newLead.MAF_SOURCE_c" placeholder="Referral_TAG">
         </div>
 
         <div class="field-block">
-          <label for="unitNo">Unit Number</label>
-          <input id="unitNo" type="text" [(ngModel)]="newLead.unitNumber">
+          <label for="unitType">Method Of Enquiry</label>
+          <input id="unitType" type="text" [(ngModel)]="newLead.MethodOfEnquiry_c" placeholder="Call Center_TAG">
         </div>
+
+        <!--<div class="field-block">-->
+          <!--<label for="unitNo">Unit Number</label>-->
+          <!--<input id="unitNo" type="text" [(ngModel)]="newLead.unitNumber">-->
+        <!--</div>-->
       </div>
     </div>
   </div>

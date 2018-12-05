@@ -235,6 +235,7 @@ button {
 .custom-container::-webkit-scrollbar,
 .bright_content::-webkit-scrollbar,
 .mat-tab-body-content::-webkit-scrollbar,
+.generate-quote::-webkit-scrollbar,
 .unit-info::-webkit-scrollbar {
   width: 6px;
   height: 8px;
@@ -245,6 +246,7 @@ button {
 .custom-container::-webkit-scrollbar-track,
 .bright_content::-webkit-scrollbar-track,
 .mat-tab-body-content::-webkit-scrollbar-track,
+.generate-quote::-webkit-scrollbar-track,
 .unit-info::-webkit-scrollbar-track {
   background: transparent;
 }
@@ -253,6 +255,7 @@ button {
 .custom-container::-webkit-scrollbar-thumb,
 .bright_content::-webkit-scrollbar-thumb,
 .mat-tab-body-content::-webkit-scrollbar-thumb,
+.generate-quote::-webkit-scrollbar-thumb,
 .unit-info::-webkit-scrollbar-thumb {
   background-color: #d8d8d8;
   outline: 1px solid slategrey;

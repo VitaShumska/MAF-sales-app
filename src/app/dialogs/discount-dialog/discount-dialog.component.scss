@@ -42,5 +42,11 @@
       }
     }
   }
+}
 
+.dialog-table {
+  .table .table-header{
+    position: unset!important;
+    height: auto;
+  }
 }

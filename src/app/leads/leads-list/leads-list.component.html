@@ -1,6 +1,6 @@
 <div class="leads new">
   <div style="display: flex">
-    <!--<button fxFlex="19" class="get-lead-btn" (click)="goToPage('/create-lead')">GET NEXT LEAD</button>-->
+    <button fxFlex="19" class="get-lead-btn" (click)="getNotAssignedLeads()">GET NEXT LEAD</button>
     <div fxFlex="100">
       <app-search
         [inputList]="leadsListOriginal"
@@ -29,10 +29,10 @@
               <p>{{lead.LeadNumber}}</p>
             </div>
           </div>
+          <div class="table-cell"> {{lead.Name}} </div>
           <div class="table-cell">{{lead.PrimaryContactPartyName}}</div>
-          <div class="table-cell"> {{lead.OwnerPartyName}} </div>
           <div class="table-cell">{{lead.MAF_Project_c}}</div>
-          <div class="table-cell">{{lead.MAF_ProductType_c}}</div>
+          <div class="table-cell">{{lead.AssignmentStatusCode}}</div>
           <div class="table-cell"> {{lead.CreationDate | date : 'dd/MM/yyyy' }} </div>
           <div class="table-cell"> {{lead.LastUpdateDate | date : 'dd/MM/yyyy' }} </div>
         </div>
@@ -54,6 +54,6 @@
       </div>
     </div>
   </div>
-  <!--<button class="add-new-btn" (click)="goToPage('/contact-details/new/new')">+</button>-->
-  <button class="add-new-btn" (click)="openInfoDialog('Please, create new lead in Oracle Sales Cloud', 'create-lead')">+</button>
+  <button class="add-new-btn" (click)="goToPage('/create-lead')">+</button>
+  <!--<button class="add-new-btn" (click)="openInfoDialog('Please, create new lead in Oracle Sales Cloud', 'create-lead')">+</button>-->
 </div>

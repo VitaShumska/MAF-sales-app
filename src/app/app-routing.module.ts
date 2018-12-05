@@ -9,6 +9,7 @@ import { ProperiesDetailsComponent } from './properies/properies-details/properi
 import { ContactDetailsComponent } from './leads/contact-details/contact-details.component';
 import {CreateLeadComponent} from "./leads/create-lead/create-lead.component";
 import { OpportunitiesListComponent } from "./opportunities/opportunities-list/opportunities-list.component";
+import {GenerateQuoteComponent} from "./leads/generate-quote/generate-quote.component";
 
 const routes: Routes = [
   // { path: '', component: BaseComponent },
@@ -23,7 +24,9 @@ const routes: Routes = [
       { path: 'opportunities', component: OpportunitiesListComponent },
       { path: 'unit-details/:unitId', component: ProperiesDetailsComponent },
       { path: 'contact-details/:contactId/:leadId', component: ContactDetailsComponent },
-      { path: 'create-lead', component: CreateLeadComponent }
+      { path: 'opportunity-details/:contactId/:optyId', component: ContactDetailsComponent },
+      { path: 'create-lead', component: CreateLeadComponent },
+      { path: 'generate-quote', component: GenerateQuoteComponent }
     ]
   },
   { path: '**', redirectTo: '/home'}

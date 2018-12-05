@@ -5,16 +5,14 @@
   <div class="new-discount" fxLayoutAlign="center">
     <div fxFlex="27" class="inputs-block">
       <label for="type">Type</label>
-      <mat-select id="type" [(value)]="newDiscount.type">
-        <mat-option value="">Select unit type</mat-option>
-        <mat-option *ngFor="let item of unitTypes" [value]="item">
-          {{item}}
-        </mat-option>
-      </mat-select>
+      <input id="type" type="text" [(value)]="newDiscount.type"/>
     </div>
     <div fxFlex="27" class="inputs-block">
       <label for="amount">Amount/Percentage</label>
-      <input id="amount" type="text" [(ngModel)]="newDiscount.amount">
+      <mat-select id="amount" [(value)]="newDiscount.amount">
+        <mat-option value="amount">Amount</mat-option>
+        <mat-option value="percentage">Percentage</mat-option>
+      </mat-select>
     </div>
     <div fxFlex="27" class="inputs-block">
       <label for="discount">Discount</label>
@@ -30,12 +28,52 @@
       <ng-template mat-tab-label>
         DISCOUNTS
       </ng-template>
+      <div class="dialog-table">
+        <div class="table">
+          <div class="table-header">
+            <div class="table-cell">#</div>
+            <div class="table-cell">Discount Type</div>
+            <div class="table-cell">Amount/Percentage</div>
+            <div class="table-cell">Discount</div>
+          </div>
+          <div class="table-body">
+            <div class="table-row" *ngFor="let discount of discountsData; index as i">
+              <div class="table-cell">{{i + 1}}</div>
+              <div class="table-cell">{{discount.DiscountType_c}}</div>
+              <div class="table-cell">{{discount.ObjectType_c}}</div>
+              <div class="table-cell">{{discount.MAF_Value_c}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-tab>
 
     <mat-tab>
       <ng-template mat-tab-label>
         GENERATED QUOTE
       </ng-template>
+      <div class="dialog-table">
+        <div class="table">
+          <div class="table-header">
+            <div class="table-cell">#</div>
+            <div class="table-cell">Unit Name</div>
+            <div class="table-cell">Net Amount</div>
+            <div class="table-cell">Payment Plan</div>
+            <div class="table-cell">Created By</div>
+            <div class="table-cell"></div>
+          </div>
+          <div class="table-body">
+            <div class="table-row">
+              <div class="table-cell"> Phase 1 </div>
+              <div class="table-cell">The Grand Crest</div>
+              <div class="table-cell">1111111</div>
+              <div class="table-cell"> area</div>
+              <div class="table-cell">build area</div>
+              <div class="table-cell">2,229,000.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 

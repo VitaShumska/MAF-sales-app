@@ -51,6 +51,7 @@ import { CreateLeadComponent } from './leads/create-lead/create-lead.component';
 import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dialog.component';
 import { OpportunitiesListComponent } from './opportunities/opportunities-list/opportunities-list.component';
 import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component';
+import { GenerateQuoteComponent } from './leads/generate-quote/generate-quote.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component
     CreateLeadComponent,
     DiscountDialogComponent,
     OpportunitiesListComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    GenerateQuoteComponent
   ],
   imports: [
     BrowserModule,

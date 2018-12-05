@@ -55,28 +55,28 @@
   </mat-tab-group>
 
 
-  <div class="action-block" *ngIf="editAllow">
+  <div class="action-block" *ngIf="editAllow && (pageName !== 'opportunity-details')">
     <button *ngIf="contactId === 'new'" class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
     <button *ngIf="contactId !== 'new'" class="cancel-bnt" (click)="editAllow=false">Cancel</button>
     <button *ngIf="contactId === 'new'" (click)="createContact()">Create</button>
     <button *ngIf="contactId !== 'new'" (click)="updateContact()">Update</button>
   </div>
 
-  <div class="action-block" *ngIf="!editAllow &&!leadDetails.PrimaryInventoryItemId">
+  <div class="action-block" *ngIf="!editAllow && (pageName !== 'opportunity-details')">
     <button (click)="addUnit()">Add Unit</button>
   </div>
 
-  <div class="expanded-action-block" *ngIf="!editAllow && leadDetails.PrimaryInventoryItemId">
+  <div class="expanded-action-block" *ngIf="!editAllow && (pageName === 'opportunity-details')">
     <div class="price-block ">
-      <span class="price">PRICE: <b>{{leadDetails.Price}}</b></span>
-      <span>Payment Plan: Not Selected</span>
-      <span>Discount: Not Selected</span>
-      <span>Total amount: <b>2,229,000.000</b></span>
+      <span class="price">PRICE: <b>{{leadDetails.MAF_Price_c | number : '1.2-2'}}</b></span>
+      <span>Payment Plan: {{leadDetails.MAF_PaymentPlan_c}}</span>
+      <span>Discount: {{leadDetails.MAF_DiscountOpty_c | number : '1.2-2'}}</span>
+      <span>Total amount: <b>{{leadDetails.MAF_BdgtAmount_c | number : '1.2-2'}}</b></span>
     </div>
     <div class="btn-block">
       <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payment Plan</button>
       <button class="apply-bnt" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
-      <button class="cancel-bnt" disabled>Generate Quote</button>
+      <button class="cancel-bnt" (click)="goToPage('/generate-quote')">Generate Quote</button>
       <button [matMenuTriggerFor]="requestMenu">Request</button>
       <mat-menu #requestMenu="matMenu">
         <button mat-menu-item>Block</button>

@@ -1,0 +1,47 @@
+.generate-quote {
+  background-color: #ffffff;
+  overflow-y: auto;
+  .quote-content {
+    height: calc(100vh - 90px - 68px);
+    padding: 19px 25px;
+    font-size: 14px;
+    .general-info {
+      font-size: 17px;
+    }
+    .title-block {
+      text-align: center;
+      height: 33px;
+      line-height: 33px;
+      background-color: #f89716;
+      color: #ffffff;
+      font-family: Helvetica;
+      font-size: 17px;
+      margin: 0 -25px;
+    }
+    .space-between {
+      display: flex;
+      justify-content: space-between
+    }
+    .table {
+      margin-bottom: 20px;
+      .table-header{
+        position: unset;
+        background-color: transparent;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .table-body {
+        height: inherit;
+      }
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+  }
+  .action-block {
+    justify-content: flex-end;
+    .cancel-bnt {
+      background-color: #efefef;
+      color: #000000;
+    }
+  }
+}

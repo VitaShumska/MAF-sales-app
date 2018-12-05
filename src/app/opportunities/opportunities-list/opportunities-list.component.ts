@@ -112,7 +112,6 @@ export class OpportunitiesListComponent implements OnInit {
           this.opportunitiesListOriginal =  data['items'];
           this.opportunitiesList = this.opportunitiesListOriginal;
           this.countOfOpportunities = data['totalResults'];
-          console.log('opportunity', data);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -121,19 +120,26 @@ export class OpportunitiesListComponent implements OnInit {
       );
   }
 
-  getDiscount() {
-    this.loadingSpinner.show();
-    this.leadsService.getDiscount(300000007014896)
-      .subscribe(
-        (data: any) => {
-          this.loadingSpinner.hide();
-          console.log('opportunity discount', data);
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        }
-      );
+  // sortByKey(sortElem) {
+  //   this.sortElem = sortElem;
+  //   this.displayedColumns.forEach(item => {
+  //     if (sortElem.key === item.key) {
+  //       if (sortElem.sort === 'asc') {
+  //         sortElem.sort = 'desc';
+  //       } else {
+  //         sortElem.sort = 'asc';
+  //       }
+  //     } else {
+  //       item.sort = '';
+  //     }
+  //   });
+  // }
+
+  goToPage(url) {
+    this.router.navigate([url]);
+    // this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)) : false;
+    window.sessionStorage.setItem('limit', this.limit.toString());
+    window.sessionStorage.setItem('offset', this.offset.toString());
   }
 
   changeSearch(data) {
@@ -141,7 +147,7 @@ export class OpportunitiesListComponent implements OnInit {
   }
 
 
-    breadcrumbsArr() {
+  breadcrumbsArr() {
     this.breadcrumbObj['url'] = this.router.url;
     this.breadcrumbs.createArr(this.breadcrumbObj);
   }

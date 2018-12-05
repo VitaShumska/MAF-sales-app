@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="table-body">
-        <div class="table-row" *ngFor="let opportunity of opportunitiesList">
+        <div class="table-row" *ngFor="let opportunity of opportunitiesList" (click)="goToPage('/opportunity-details/' + opportunity.KeyContactId + '/' + opportunity.OptyNumber)">
           <div class="table-cell opportunity-number">
             <div>
               <p>{{opportunity.OptyNumber}}</p>

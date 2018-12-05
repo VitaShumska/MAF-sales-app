@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import { LeadsService } from '../../services/leads.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+
+export interface DialogData {
+  discountData: any;
+}
 
 
 @Component({
@@ -8,28 +13,31 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./discount-dialog.component.scss']
 })
 export class DiscountDialogComponent implements OnInit {
-  unitTypes: any = [];
-  newDiscount ={
+  newDiscount = {
     'type': '',
     'amount': '',
     'discount': ''
   };
+  discountsData;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private leadsService: LeadsService,
+              private dialogRef: MatDialogRef<DiscountDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
-    this.getDropdownOptions('MAF_PROD_UNIT_TYPE');
+    this.discountsData = this.data.discountData;
+    console.log(this.data.discountData);
   }
 
-  getDropdownOptions(param) {
-    this.apiService.getDropdownOption(param).subscribe(
-      (data:  any) => {
-        data.items.map((item) => {
-          this.unitTypes.push(item.LookupCode);
-        });
-      }
-    );
-  }
+  // getDropdownOptions(param) {
+  //   this.leadsService.getDropdownOption(param).subscribe(
+  //     (data:  any) => {
+  //       data.items.map((item) => {
+  //         this.unitTypes.push(item.LookupCode);
+  //       });
+  //     }
+  //   );
+  // }
 
   selected() {
     console.log('selected discount');

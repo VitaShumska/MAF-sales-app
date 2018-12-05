@@ -18,19 +18,23 @@ import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.compo
 export class ContactDetailsComponent implements OnInit {
 
   sub;
+  pageName;
   contactId;
   leadId;
+  optyId;
   contactDetails: any = {};
   leadDetails: any = {};
   identificationContactData: any = {};
   breadcrumbObj = {
-    name: 'Contact Details',
-    backUrl: '/leads',
-    param: 0 // because is a parent
+    name: '',
+    backUrl: '',
+    param: 0
   };
   phoneCodes = [];
   editAllow = true;
   isAllowedSave: boolean;
+  discountData: any = {};
+  getMilestonesData: any = {};
   newContact = {
     'FirstName' : '',
     'LastName' : '',
@@ -78,23 +82,83 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.contactId = params['contactId'];
-      this.leadId = params['leadId'];
-      if (this.contactId !== 'new' && this.leadId !== 'new') {
-        this.getContactById(this.contactId);
-        this.getIdentificationContactData();
-        this.getLeadById(this.leadId);
-        this.editAllow = false;
-      } else {
-        this.contactDetails = this.newContact;
-      }
-    });
-    this.breadcrumbsArr();
+    this.pageName = window.location.pathname.split('/')[1];
+    this.isLeadOrOpportunity(this.pageName);
     // this.googleTranslateElementInit();
-    console.log('unitid', this.leadsService.unitId);
   }
 
+  isLeadOrOpportunity(page) {
+    switch (page) {
+      case 'opportunity-details': {
+        this.sub = this.route.params.subscribe(params => {
+          this.contactId = params['contactId'];
+          this.optyId = params['optyId'];
+          this.getContactById(this.contactId);
+          this.getOpportunityById(this.optyId);
+          this.editAllow = false;
+        });
+        this.breadcrumbObj = {
+          name: 'Opportunity Details',
+          backUrl: '/opportunities',
+          param: 0 // because is a parent
+        };
+        this.breadcrumbsArr();
+        break;
+      }
+      case 'lead-details': {
+        this.sub = this.route.params.subscribe(params => {
+          this.contactId = params['contactId'];
+          this.leadId = params['leadId'];
+          if (this.contactId !== 'new' && this.leadId !== 'new') {
+            this.getContactById(this.contactId);
+            this.getIdentificationContactData();
+            this.getLeadById(this.leadId);
+            this.editAllow = false;
+          } else {
+            this.contactDetails = this.newContact;
+          }
+        });
+        this.breadcrumbObj = {
+          name: 'Contact Details',
+          backUrl: '/leads',
+          param: 0 // because is a parent
+        };
+        this.breadcrumbsArr();
+        break;
+      }
+    }
+  }
+//////////////////////Leads functional///////////////////////
+  getLeadById(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getLeadById(id)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.leadDetails = data;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  updateLead(leadId, contactId) {
+    this.loadingSpinner.show();
+    const data = {
+      'PrimaryContactId': contactId
+    };
+    console.log('create lead', data);
+    this.leadsService.updateLead(leadId, data)
+      .subscribe(() => {
+          this.loadingSpinner.hide();
+          this.editAllow = false;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+//////////////////////Contacts functional///////////////////////
   getContactById (id) {
     this.loadingSpinner.show();
     this.leadsService.getContactById(id)
@@ -133,19 +197,6 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
-  getLeadById(id) {
-    this.loadingSpinner.show();
-    this.leadsService.getLeadById(id)
-      .subscribe(data => {
-          this.loadingSpinner.hide();
-          this.leadDetails = data;
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        });
-  }
-
   updateContact() {
     this.loadingSpinner.show();
     console.log('update', this.contactDetails.PartyNumber, this.contactDetails);
@@ -163,12 +214,20 @@ export class ContactDetailsComponent implements OnInit {
   createContact() {
     this.loadingSpinner.show();
     console.log('cerate', this.contactDetails);
+    if (this.leadId ) {
+      this.contactDetails.LeadNumber = this.leadDetails.LeadNumber;
+    }
     this.leadsService.createContact(this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('created!!!!', data);
           this.editAllow = false;
-          this.goToPage('/contact-details/' + data.PartyId + '/new');
+          console.log('new contact', data);
+          // if (this.leadId) {
+            this.updateLead(this.leadId, data.PartyId);
+            this.goToPage('/contact-details/' + data.PartyId + '/' + this.leadId);
+          // } else {
+          //   this.goToPage('/contact-details/' + data.PartyId + '/new');
+          // }
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -176,18 +235,7 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
-  addUnit() {
-    this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
-    this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
-    this.leadsService.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
-    if(this.leadsService.unitId) {
-      this.createNewOpportunity(this.leadsService.contactName, this.leadsService.keyContactId, this.leadsService.unitId);
-    }
-    else {
-      this.goToPage('/units');
-    }
-  }
-
+//////////////////////Opportunity functional///////////////////////
   createNewOpportunity(contactName, keyContactId, unitId) {
     this.loadingSpinner.show();
     // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
@@ -207,6 +255,99 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
+  getOpportunityById(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getOpportunityById(id)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.leadDetails = data;
+          this.getDiscount(this.leadDetails.OptyId);
+          this.getMilestones(this.leadDetails.OptyId);
+          this.getReceipt(this.leadDetails.OptyId);
+          // this.getPayplan(this.leadDetails.MAF_PaymentPlan_Id_c);
+          this.getPayplan(this.optyId);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  getDiscount(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getDiscount(id)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          this.discountData = data;
+          console.log('discount data', this.discountData);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  getMilestones(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getMilestones(id)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          this.getMilestonesData = data;
+          console.log('milestones data', this.getMilestonesData);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  getReceipt(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getReceipt(id)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          // this.getMilestonesData = data;
+          console.log('receipt data', data);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  getPayplan(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getPayplan(id)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          // this.getMilestonesData = data;
+          console.log('receipt data', data);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+/////////////////////////////Additional functions////////////////////
+  addUnit() {
+    this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
+    this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
+    this.leadsService.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
+    if(this.leadsService.unitId) {
+      this.createNewOpportunity(this.leadsService.contactName, this.leadsService.keyContactId, this.leadsService.unitId);
+    }
+    else {
+      this.goToPage('/units');
+    }
+  }
 
   goToPage(url) {
     this.router.navigate([url]);
@@ -257,11 +398,13 @@ export class ContactDetailsComponent implements OnInit {
     console.log('allow', this.isAllowedSave);
   }
 
-  openDiscountDialog(id: number): void {
-    const config = new MatDialogConfig();
-    // config.data = _.clone(mandant);
+  openDiscountDialog(): void {
 
-    const dialogRef = this.dialog.open(DiscountDialogComponent, config);
+    const dialogRef = this.dialog.open(DiscountDialogComponent, {
+      data: {
+        'discountData': this.discountData['items']
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
       }

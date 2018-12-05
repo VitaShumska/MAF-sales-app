@@ -200,7 +200,7 @@ export class ProperiesDetailsComponent implements OnInit {
     if (contactName && keyContactId) {
       this.createNewOpportunity(contactName, keyContactId);
     } else {
-      this.leadsService.unitId = this.unitDetails.MAF_UnitNumber_c;
+      this.leadsService.unitId = this.unitDetails.InventoryItemId;
       this.router.navigate(['/leads']);
     }
   }
@@ -208,7 +208,7 @@ export class ProperiesDetailsComponent implements OnInit {
   createNewOpportunity(contactName, keyContactId) {
     this.loadingSpinner.show();
     // this.leadsService.createOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c);
-    this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.MAF_UnitNumber_c)
+    this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.InventoryItemId)
       .subscribe(data => {
           this.loadingSpinner.hide();
           console.log('create opp', data);

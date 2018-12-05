@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { LeadsService } from '../../services/leads.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
-import { MatDialog, MatSnackBar} from "@angular/material";
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-create-lead',
@@ -18,7 +19,11 @@ export class CreateLeadComponent implements OnInit {
     // 'OwnerPartyName': '',
     // 'MAF_UnitType_c': '',
     // 'unitNumber': ''
-    'Name': 'test 55'
+    'Name': 'test 55',
+    // 'PrimaryContactId': 300000007072390,
+    'MAF_Project_c': 'Tilal Al Ghaf - Dubai',
+    'MAF_SOURCE_c': 'Referral_TAG',
+    'MethodOfEnquiry_c': 'Call Center_TAG'
   };
   breadcrumbObj = {
     name: 'Create Lead',
@@ -31,7 +36,8 @@ export class CreateLeadComponent implements OnInit {
               private router: Router,
               private leadsService: LeadsService,
               private loadingSpinner: LoadingSpinnerService,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -45,9 +51,8 @@ export class CreateLeadComponent implements OnInit {
     this.leadsService.createLead(this.newLead)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('created!!!!', data);
-          this.openSnackBar('Lead created', 'OK');
-          this.goToPage('/leads');
+          this.openInfoDialog('Lead created', 'success');
+          this.goToPage('/contact-details/new/' + data.LeadId);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -62,6 +67,20 @@ export class CreateLeadComponent implements OnInit {
   breadcrumbsArr() {
     this.breadcrumbObj['url'] = this.router.url;
     this.breadcrumbs.createArr(this.breadcrumbObj);
+  }
+
+  openInfoDialog(text,type): void {
+    const dialogRef = this.dialog.open(InfoDialogComponent, {
+      width: '60vw',
+      data: {
+        text: text,
+        type: type
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
   }
 
   openSnackBar(message: string, action: string) {

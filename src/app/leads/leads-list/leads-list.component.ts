@@ -26,7 +26,7 @@ export class LeadsListComponent implements OnInit {
 
   leadsListOriginal: any[] = [];
   leadsList;
-  filterParams;
+  filterParams: any = {};
   pageEvent: PageEvent;
   offset = 0;
   limit = 25;
@@ -45,14 +45,14 @@ export class LeadsListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Primary Purchaser',
-      key: 'PrimaryContactPartyName',
+      name: 'Lead Name',
+      key: 'Name',
       sort: '',
       disableSort: false
     },
     {
-      name: 'Lead Owner',
-      key: 'OwnerPartyName',
+      name: 'Primary Purchaser',
+      key: 'PrimaryContactPartyName',
       sort: '',
       disableSort: false
     },
@@ -63,8 +63,8 @@ export class LeadsListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Unit No.',
-      key: 'MAF_ProductType_c',
+      name: 'Status',
+      key: 'AssignmentStatusCode',
       sort: '',
       disableSort: false
     },
@@ -93,7 +93,7 @@ export class LeadsListComponent implements OnInit {
       this.searchColumns.push(item.key);
     });
     if (window.sessionStorage.getItem('filterParams') || window.sessionStorage.getItem('limit') || window.sessionStorage.getItem('offset')) {
-      this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
+      JSON.parse(window.sessionStorage.getItem('filterParams')) ? this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams')) : false;
       window.sessionStorage.getItem('limit') ? this.limit = +window.sessionStorage.getItem('limit') : false;
       window.sessionStorage.getItem('offset') ? this.offset = +window.sessionStorage.getItem('offset') : false;
       this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
@@ -112,7 +112,6 @@ export class LeadsListComponent implements OnInit {
           this.countOfLeads = data['totalResults'];
           this.leadsListOriginal  =  data['items'];
           this.leadsList = this.leadsListOriginal;
-          console.log('contacts', data);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -135,6 +134,15 @@ export class LeadsListComponent implements OnInit {
         this.openSnackBar('Server error', 'OK');
       }
     );
+  }
+
+  getNotAssignedLeads() {
+    this.filterParams.notAssigned = 'AssignmentStatusCode IS NULL';
+    this.sortElem = {
+      key: 'LeadNumber',
+      sort: 'asc'
+    };
+    this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
   }
 
   sortByKey(sortElem) {
