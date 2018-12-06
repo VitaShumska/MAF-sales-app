@@ -18,7 +18,8 @@ const routes: Routes = [
     path: '',
     component: BaseComponent,
     children: [
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
       { path: 'home', component: HomePageComponent },
       { path: 'leads', component: LeadsListComponent },
       { path: 'units', component: PropertiesListComponent },
@@ -27,11 +28,10 @@ const routes: Routes = [
       { path: 'contact-details/:contactId/:leadId', component: ContactDetailsComponent },
       { path: 'opportunity-details/:contactId/:optyId', component: ContactDetailsComponent },
       { path: 'create-lead', component: CreateLeadComponent },
-      { path: 'generate-quote', component: GenerateQuoteComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'generate-quote', component: GenerateQuoteComponent }
     ]
   },
-  { path: '**', redirectTo: '/home'}
+  { path: '**', redirectTo: '/login'}
 ];
 
 @NgModule({
