@@ -63,15 +63,14 @@
         <button class="remove-field-btn" (click)="removeField('phone')" *ngIf="phoneInputs.length > 1">- remove phone</button>
       </div>
 
-      <div class="field-block">
+      <div class="field-block" *ngIf="pageName === 'opportunity-details'">
         <label for="unit">Unit</label>
         <p id="unit">{{leadDetails.UnitNumber_c}}</p>
-        <button class="add-field-btn" (click)="addigUnit()" *ngIf="!leadDetails.UnitNumber_c && editAllow">+ add property</button>
+        <!--<button class="add-field-btn" (click)="addigUnit()" *ngIf="!leadDetails.UnitNumber_c && editAllow">+ add property</button>-->
       </div>
-
-      <div class="dynamically-btn" style="justify-content: flex-end">
-        <button class="add-field-btn" (click)="goToPage('/unit-details/' + leadDetails.MAF_Product_Id_c)" *ngIf="leadDetails.UnitNumber_c">SHOW INFO</button>
-        <button class="change-btn" (click)="goToPage('/units')" *ngIf="leadDetails.UnitNumber_c">CHANGE</button>
+      <div class="dynamically-btn" style="justify-content: flex-end; margin-top: -25px" *ngIf="leadDetails.UnitNumber_c && editAllow">
+        <button class="add-field-btn" (click)="goToPage('/unit-details/' + leadDetails.MAF_Product_Id_c)">SHOW INFO</button>
+        <button class="change-btn" (click)="goToPage('/units')">CHANGE</button>
       </div>
 
       <div class="attachment-block">

@@ -263,9 +263,25 @@ export class ContactDetailsComponent implements OnInit {
           this.leadDetails = data;
           this.getDiscount(this.leadDetails.OptyId);
           this.getMilestones(this.leadDetails.OptyId);
-          this.getReceipt(this.leadDetails.OptyId);
+          // this.getReceipt(this.leadDetails.OptyId);
           // this.getPayplan(this.leadDetails.MAF_PaymentPlan_Id_c);
-          this.getPayplan(this.optyId);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  updateOpportunity(id) {
+    this.loadingSpinner.show();
+    this.leadsService.updateOpportunity()
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.leadDetails = data;
+          this.getDiscount(this.leadDetails.OptyId);
+          this.getMilestones(this.leadDetails.OptyId);
+          // this.getReceipt(this.leadDetails.OptyId);
+          // this.getPayplan(this.leadDetails.MAF_PaymentPlan_Id_c);
         },
         (error) => {
           this.loadingSpinner.hide();

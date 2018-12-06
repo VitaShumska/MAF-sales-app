@@ -153,14 +153,10 @@ export class LeadsService {
     return this.http.get(this.API_URL + 'opportunities/' + id, {headers});
   }
 
-  updateRestOpportunity(): Observable<any> {
+  updateRestOpportunity(data): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/json');
-    const data = {
-      'OptyId': 300000009452048,
-      'StatusCode': 'WON'
-    };
     return this.http.patch(this.API_URL + 'opportunities/37244', data, {headers});
   }
 
@@ -203,7 +199,7 @@ export class LeadsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'MAF_PaymentPlan_c/?q=MAF_OptyId_Id_c=' + id, {headers});
+    return this.http.get(this.API_URL + 'MAF_PaymentPlan_c/' + id, {headers});
   }
 
   createOpportunity(name, contactId, unitId) {

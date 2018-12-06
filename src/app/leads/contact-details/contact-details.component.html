@@ -9,6 +9,7 @@
         [leadDetails]="leadDetails"
         [contactDetails]="contactDetails"
         [editAllow]="editAllow"
+        [pageName]="pageName"
         (isAllowedSave)="isAllowed($event)"
       >
       </app-contact-personal-details>
@@ -84,5 +85,9 @@
         <button mat-menu-item>Sale</button>
       </mat-menu>
     </div>
+  </div>
+  <div class="action-block" *ngIf="editAllow && (pageName === 'opportunity-details')">
+    <button class="cancel-bnt" (click)="editAllow=false">Cancel</button>
+    <button *ngIf="pageName === 'opportunity-details'" (click)="updateContact()">Update</button>
   </div>
 </div>

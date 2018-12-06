@@ -19,12 +19,13 @@ export class ContactPersonalDetailsComponent implements OnInit {
   @Input() contactDetails: any = {};
   @Input() leadDetails: any = {};
   @Input() editAllow: boolean;
+  @Input() pageName: string;
   @Output() isAllowedSave = new EventEmitter();
   @ViewChild('phone') phone: ElementRef;
 
   afuConfig = {
     uploadAPI: {
-      url:"https://ebrl-test.fa.em2.oraclecloud.com/crmRestApi/resources/11.13.17.11/"
+      url: 'https://ebrl-test.fa.em2.oraclecloud.com/crmRestApi/resources/latest/'
     },
     hideProgressBar: true,
     hideResetBtn: true,
