@@ -21,6 +21,11 @@ export class ApiService {
     return this.http.get(this.API_URL + 'MAF_Token_c?fields=MAF_Token_c', {headers});
   }
 
+  logOut() {
+    localStorage.removeItem('token');
+    return;
+  }
+
   ////////////Properties////////////////
 
   getProperties(offset, limit): Observable<any> {

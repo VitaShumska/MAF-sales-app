@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs.service';
 import { FilterCloseService } from '../../services/filter-close.service';
 import { LeadsService } from '../../services/leads.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-base-header',
@@ -22,7 +23,8 @@ export class BaseHeaderComponent implements OnInit {
     private router: Router,
     private breadcrumbs: BreadcrumbsService,
     private filterClose: FilterCloseService,
-    private leadsService: LeadsService
+    private leadsService: LeadsService,
+    private apiService: ApiService
   ) {
     this.breadcrumbs.breadcrumbsEmitter
       .subscribe( breadcrumbsArr => {
@@ -36,9 +38,21 @@ export class BaseHeaderComponent implements OnInit {
     this.href = this.router.url;
   }
 
-   goToPage(url) {
+  goToPage(url) {
      this.router.navigate([url]);
-   }
+  }
+
+  logOut() {
+    this.apiService.logOut();
+    this.router.navigate(['/login']);
+  }
+
+  isLogin() {
+    if (localStorage.getItem('token')) {
+      return true;
+    }
+    return false;
+  }
 
   goBack(): void {
     if ( document.getElementById('light') && document.getElementById('fade') ) {

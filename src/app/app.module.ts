@@ -28,6 +28,7 @@ import { LeadsService } from './services/leads.service';
 import { BreadcrumbsService } from './services/breadcrumbs.service';
 import { LoadingSpinnerService } from './services/loading-spinner.service';
 import { FilterCloseService } from './services/filter-close.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 import { AppComponent } from './app.component';
 import { BaseHeaderComponent } from './base/base-header/base-header.component';
@@ -53,6 +54,7 @@ import { OpportunitiesListComponent } from './opportunities/opportunities-list/o
 import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component';
 import { GenerateQuoteComponent } from './leads/generate-quote/generate-quote.component';
 import { LoginComponent } from './login/login.component';
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -112,6 +114,7 @@ import { LoginComponent } from './login/login.component';
     BreadcrumbsService,
     LoadingSpinnerService,
     FilterCloseService,
+    AuthGuard,
     { provide: DateAdapter, useClass: DateFormat }
   ],
   bootstrap: [AppComponent],
