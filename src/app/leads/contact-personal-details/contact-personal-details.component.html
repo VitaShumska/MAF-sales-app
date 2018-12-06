@@ -66,7 +66,7 @@
       <div class="field-block">
         <label for="unit">Unit</label>
         <p id="unit">{{leadDetails.UnitNumber_c}}</p>
-        <button class="add-field-btn" (click)="addigUnit()" *ngIf="!leadDetails.UnitNumber_c">+ add property</button>
+        <button class="add-field-btn" (click)="addigUnit()" *ngIf="!leadDetails.UnitNumber_c && editAllow">+ add property</button>
       </div>
 
       <div class="dynamically-btn" style="justify-content: flex-end">

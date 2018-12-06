@@ -105,7 +105,7 @@ export class ContactDetailsComponent implements OnInit {
         this.breadcrumbsArr();
         break;
       }
-      case 'lead-details': {
+      case 'contact-details': {
         this.sub = this.route.params.subscribe(params => {
           this.contactId = params['contactId'];
           this.leadId = params['leadId'];
