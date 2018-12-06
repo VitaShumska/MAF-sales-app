@@ -52,6 +52,7 @@ import { DiscountDialogComponent } from './dialogs/discount-dialog/discount-dial
 import { OpportunitiesListComponent } from './opportunities/opportunities-list/opportunities-list.component';
 import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component';
 import { GenerateQuoteComponent } from './leads/generate-quote/generate-quote.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { GenerateQuoteComponent } from './leads/generate-quote/generate-quote.co
     DiscountDialogComponent,
     OpportunitiesListComponent,
     InfoDialogComponent,
-    GenerateQuoteComponent
+    GenerateQuoteComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -18,13 +18,6 @@ export class LeadsService {
               private ngxXml2jsonService: NgxXml2jsonService) {
   }
 
-  login() {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'MAF_Token_c?fields=MAF_Token_c', {headers});
-  }
-
   ////////////Ledas////////////////
 
   getLeads(offset, limit): Observable<any> {

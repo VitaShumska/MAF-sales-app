@@ -40,21 +40,16 @@ export class BaseHeaderComponent implements OnInit {
      this.router.navigate([url]);
    }
 
-  login() {
-    this.leadsService.login()
-      .subscribe(data => {
-        const token = data['items'][0]['MAF_Token_c'];
-        localStorage.setItem('token', token);
-      });
-  }
-
-
   goBack(): void {
     if ( document.getElementById('light') && document.getElementById('fade') ) {
       this.filterClose.closeFilter(false);
     }
 
-    switch(this.headerName) {
+    switch (this.headerName) {
+      case '': {
+        window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
+        break;
+      }
       case 'Home': {
         window.location.href = 'https://ebrl-test.fa.em2.oraclecloud.com';
         break;

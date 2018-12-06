@@ -7,10 +7,18 @@ import { NgxXml2jsonService } from 'ngx-xml2json';
 
 @Injectable()
 export class ApiService {
-  API_URL  =  'https://ebrl-test.fa.em2.oraclecloud.com/crmRestApi/resources/11.13.17.11/';
+  API_URL  =  'https://ebrl-test.fa.em2.oraclecloud.com/crmRestApi/resources/latest/';
 
   constructor(private http: HttpClient,
               private ngxXml2jsonService: NgxXml2jsonService) {
+  }
+
+  login(user) {
+    let headers = new HttpHeaders();
+    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Authorization', 'Basic ' + btoa(user.name + ':' + user.password));
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'MAF_Token_c?fields=MAF_Token_c', {headers});
   }
 
   ////////////Properties////////////////

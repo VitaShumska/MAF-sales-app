@@ -1,0 +1,7 @@
+<div class="login-page">
+  <div class="login-form">
+    <input type="text" placeholder="Login" [(ngModel)]="userData.name">
+    <input type="password" placeholder="Password" [(ngModel)]="userData.password">
+    <button class="login-btn" (click)="login()" [class]="!(userData.name && userData.password) ? 'login-btn disabled' : 'login-btn'">LOGIN</button>
+  </div>
+</div>
