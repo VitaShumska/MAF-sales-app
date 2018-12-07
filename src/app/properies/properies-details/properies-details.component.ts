@@ -188,7 +188,6 @@ export class ProperiesDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           this.unitContent = data;
           this.getGalleryOption();
-          console.log('unitContent', this.unitContent);
       },
       (error) => {
         this.loadingSpinner.hide();
@@ -217,7 +216,6 @@ export class ProperiesDetailsComponent implements OnInit {
     this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.InventoryItemId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('create opp', data);
           this.openInfoDialog('Opportunity created', 'success');
           setTimeout(() => {
             this.goToPage('/opportunities');
@@ -243,7 +241,6 @@ export class ProperiesDetailsComponent implements OnInit {
     this.leadsService.updateRestOpportunity(optyId, data)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('update opp', data);
           this.openInfoDialog('Opportunity updated', 'success');
           setTimeout(() => {
             this.goToPage('/opportunities');

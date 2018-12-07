@@ -84,9 +84,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
   public validateEmail(email?) {
     // this.emailInputs.map(item => {
       this.isValidEmail = this.emailRegExp.test(email);
-      // console.log(this.isValidEmail, this.contactDetails[item.ngModel], item.ngModel);
     // });
-    // console.log(this.isValidEmail);
     return this.isValidEmail;
   }
 

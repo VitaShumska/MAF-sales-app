@@ -26,7 +26,6 @@ export class DiscountDialogComponent implements OnInit {
 
   ngOnInit() {
     this.discountsData = this.data.discountData;
-    console.log(this.data.discountData);
   }
 
   // getDropdownOptions(param) {

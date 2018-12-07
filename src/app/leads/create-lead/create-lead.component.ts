@@ -47,7 +47,6 @@ export class CreateLeadComponent implements OnInit {
 
   createLead() {
     this.loadingSpinner.show();
-    console.log('cerate', this.newLead);
     this.leadsService.createLead(this.newLead)
       .subscribe(data => {
           this.loadingSpinner.hide();

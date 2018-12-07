@@ -99,7 +99,6 @@ export class ApiService {
         }
       });
     }
-    console.log('filter', filterEmpty);
     return filterEmpty;
   }
 
@@ -126,14 +125,11 @@ export class ApiService {
     </soapenv:Envelope>`;
 
     xmlhttp.onreadystatechange =  () => {
-      console.log('here!!!!!!', xmlhttp.responseXML, xmlhttp.readyState, xmlhttp.status);
       if (xmlhttp.readyState == 4) {
         if (xmlhttp.status == 200) {
           const xml = xmlhttp.responseXML;
           // Here I'm getting the value contained by the <return> node.
           const response_number = parseInt(xml.getElementsByTagName('return')[0].childNodes[0].nodeValue);
-          // Print result square number.
-          console.log(xml);
         }
       }
     };

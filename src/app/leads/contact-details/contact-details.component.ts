@@ -151,7 +151,6 @@ export class ContactDetailsComponent implements OnInit {
     const data = {
       'PrimaryContactId': contactId
     };
-    console.log('create lead', data);
     this.leadsService.updateLead(leadId, data)
       .subscribe(() => {
           this.loadingSpinner.hide();
@@ -203,7 +202,6 @@ export class ContactDetailsComponent implements OnInit {
 
   updateContact() {
     this.loadingSpinner.show();
-    console.log('update', this.contactDetails.PartyNumber, this.contactDetails);
     this.leadsService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
@@ -217,7 +215,6 @@ export class ContactDetailsComponent implements OnInit {
 
   createContact() {
     this.loadingSpinner.show();
-    console.log('cerate', this.contactDetails);
     if (this.leadId ) {
       this.contactDetails.LeadNumber = this.leadDetails.LeadNumber;
     }
@@ -225,7 +222,6 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.editAllow = false;
-          console.log('new contact', data);
           // if (this.leadId) {
             this.updateLead(this.leadId, data.PartyId);
             this.goToPage('/contact-details/' + data.PartyId + '/' + this.leadId);
@@ -246,7 +242,6 @@ export class ContactDetailsComponent implements OnInit {
     this.leadsService.createRestOpportunity(contactName, keyContactId, unitId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          console.log('create opp', data);
           this.openInfoDialog('Unit added. Opportunity created.', 'success');
           this.leadsService.opportunityData.contactName = '';
           this.leadsService.opportunityData.keyContactId = '';
@@ -283,7 +278,6 @@ export class ContactDetailsComponent implements OnInit {
         (data: any) => {
           this.loadingSpinner.hide();
           this.discountData = data;
-          console.log('discount data', this.discountData);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -299,7 +293,6 @@ export class ContactDetailsComponent implements OnInit {
         (data: any) => {
           this.loadingSpinner.hide();
           this.getMilestonesData = data;
-          console.log('milestones data', this.getMilestonesData);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -315,7 +308,6 @@ export class ContactDetailsComponent implements OnInit {
         (data: any) => {
           this.loadingSpinner.hide();
           // this.getMilestonesData = data;
-          console.log('receipt data', data);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -331,7 +323,6 @@ export class ContactDetailsComponent implements OnInit {
         (data: any) => {
           this.loadingSpinner.hide();
           // this.getMilestonesData = data;
-          console.log('receipt data', data);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -397,7 +388,6 @@ export class ContactDetailsComponent implements OnInit {
 
   isAllowed(data) {
     this.isAllowedSave = data;
-    console.log('allow', this.isAllowedSave);
   }
 
   openDiscountDialog(): void {
@@ -421,7 +411,6 @@ export class ContactDetailsComponent implements OnInit {
     // url += "&q=text" + escape($("#txtSource").val());
     this.apiService.googleTranslateElementInit(url)
       .subscribe(data => {
-        console.log('translate!!!!', data);
       },
       (error) => {
         this.openSnackBar('Server error', 'OK');

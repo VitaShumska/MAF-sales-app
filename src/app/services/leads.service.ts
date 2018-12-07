@@ -167,7 +167,6 @@ export class LeadsService {
   }
 
   createRestOpportunity(name, contactId, unitId): Observable<any> {
-    console.log('create');
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/json');
@@ -302,7 +301,6 @@ export class LeadsService {
         }
       });
     }
-    console.log('filter', filterEmpty);
     return filterEmpty;
   }
 

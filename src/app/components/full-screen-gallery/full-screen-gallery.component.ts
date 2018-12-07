@@ -19,7 +19,6 @@ export class FullScreenGalleryComponent implements OnInit {
   }
 
   openGalleryOnCick(event) {
-    console.log('event!!!!!!!!!!!!', event, this.imagesArr, this.photoSwipe);
     this.images = [];
 
     this.imagesArr.map(item => {
@@ -30,7 +29,6 @@ export class FullScreenGalleryComponent implements OnInit {
           h: 800
         });
     });
-    console.log(this.images);
 
     const options = {
       index: event.index
