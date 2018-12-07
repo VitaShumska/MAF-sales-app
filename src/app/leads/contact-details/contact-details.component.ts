@@ -93,9 +93,13 @@ export class ContactDetailsComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
           this.contactId = params['contactId'];
           this.optyId = params['optyId'];
-          this.getContactById(this.contactId);
           this.getOpportunityById(this.optyId);
-          this.editAllow = false;
+          if (this.contactId !== 'new') {
+            this.getContactById(this.contactId);
+            this.editAllow = false;
+          } else {
+            this.contactDetails = this.newContact;
+          }
         });
         this.breadcrumbObj = {
           name: 'Opportunity Details',
@@ -244,10 +248,10 @@ export class ContactDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           console.log('create opp', data);
           this.openInfoDialog('Unit added. Opportunity created.', 'success');
-          this.leadsService.contactName = '';
-          this.leadsService.keyContactId = '';
-          this.leadsService.backUrl = '';
-          this.leadsService.unitId = '';
+          this.leadsService.opportunityData.contactName = '';
+          this.leadsService.opportunityData.keyContactId = '';
+          this.leadsService.opportunityData.backUrl = '';
+          this.leadsService.opportunityData.unitId = '';
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -258,23 +262,6 @@ export class ContactDetailsComponent implements OnInit {
   getOpportunityById(id) {
     this.loadingSpinner.show();
     this.leadsService.getOpportunityById(id)
-      .subscribe(data => {
-          this.loadingSpinner.hide();
-          this.leadDetails = data;
-          this.getDiscount(this.leadDetails.OptyId);
-          this.getMilestones(this.leadDetails.OptyId);
-          // this.getReceipt(this.leadDetails.OptyId);
-          // this.getPayplan(this.leadDetails.MAF_PaymentPlan_Id_c);
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        });
-  }
-
-  updateOpportunity(id) {
-    this.loadingSpinner.show();
-    this.leadsService.updateOpportunity()
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.leadDetails = data;
@@ -354,13 +341,12 @@ export class ContactDetailsComponent implements OnInit {
   }
 /////////////////////////////Additional functions////////////////////
   addUnit() {
-    this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
-    this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
-    this.leadsService.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
-    if(this.leadsService.unitId) {
-      this.createNewOpportunity(this.leadsService.contactName, this.leadsService.keyContactId, this.leadsService.unitId);
-    }
-    else {
+    this.leadsService.opportunityData.contactName = this.leadDetails.PrimaryContactPartyName;
+    this.leadsService.opportunityData.keyContactId = this.leadDetails.PrimaryContactId;
+    this.leadsService.opportunityData.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
+    if (this.leadsService.opportunityData.unitId) {
+      this.createNewOpportunity(this.leadsService.opportunityData.contactName, this.leadsService.opportunityData.keyContactId, this.leadsService.opportunityData.unitId);
+    } else {
       this.goToPage('/units');
     }
   }

@@ -33,6 +33,7 @@ export class ProperiesDetailsComponent implements OnInit {
   galleryVideos: any = [];
   cmsId;
   index;
+  showSelectBtn;
 
   breadcrumbObj = {
     name: 'Unit Details',
@@ -61,6 +62,7 @@ export class ProperiesDetailsComponent implements OnInit {
       }
     });
     this.breadcrumbsArr();
+    this.showSelectBtn = this.leadsService.opportunityData.showSelectBtn;
 
     this.galleryOptions = [
       {
@@ -195,12 +197,16 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   selectUnit() {
-    const contactName = this.leadsService.contactName;
-    const keyContactId = this.leadsService.keyContactId;
+    const contactName = this.leadsService.opportunityData.contactName;
+    const keyContactId = this.leadsService.opportunityData.keyContactId;
+    const unitId = this.leadsService.opportunityData.unitId;
+    const optyNumber = this.leadsService.opportunityData.optyNumber;
     if (contactName && keyContactId) {
       this.createNewOpportunity(contactName, keyContactId);
+    } else if (unitId) {
+      this.updateOpportunity(optyNumber, this.unitDetails.InventoryItemId, this.unitDetails.MAF_UnitNumber_c);
     } else {
-      this.leadsService.unitId = this.unitDetails.InventoryItemId;
+      this.leadsService.opportunityData.unitId = this.unitDetails.InventoryItemId;
       this.router.navigate(['/leads']);
     }
   }
@@ -213,17 +219,43 @@ export class ProperiesDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           console.log('create opp', data);
           this.openInfoDialog('Opportunity created', 'success');
-          setTimeout(function(){
-            this.router.navigate(['/opportunities']);
+          setTimeout(() => {
+            this.goToPage('/opportunities');
           }, 3000);
-          // this.router.navigate([this.leadsService.backUrl]);
-          this.leadsService.contactName = '';
-          this.leadsService.keyContactId = '';
-          this.leadsService.backUrl = '';
+          // this.router.navigate([this.leadsService.opportunityData.backUrl]);
+          this.leadsService.opportunityData.contactName = '';
+          this.leadsService.opportunityData.keyContactId = '';
+          this.leadsService.opportunityData.backUrl = '';
         },
         (error) => {
           this.loadingSpinner.hide();
-          this.router.navigate([this.leadsService.backUrl]);
+          this.router.navigate([this.leadsService.opportunityData.backUrl]);
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  updateOpportunity(optyId, unitId, unitNumber) {
+    this.loadingSpinner.show();
+    const data = {
+      'MAF_Product_Id_c': unitId,
+      'UnitNumber_c': unitNumber
+    };
+    this.leadsService.updateRestOpportunity(optyId, data)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          console.log('update opp', data);
+          this.openInfoDialog('Opportunity updated', 'success');
+          setTimeout(() => {
+            this.goToPage('/opportunities');
+          }, 3000);
+          this.leadsService.opportunityData.contactName = '';
+          this.leadsService.opportunityData.unitId = '';
+          this.leadsService.opportunityData.optyId = '';
+          this.leadsService.opportunityData.backUrl = '';
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.router.navigate([this.leadsService.opportunityData.backUrl]);
           this.openSnackBar('Server error', 'OK');
         });
   }
@@ -270,7 +302,11 @@ export class ProperiesDetailsComponent implements OnInit {
     }
   }
 
-  openInfoDialog(text,type): void {
+  goToPage(url) {
+    this.router.navigate([url]);
+  }
+
+  openInfoDialog(text, type): void {
     const dialogRef = this.dialog.open(InfoDialogComponent, {
       width: '60vw',
       data: {

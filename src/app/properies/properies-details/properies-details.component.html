@@ -217,6 +217,6 @@
   </div>
   <div class="action-block">
     <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number : '1.2-2'}} {{unitDetails?.MAF_PrefferredCurrency_c}}</b></span>
-    <button (click)="selectUnit()">Select</button>
+    <button (click)="selectUnit()" *ngIf="showSelectBtn">Select</button>
   </div>
 </div>

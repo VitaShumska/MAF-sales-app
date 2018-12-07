@@ -50,7 +50,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
   }];
 
   countries = COUNTRIES;
-  addUnit = false;
+  addedUnit = false;
   errorMessage: any = '';
   successMessage: any = '';
   emailRegExp = EMAIL_REGEXP;
@@ -111,18 +111,38 @@ export class ContactPersonalDetailsComponent implements OnInit {
   }
 
   isNumberKey(evt) {
-    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    const charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode !== 46 && charCode > 31
       && (charCode < 48 || charCode > 57))
       return false;
     return true;
   }
 
-  addigUnit() {
-    this.leadsService.contactName = this.leadDetails.PrimaryContactPartyName;
-    this.leadsService.keyContactId = this.leadDetails.PrimaryContactId;
-    this.leadsService.backUrl = window.location.pathname;
+  addUnit() {
+    this.leadsService.opportunityData.contactName = this.leadDetails.PrimaryContactPartyName;
+    this.leadsService.opportunityData.keyContactId = this.leadDetails.PrimaryContactId;
+    this.leadsService.opportunityData.backUrl = window.location.pathname;
     this.goToPage('/units');
+  }
+
+  changeUnit(unitId) {
+    this.leadsService.opportunityData.optyNumber = this.leadDetails.OptyNumber;
+    this.leadsService.opportunityData.unitId = unitId;
+    this.leadsService.opportunityData.backUrl = window.location.pathname;
+    this.leadsService.opportunityData.showSelectBtn = true;
+    this.goToPage('/units');
+  }
+
+  showUnitInfo() {
+    this.leadsService.opportunityData = {
+      contactName: '',
+      keyContactId: '',
+      unitId: '',
+      optyNumber: '',
+      backUrl: window.location.pathname,
+      showSelectBtn: false
+    };
+    this.goToPage('/unit-details/' + this.leadDetails.MAF_Product_Id_c);
   }
 
   addField(type) {
@@ -139,7 +159,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
        ngModel: 'PrimaryContactPhone' + (this.emailInputs.length + 1)
      });
    } else if (type === 'unit') {
-      this.addUnit = true;
+      this.addedUnit = true;
     }
   }
 

@@ -69,7 +69,11 @@ export class BaseHeaderComponent implements OnInit {
         break;
       }
       case 'Units': {
-        this.leadsService.backUrl ? this.router.navigate([this.leadsService.backUrl]) : this.router.navigate([this.backUrl]);
+        this.leadsService.opportunityData.backUrl ? this.router.navigate([this.leadsService.opportunityData.backUrl]) : this.router.navigate([this.backUrl]);
+        break;
+      }
+      case 'Unit Details': {
+        this.leadsService.opportunityData.backUrl ? this.router.navigate([this.leadsService.opportunityData.backUrl]) : this.router.navigate([this.backUrl]);
         break;
       }
       default: {

@@ -65,12 +65,12 @@
 
       <div class="field-block" *ngIf="pageName === 'opportunity-details'">
         <label for="unit">Unit</label>
-        <p id="unit">{{leadDetails.UnitNumber_c}}</p>
-        <!--<button class="add-field-btn" (click)="addigUnit()" *ngIf="!leadDetails.UnitNumber_c && editAllow">+ add property</button>-->
+        <span id="unit">{{leadDetails.UnitNumber_c}}</span>
+        <!--<button class="add-field-btn" (click)="addUnit()" *ngIf="!leadDetails.UnitNumber_c && editAllow">+ add property</button>-->
       </div>
       <div class="dynamically-btn" style="justify-content: flex-end; margin-top: -25px" *ngIf="leadDetails.UnitNumber_c && editAllow">
-        <button class="add-field-btn" (click)="goToPage('/unit-details/' + leadDetails.MAF_Product_Id_c)">SHOW INFO</button>
-        <button class="change-btn" (click)="goToPage('/units')">CHANGE</button>
+        <button class="add-field-btn" (click)="showUnitInfo()">SHOW INFO</button>
+        <button class="change-btn" (click)="changeUnit(leadDetails.MAF_Product_Id_c)">CHANGE</button>
       </div>
 
       <div class="attachment-block">

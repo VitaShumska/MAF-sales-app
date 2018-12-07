@@ -8,11 +8,15 @@ import { NgxXml2jsonService } from 'ngx-xml2json';
 @Injectable()
 export class LeadsService {
   API_URL = 'https://ebrl-test.fa.em2.oraclecloud.com/crmRestApi/resources/latest/';
-  //////Values for creating opportunity/////
-  contactName;
-  keyContactId;
-  backUrl;
-  unitId;
+  //////Values for creating/updating opportunity/////
+  opportunityData: any = {
+    contactName: '',
+    keyContactId: '',
+    unitId: '',
+    optyNumber: '',
+    backUrl: '',
+    showSelectBtn: true
+};
 
   constructor(private http: HttpClient,
               private ngxXml2jsonService: NgxXml2jsonService) {
@@ -140,9 +144,11 @@ export class LeadsService {
   }
 
   getOpportunities(offset, limit): Observable<any> {
+    const todayDate = new Date().toISOString();
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    // return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
     return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
   }
 
@@ -153,11 +159,11 @@ export class LeadsService {
     return this.http.get(this.API_URL + 'opportunities/' + id, {headers});
   }
 
-  updateRestOpportunity(data): Observable<any> {
+  updateRestOpportunity(optyNumber, data): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/json');
-    return this.http.patch(this.API_URL + 'opportunities/37244', data, {headers});
+    return this.http.patch(this.API_URL + 'opportunities/' + optyNumber, data, {headers});
   }
 
   createRestOpportunity(name, contactId, unitId): Observable<any> {
