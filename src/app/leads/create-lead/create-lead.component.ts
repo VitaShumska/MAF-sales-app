@@ -14,22 +14,25 @@ import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.compo
 export class CreateLeadComponent implements OnInit {
 
   newLead: any = {
-    // 'MAF_PrimaryContact_c': '',
+    // 'MAF_PrimaryContact_c': 'Test Fortytwo',
     // 'secondaryPurchaser': '',
     // 'OwnerPartyName': '',
     // 'MAF_UnitType_c': '',
     // 'unitNumber': ''
     'Name': 'test 55',
-    // 'PrimaryContactId': 300000007072390,
+    'PrimaryContactId': '',
     'MAF_Project_c': 'Tilal Al Ghaf - Dubai',
     'MAF_SOURCE_c': 'Referral_TAG',
     'MethodOfEnquiry_c': 'Call Center_TAG'
   };
+  contactsList: any = [];
   breadcrumbObj = {
     name: 'Create Lead',
     backUrl: '/leads',
     param: 0 // because is a parent
   };
+  offset = 0;
+  limit = 100;
 
   constructor(private route: ActivatedRoute,
               private breadcrumbs:  BreadcrumbsService,
@@ -42,7 +45,7 @@ export class CreateLeadComponent implements OnInit {
 
   ngOnInit() {
     this.breadcrumbsArr();
-    // this.newLead.unitNumber = this.leadsService.opportunityData.unitId;
+    this.getContacts();
   }
 
   createLead() {
@@ -52,6 +55,20 @@ export class CreateLeadComponent implements OnInit {
           this.loadingSpinner.hide();
           this.openInfoDialog('Lead created', 'success');
           this.goToPage('/contact-details/new/' + data.LeadId);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  getContacts () {
+    this.loadingSpinner.show();
+    this.leadsService.getContacts(this.offset, this.limit)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.contactsList = data.items;
+          console.log(this.contactsList);
         },
         (error) => {
           this.loadingSpinner.hide();

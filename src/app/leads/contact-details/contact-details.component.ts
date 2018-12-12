@@ -146,10 +146,11 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
-  updateLead(leadId, contactId) {
+  updateLead(leadId, contactId?, status?) {
     this.loadingSpinner.show();
     const data = {
-      'PrimaryContactId': contactId
+      PrimaryContactId: contactId,
+      StatusCode: status
     };
     this.leadsService.updateLead(leadId, data)
       .subscribe(() => {
@@ -243,10 +244,10 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.openInfoDialog('Unit added. Opportunity created.', 'success');
-          this.leadsService.opportunityData.contactName = '';
-          this.leadsService.opportunityData.keyContactId = '';
-          this.leadsService.opportunityData.backUrl = '';
-          this.leadsService.opportunityData.unitId = '';
+          this.updateLead(this.leadsService.opportunityData.leadId, undefined, 'CONVERTED');
+          this.leadsService.opportunityData = {
+            showSelectBtn: true
+          };
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -263,7 +264,7 @@ export class ContactDetailsComponent implements OnInit {
           this.getDiscount(this.leadDetails.OptyId);
           this.getMilestones(this.leadDetails.OptyId);
           // this.getReceipt(this.leadDetails.OptyId);
-          // this.getPayplan(this.leadDetails.MAF_PaymentPlan_Id_c);
+          this.getPayplan();
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -316,9 +317,9 @@ export class ContactDetailsComponent implements OnInit {
       );
   }
 
-  getPayplan(id) {
+  getPayplan() {
     this.loadingSpinner.show();
-    this.leadsService.getPayplan(id)
+    this.leadsService.getPayplan()
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();
@@ -335,11 +336,13 @@ export class ContactDetailsComponent implements OnInit {
     this.leadsService.opportunityData.contactName = this.leadDetails.PrimaryContactPartyName;
     this.leadsService.opportunityData.keyContactId = this.leadDetails.PrimaryContactId;
     this.leadsService.opportunityData.backUrl = '/contact-details/' + this.contactId + '/' + this.leadId;
+    this.leadsService.opportunityData.leadId = this.leadId;
     if (this.leadsService.opportunityData.unitId) {
       this.createNewOpportunity(this.leadsService.opportunityData.contactName, this.leadsService.opportunityData.keyContactId, this.leadsService.opportunityData.unitId);
     } else {
       this.goToPage('/units');
     }
+    console.log('opt data', this.leadsService.opportunityData);
   }
 
   goToPage(url) {
@@ -364,9 +367,9 @@ export class ContactDetailsComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-      }
+      this.goToPage('/opportunities');
     });
+    setTimeout(() => dialogRef.close(), 2000);
   }
 
   openSnackBar(message: string, action: string) {

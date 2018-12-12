@@ -196,14 +196,12 @@ export class ProperiesDetailsComponent implements OnInit {
   }
 
   selectUnit() {
-    const contactName = this.leadsService.opportunityData.contactName;
-    const keyContactId = this.leadsService.opportunityData.keyContactId;
-    const unitId = this.leadsService.opportunityData.unitId;
-    const optyNumber = this.leadsService.opportunityData.optyNumber;
-    if (contactName && keyContactId) {
-      this.createNewOpportunity(contactName, keyContactId);
-    } else if (unitId) {
-      this.updateOpportunity(optyNumber, this.unitDetails.InventoryItemId, this.unitDetails.MAF_UnitNumber_c);
+    const  opportunityData = this.leadsService.opportunityData;
+    console.log('opt data prop', opportunityData);
+    if (opportunityData.contactName && opportunityData.keyContactId) {
+      this.createNewOpportunity(opportunityData.contactName, opportunityData.keyContactId);
+    } else if (opportunityData.unitId) {
+      this.updateOpportunity(opportunityData.optyNumber, this.unitDetails.InventoryItemId, this.unitDetails.MAF_UnitNumber_c);
     } else {
       this.leadsService.opportunityData.unitId = this.unitDetails.InventoryItemId;
       this.router.navigate(['/leads']);
@@ -217,13 +215,13 @@ export class ProperiesDetailsComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.openInfoDialog('Opportunity created', 'success');
-          setTimeout(() => {
-            this.goToPage('/opportunities');
-          }, 3000);
           // this.router.navigate([this.leadsService.opportunityData.backUrl]);
-          this.leadsService.opportunityData.contactName = '';
-          this.leadsService.opportunityData.keyContactId = '';
-          this.leadsService.opportunityData.backUrl = '';
+          // this.leadsService.opportunityData.contactName = '';
+          // this.leadsService.opportunityData.keyContactId = '';
+          // this.leadsService.opportunityData.backUrl = '';
+          this.leadsService.opportunityData = {
+            showSelectBtn: true
+          };
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -242,13 +240,11 @@ export class ProperiesDetailsComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.openInfoDialog('Opportunity updated', 'success');
-          setTimeout(() => {
-            this.goToPage('/opportunities');
-          }, 3000);
-          this.leadsService.opportunityData.contactName = '';
-          this.leadsService.opportunityData.unitId = '';
-          this.leadsService.opportunityData.optyId = '';
-          this.leadsService.opportunityData.backUrl = '';
+          // this.leadsService.opportunityData.contactName = '';
+          // this.leadsService.opportunityData.unitId = '';
+          // this.leadsService.opportunityData.optyId = '';
+          // this.leadsService.opportunityData.backUrl = '';
+          this.leadsService.opportunityData = {};
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -312,9 +308,9 @@ export class ProperiesDetailsComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-      }
+      this.goToPage('/opportunities');
     });
+    setTimeout(() => dialogRef.close(), 2000);
   }
 
   openSnackBar(message: string, action: string) {

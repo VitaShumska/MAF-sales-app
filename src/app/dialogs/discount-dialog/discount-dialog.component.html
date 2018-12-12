@@ -5,21 +5,21 @@
   <div class="new-discount" fxLayoutAlign="center">
     <div fxFlex="27" class="inputs-block">
       <label for="type">Type</label>
-      <input id="type" type="text" [(value)]="newDiscount.type"/>
+      <input id="type" type="text" [(ngModel)]="newDiscount.DiscountType_c">
     </div>
     <div fxFlex="27" class="inputs-block">
       <label for="amount">Amount/Percentage</label>
-      <mat-select id="amount" [(value)]="newDiscount.amount">
-        <mat-option value="amount">Amount</mat-option>
-        <mat-option value="percentage">Percentage</mat-option>
+      <mat-select id="amount" [(value)]="newDiscount.Type_c">
+        <mat-option value="Amount">Amount</mat-option>
+        <mat-option value="Percentage">Percentage</mat-option>
       </mat-select>
     </div>
     <div fxFlex="27" class="inputs-block">
       <label for="discount">Discount</label>
-      <input id="discount" type="text" [(ngModel)]="newDiscount.discount">
+      <input id="discount" type="text" [(ngModel)]="newDiscount.DiscountValue_c">
     </div>
     <div fxFlex="16">
-      <button>ADD</button>
+      <button (click)="createDiscount(newDiscount)">ADD</button>
     </div>
   </div>
 

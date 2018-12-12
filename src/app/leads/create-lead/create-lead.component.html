@@ -12,6 +12,13 @@
           <input id="secondary" type="text" [(ngModel)]="newLead.MAF_Project_c" placeholder="Tilal Al Ghaf - Dubai">
         </div>
 
+        <div class="field-block">
+          <label for="primaryPurch">Primary Purchaser</label>
+          <mat-select id="primaryPurch" [(ngModel)]="newLead.PrimaryContactId">
+            <mat-option value="">Select primary purchaser</mat-option>
+            <mat-option *ngFor="let item of contactsList" [value]="item.PartyId">{{item.ContactName}}</mat-option>
+          </mat-select>
+        </div>
       </div>
 
       <div fxFlex="50">
@@ -25,11 +32,6 @@
           <label for="unitType">Method Of Enquiry</label>
           <input id="unitType" type="text" [(ngModel)]="newLead.MethodOfEnquiry_c" placeholder="Call Center_TAG">
         </div>
-
-        <!--<div class="field-block">-->
-          <!--<label for="unitNo">Unit Number</label>-->
-          <!--<input id="unitNo" type="text" [(ngModel)]="newLead.unitNumber">-->
-        <!--</div>-->
       </div>
     </div>
   </div>

@@ -136,13 +136,20 @@ export class LeadsListComponent implements OnInit {
     );
   }
 
-  getNotAssignedLeads() {
-    this.filterParams.notAssigned = 'AssignmentStatusCode IS NULL';
-    this.sortElem = {
-      key: 'LeadNumber',
-      sort: 'asc'
-    };
-    this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+  getNextLead() {
+    this.loadingSpinner.show();
+    this.leadsService.getNextLead().subscribe(
+     (data: any) => {
+       this.loadingSpinner.hide();
+       const leadId = data.items[0].LeadId;
+       const contactId = (data.items[0].PrimaryContactId ? data.items[0].PrimaryContactId : 'new');
+       this.goToPage('/contact-details/' + contactId + '/' + leadId);
+     },
+     (error) => {
+       this.loadingSpinner.hide();
+       this.openSnackBar('Server error', 'OK');
+     }
+     );
   }
 
   sortByKey(sortElem) {

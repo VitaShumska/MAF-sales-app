@@ -15,6 +15,7 @@ export class LeadsService {
     unitId: '',
     optyNumber: '',
     backUrl: '',
+    leadId: '',
     showSelectBtn: true
 };
 
@@ -43,7 +44,6 @@ export class LeadsService {
       filterParams.lastUpdate ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + 1 + ';') : false;
       filterParams.creation ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
       filterParams.assignedTo ? (filterParameters += 'OwnerPartyName=' + filterParams.assignedTo + ';') : false;
-      filterParams.notAssigned ? (filterParameters += filterParams.notAssigned + ';') : false;
     }
     sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
 
@@ -51,6 +51,13 @@ export class LeadsService {
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
+  }
+
+  getNextLead(){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer ' + this.getToken());
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'leads/?offset=0&limit=1' + '&q=AssignmentStatusCode IS NULL&orderBy=LeadNumber:asc', {headers});
   }
 
   getLeadById(id): Observable<any> {
@@ -64,14 +71,14 @@ export class LeadsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/json');
-    return this.http.post(this.API_URL + '/leads', data, {headers});
+    return this.http.post(this.API_URL + 'leads', data, {headers});
   }
 
   updateLead(id, data): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/json');
-    return this.http.patch(this.API_URL + '/leads/' + id, data, {headers});
+    return this.http.patch(this.API_URL + 'leads/' + id, data, {headers});
   }
 
   getContacts(offset, limit): Observable<any> {
@@ -79,7 +86,7 @@ export class LeadsService {
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers = headers.append('Accept', 'application/json');
-    return this.http.get(this.API_URL + 'contacts/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    return this.http.get(this.API_URL + 'contacts/?totalResults=true&offset=' + offset + '&limit=' + limit + '&q=OwnerName=SOAUSER', {headers});
   }
 
   getContactsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
@@ -193,6 +200,13 @@ export class LeadsService {
     return this.http.get(this.API_URL + 'MAF_DiscountOpportunity_c/?q=MAF_OptyId_Id_c=' + id, {headers});
   }
 
+  createDiscount(data, id): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer ' + this.getToken());
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.post(this.API_URL + 'MAF_DiscountOpportunity_c/', data, {headers});
+  }
+
   getReceipt(id): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
@@ -200,11 +214,11 @@ export class LeadsService {
     return this.http.get(this.API_URL + 'MAF_Receipt_c/' + id, {headers});
   }
 
-  getPayplan(id): Observable<any> {
+  getPayplan(): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'MAF_PaymentPlan_c/' + id, {headers});
+    return this.http.get(this.API_URL + 'MAF_PaymentPlan_c/?limit=200', {headers});
   }
 
   createOpportunity(name, contactId, unitId) {

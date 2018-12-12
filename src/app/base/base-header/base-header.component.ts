@@ -36,6 +36,9 @@ export class BaseHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.href = this.router.url;
+    // this.leadsService.opportunityData = {
+    //   showSelectBtn: true
+    // };
   }
 
   goToPage(url) {
@@ -77,7 +80,7 @@ export class BaseHeaderComponent implements OnInit {
         break;
       }
       default: {
-        this.router.navigate([this.backUrl]);
+        this.location.back();
         break;
       }
     }

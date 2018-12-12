@@ -14,11 +14,13 @@ export interface DialogData {
 })
 export class DiscountDialogComponent implements OnInit {
   newDiscount = {
-    'type': '',
-    'amount': '',
-    'discount': ''
+    DiscountType_c: '',
+    Type_c: '',
+    DiscountValue_c: '',
+    MAF_OptyId_Id_c: ''
   };
   discountsData;
+  optyId;
 
   constructor(private leadsService: LeadsService,
               private dialogRef: MatDialogRef<DiscountDialogComponent>,
@@ -26,6 +28,7 @@ export class DiscountDialogComponent implements OnInit {
 
   ngOnInit() {
     this.discountsData = this.data.discountData;
+    this.newDiscount.MAF_OptyId_Id_c = this.discountsData[0].MAF_OptyId_Id_c;
   }
 
   // getDropdownOptions(param) {
@@ -37,6 +40,29 @@ export class DiscountDialogComponent implements OnInit {
   //     }
   //   );
   // }
+
+  getDiscount(id) {
+    this.leadsService.getDiscount(id)
+      .subscribe(
+        (data: any) => {
+          this.discountsData = data;
+        },
+        (error) => {
+        }
+      );
+  }
+
+  createDiscount(data) {
+    this.leadsService.createDiscount(data, this.optyId)
+      .subscribe(
+        (res: any) => {
+          console.log('data', res);
+          this.getDiscount(this.optyId);
+        },
+        (error) => {
+        }
+      );
+  }
 
   selected() {
     console.log('selected discount');
