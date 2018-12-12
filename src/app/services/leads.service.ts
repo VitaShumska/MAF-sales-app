@@ -33,7 +33,8 @@ export class LeadsService {
   }
 
   getLeadsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
-    let filterParameters;
+    // let filterParameters = 'q=AssignmentStatusCode<>Retired AND Converted';
+    let filterParameters = '';
     this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
     if (filterParams) {

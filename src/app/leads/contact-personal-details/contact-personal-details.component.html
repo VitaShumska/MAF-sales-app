@@ -3,7 +3,9 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="title">Prefix</label>
-        <input id="title" type="text" [(ngModel)]="contactDetails.Title">
+        <mat-select id="title" [(value)]="contactDetails.Title">
+          <mat-option *ngFor="let prefix of prefixList" [value]="prefix">{{prefix}}</mat-option>
+        </mat-select>
       </div>
 
       <div class="field-block">
@@ -90,7 +92,7 @@
 
       <div class="field-block">
         <label for="type">Type</label>
-        <input *ngIf="contactDetails.Type" id="type" type="text" [(ngModel)]="contactDetails.Type">
+        <input *ngIf="contactDetails.Type" id="type" type="text" [(ngModel)]="contactDetails.Type" disabled style="background-color: transparent">
         <input *ngIf="!contactDetails.Type" id="type" type="text" value="Prospect" disabled style="background-color: transparent">
       </div>
 

@@ -59,6 +59,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
   enableSaveButton: boolean = false;
   isValidEmail: boolean = true;
   isValidPhoneNumber: boolean = true;
+  prefixList = ['Mr.', 'Mrs.', 'Ms.', 'Atty.', 'Col.', 'Dr.', 'Eng.', 'H.E.', 'H.H.', 'Capt.', 'Lt.', 'Lt. Col.', 'Prof.', 'Sheikh.', 'Sheikha.', 'Sir.'];
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,

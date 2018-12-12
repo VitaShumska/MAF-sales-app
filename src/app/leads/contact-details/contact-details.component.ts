@@ -243,7 +243,8 @@ export class ContactDetailsComponent implements OnInit {
     this.leadsService.createRestOpportunity(contactName, keyContactId, unitId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          this.openInfoDialog('Unit added. Opportunity created.', 'success');
+          // this.openInfoDialog('Unit added. Opportunity created.', 'success');
+          this.goToPage('opportunity-details/' + data.KeyContactId + '/' + data.OptyNumber);
           this.updateLead(this.leadsService.opportunityData.leadId, undefined, 'CONVERTED');
           this.leadsService.opportunityData = {
             showSelectBtn: true

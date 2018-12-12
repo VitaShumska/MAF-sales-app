@@ -214,11 +214,8 @@ export class ProperiesDetailsComponent implements OnInit {
     this.leadsService.createRestOpportunity(contactName, keyContactId, this.unitDetails.InventoryItemId)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          this.openInfoDialog('Opportunity created', 'success');
-          // this.router.navigate([this.leadsService.opportunityData.backUrl]);
-          // this.leadsService.opportunityData.contactName = '';
-          // this.leadsService.opportunityData.keyContactId = '';
-          // this.leadsService.opportunityData.backUrl = '';
+          this.goToPage('opportunity-details/' + data.KeyContactId + '/' + data.OptyNumber);
+          // this.openInfoDialog('Opportunity created', 'success');
           this.leadsService.opportunityData = {
             showSelectBtn: true
           };
@@ -239,12 +236,11 @@ export class ProperiesDetailsComponent implements OnInit {
     this.leadsService.updateRestOpportunity(optyId, data)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          this.openInfoDialog('Opportunity updated', 'success');
-          // this.leadsService.opportunityData.contactName = '';
-          // this.leadsService.opportunityData.unitId = '';
-          // this.leadsService.opportunityData.optyId = '';
-          // this.leadsService.opportunityData.backUrl = '';
-          this.leadsService.opportunityData = {};
+          // this.openInfoDialog('Opportunity updated', 'success');
+          this.goToPage('opportunity-details/' + data.KeyContactId + '/' + data.OptyNumber);
+          this.leadsService.opportunityData = {
+            showSelectBtn: true
+          };
         },
         (error) => {
           this.loadingSpinner.hide();
