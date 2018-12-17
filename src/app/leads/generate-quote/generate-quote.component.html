@@ -2,18 +2,18 @@
   <div class="quote-content">
     <div class="general-info">
       <div class="space-between">
-        <p style="color: #f89716">7 April - 2018</p>
-        <p>Subject: Quatation for The Grand Crest</p>
+        <p style="color: #f89716">{{optyDetails?.CreationDate | date : 'dd/MM/yyyy'}}</p>
+        <p>Subject: Quatation for {{unitDetails?.MAF_ProjectName_c}}</p>
       </div>
       <div>
-        <p>to: Roy Stevens</p>
-        <p>Thank You for your interest in Big Oak Range Phase 1 </p>
+        <p>to: {{optyDetails?.PrimaryContactPartyName}}</p>
+        <p>Thank You for your interest in {{unitDetails?.MAF_ProjectName_c}} {{unitDetails?.MAF_PhaseName_c}} </p>
         <p>We are pleased to offer you the following quatation:</p>
       </div>
     </div>
     <div class="unit-info">
       <div class="title-block" style="background-color: #8a1638;">
-        Big Oak Range Phase 1
+        {{unitDetails?.MAF_ProjectName_c}} {{unitDetails?.MAF_PhaseName_c}}
       </div>
       <div class="properties-table">
         <div class="table">
@@ -27,75 +27,73 @@
             <div class="table-cell">Price</div>
           </div>
           <div class="table-body">
-            <div class="table-row">
-              <div class="table-cell unit-name">
-                <img class="unit-img" src="assets/images/unit.png">
-                <div>
-                  <p>The Grand Crest</p>
-                </div>
-              </div>
-              <div class="table-cell"> Phase 1 </div>
-              <div class="table-cell">The Grand Crest</div>
-              <div class="table-cell">1111111</div>
-              <div class="table-cell"> area</div>
-              <div class="table-cell">build area</div>
-              <div class="table-cell">2,229,000.00</div>
+            <div class="table-row" *ngIf = "unitDetails">
+              <div class="table-cell unit-name">{{unitDetails?.MAF_UnitType_c}}</div>
+              <div class="table-cell">{{unitDetails?.MAF_PhaseName_c}}</div>
+              <div class="table-cell">{{unitDetails?.MAF_ProjectName_c}}</div>
+              <div class="table-cell">{{unitDetails?.ItemNumber}}</div>
+              <div class="table-cell">{{unitDetails?.MAF_PlotAreaSqFt_c | number: 0}}</div>
+              <div class="table-cell">{{unitDetails?.MAF_BuiltupAreaSqFt_c | number: 0}}</div>
+              <div class="table-cell">{{unitDetails?.MAF_UnitPrice_c | number: 0}}</div>
+            </div>
+            <div *ngIf = "!unitDetails" class="empty-table">
+              <p>
+                No data about unit
+              </p>
             </div>
           </div>
         </div>
       </div>
       <div class="space-between">
-        <p>Payment Plan Discount (5.00%)</p>
-        <p>(106,500.00)</p>
+        <p>Payment Plan Discount ({{ optyDetails?.MAF_PPAmountPercentage_c ? optyDetails?.MAF_PPAmountPercentage_c : 0}}%)</p>
+        <p>{{optyDetails?.MAF_PPDiscountedValue_c ? (optyDetails?.MAF_PPDiscountedValue_c | number : '1.2-2') : 0}}</p>
       </div>
       <div class="space-between">
-        <p>Approved Discount (5.0%)</p>
-        <p>(106,500.00)</p>
+        <p>Approved Discount ({{optyDetails?.MAF_Discount_c ? optyDetails?.MAF_Discount_c : 0}}%)</p>
+        <p>{{optyDetails?.MAF_DiscountedValue_c ? (optyDetails?.MAF_DiscountedValue_c | number : '1.2-2') : 0 }}</p>
       </div>
       <div class="space-between">
         <p>Taxable Price</p>
-        <p>1.927.000.00</p>
+        <p>{{optyDetails?.MAF_Price_c ? (optyDetails?.MAF_Price_c | number : '1.2-2') : 0}}</p>
       </div>
       <div class="space-between">
-        <p>VAT (0.00%)</p>
-        <p>0.00</p>
+        <p>VAT ({{optyDetails?.MAF_VATPct_c ? (optyDetails?.MAF_VATPct_c | number : '1.2-2') : 0}}%)</p>
+        <p>{{optyDetails?.MAF_VATAmount_c ? (optyDetails?.MAF_VATAmount_c | number: '1.2-2') : 0}}</p>
       </div>
       <div class="space-between">
         <p>Total Amount</p>
-        <p>1.927.000.00</p>
+        <p>{{optyDetails?.MAF_PurchaseAmount_c ? (optyDetails?.MAF_PurchaseAmount_c | number: '1.2-2') :0}}</p>
       </div>
     </div>
     <div class="payplan-info">
       <div class="title-block">
         PAYMENT PLAN SCHEDULE
       </div>
-      <div>
+      <div *ngIf = "milestonesData?.length > 0">
         <div class="table">
           <div class="table-header">
-            <div class="table-cell">Payment</div>
-            <div class="table-cell">Percentage</div>
-            <div class="table-cell">Milestone Description</div>
+            <div class="table-cell" style="flex: 0.5">Payment</div>
+            <div class="table-cell" style="flex: 0.5">Percentage</div>
+            <div class="table-cell" style="flex: 1.5">Milestone Description</div>
             <div class="table-cell">Date</div>
-            <div class="table-cell">Remarks</div>
+            <div class="table-cell">Type</div>
           </div>
           <div class="table-body">
-            <div class="table-row">
-              <div class="table-cell">1</div>
-              <div class="table-cell">50.00</div>
-              <div class="table-cell">Signed of Agreement</div>
-              <div class="table-cell">Apr 7, 2018</div>
-              <div class="table-cell">IMMEDIATE</div>
+            <div class="table-row" *ngFor="let milestone of milestonesData; index as i">
+              <div class="table-cell" style="flex: 0.5">{{i + 1}}</div>
+              <div class="table-cell" style="flex: 0.5">{{milestone.Percentage_c}}</div>
+              <div class="table-cell" style="flex: 1.5">{{milestone.MAF_MilestoneName_c}}</div>
+              <div class="table-cell">{{milestone.CreationDate | date : 'dd/MM/yyyy'}}</div>
+              <div class="table-cell">{{milestone.MilestoneType_c}}</div>
             </div>
           </div>
         </div>
       </div>
+      <div *ngIf = "milestonesData?.length === 0">
+        <p>Milestones list is empty</p>
+      </div>
       <div class="description">
-        <span>
-          Cras quis nulla commodo, aliquam lectus sed, blandit augue. Cras ullamcorper bibendum bibendum. Duis tincidunt urna non pretium porta. Nam condimentum vitae ligula vel ornare.
-          Phasellus at semper turpis. Nunc eu tellus tortor. Etiam at condimentum nisl, vitae sagittis orci. Donec id dignissim nunc. Donec elit ante, eleifend a dolor et, venenatis facilisis dolor.
-          In feugiat orci odio, sed lacinia sem elementum quis.
-          Aliquam consectetur, eros et vulputate euismod, nunc leo tempor lacus, ac rhoncus neque eros nec lacus. Cras lobortis molestie faucibus.
-        </span>
+        <span>{{optyDetails?.DescriptionText}}</span>
       </div>
     </div>
   </div>

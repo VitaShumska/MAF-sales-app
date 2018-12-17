@@ -177,6 +177,7 @@ export class ProperiesDetailsComponent implements OnInit {
         },
         (error) => {
           this.loadingSpinner.hide();
+          this.apiService.logOut();
           this.openSnackBar('Server error', 'OK');
         });
   }

@@ -27,8 +27,10 @@ export class DiscountDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
+    console.log(this.data);
     this.discountsData = this.data.discountData;
-    this.newDiscount.MAF_OptyId_Id_c = this.discountsData[0].MAF_OptyId_Id_c;
+    this.optyId = this.data['optyId'];
+    this.newDiscount.MAF_OptyId_Id_c = this.optyId;
   }
 
   // getDropdownOptions(param) {

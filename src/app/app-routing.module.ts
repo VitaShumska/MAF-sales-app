@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'contact-details/:contactId/:leadId', component: ContactDetailsComponent, canActivate: [AuthGuard] },
       { path: 'opportunity-details/:contactId/:optyId', component: ContactDetailsComponent, canActivate: [AuthGuard] },
       { path: 'create-lead', component: CreateLeadComponent, canActivate: [AuthGuard] },
-      { path: 'generate-quote', component: GenerateQuoteComponent, canActivate: [AuthGuard] }
+      { path: 'generate-quote/:contactId/:optyId', component: GenerateQuoteComponent, canActivate: [AuthGuard] }
     ]
   },
   { path: '**', redirectTo: '/login'}

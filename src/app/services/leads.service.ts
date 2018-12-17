@@ -133,7 +133,14 @@ export class LeadsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + '/MAF_Identification_c/?q=MAF_Contact_Id_c=' + id, {headers});
+    return this.http.get(this.API_URL + 'MAF_Identification_c/?q=MAF_Contact_Id_c=' + id, {headers});
+  }
+
+  updateIdentificationContactData(id, data): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer ' + this.getToken());
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.patch(this.API_URL + 'MAF_Identification_c/' + id, data, {headers});
   }
 
   createContact(data): Observable<any> {
@@ -156,8 +163,8 @@ export class LeadsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
-    return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    // return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
   }
 
   getOpportunityById(id): Observable<any> {

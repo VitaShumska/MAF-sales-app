@@ -42,7 +42,8 @@ export class PropertiesService {
   }
   getPropertiesById(id): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + this.getToken());
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'products/' + id, {headers});
   }
   getPropertiesContent(type): Observable<any> {
@@ -67,5 +68,9 @@ export class PropertiesService {
       });
     }
     return filterEmpty;
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
   }
 }

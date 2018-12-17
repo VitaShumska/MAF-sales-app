@@ -20,7 +20,6 @@
       <div class="table-body">
         <div class="table-row" *ngFor="let propertie of propertiesList" (click)="goToPage('/unit-details/' + propertie.InventoryItemId)">
           <div class="table-cell unit-name">
-            <!--<img src="assets/images/unit.png">-->
             <img [src]="getTitleImage(propertie.MAF_UnitType_c)" [alt]="getTitleImage(propertie.MAF_UnitType_c)">
             <div>
               <p>{{propertie.MAF_UnitType_c}}</p>

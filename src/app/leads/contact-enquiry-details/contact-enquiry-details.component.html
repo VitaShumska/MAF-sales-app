@@ -74,15 +74,15 @@
       </div>
 
       <div class="field-block">
-        <label for="creationDate">Lead Last Creation Date</label>
-        <input id="creationDate" matInput [matDatepicker]="createdPicker" [(ngModel)]="leadDetails.CreationDate">
+        <label for="creationDate">Lead Creation Date</label>
+        <input id="creationDate" matInput [matDatepicker]="createdPicker" disabled [ngModel]="leadDetails.CreationDate">
         <mat-datepicker-toggle matSuffix [for]="createdPicker" *ngIf="editAllow"></mat-datepicker-toggle>
         <mat-datepicker #createdPicker></mat-datepicker>
       </div>
 
       <div class="field-block">
         <label for="updateDate">Lead Last Updated Date</label>
-        <input id="updateDate" matInput [matDatepicker]="updatedPicker" [(ngModel)]="leadDetails.LastUpdateDate">
+        <input id="updateDate" matInput [matDatepicker]="updatedPicker" disabled [ngModel]="leadDetails.LastUpdateDate">
         <mat-datepicker-toggle matSuffix [for]="updatedPicker" *ngIf="editAllow"></mat-datepicker-toggle>
         <mat-datepicker #updatedPicker></mat-datepicker>
       </div>

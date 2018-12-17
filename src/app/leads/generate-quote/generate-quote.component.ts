@@ -1,4 +1,9 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import {LeadsService} from '../../services/leads.service';
+import {PropertiesService} from '../../services/properties.service';
+import {LoadingSpinnerService} from '../../services/loading-spinner.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-generate-quote',
@@ -6,10 +11,100 @@ import { Component, OnInit, ElementRef, Input } from '@angular/core';
   styleUrls: ['./generate-quote.component.scss']
 })
 export class GenerateQuoteComponent implements OnInit {
+  sub;
+  contactId;
+  optyNumber;
+  contactDetails = {};
+  milestonesData = [];
+  optyDetails;
+  unitDetails;
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef,
+              private route: ActivatedRoute,
+              private leadsService: LeadsService,
+              private propertiesService: PropertiesService,
+              private loadingSpinner: LoadingSpinnerService,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.contactId = params['contactId'];
+      this.optyNumber = params['optyId'];
+      this.getOpportunityById(this.optyNumber);
+      this.getContactById(this.contactId);
+    });
+  }
+
+  getContactById (id) {
+    this.loadingSpinner.show();
+    this.leadsService.getContactById(id)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.contactDetails = data.items[0];
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  getOpportunityById(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getOpportunityById(id)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.optyDetails = data;
+          this.getMilestones(this.optyDetails.OptyId);
+          // this.getReceipt(this.optyDetails.OptyId);
+          this.getPropertiesById(this.optyDetails.MAF_Product_Id_c);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
+  getMilestones(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getMilestones(id)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          this.milestonesData = data.items;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  getReceipt(id) {
+    this.loadingSpinner.show();
+    this.leadsService.getReceipt(id)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          // this.getMilestonesData = data;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  getPropertiesById(id) {
+    this.loadingSpinner.show();
+    this.propertiesService.getPropertiesById(id)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.unitDetails = data;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
   }
 
   print(): void {
@@ -87,4 +182,9 @@ export class GenerateQuoteComponent implements OnInit {
     popupWin.document.close();
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }

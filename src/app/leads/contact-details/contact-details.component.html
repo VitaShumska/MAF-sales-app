@@ -60,7 +60,7 @@
     <button *ngIf="contactId === 'new'" class="cancel-bnt" (click)="goToPage('/leads')">Cancel</button>
     <button *ngIf="contactId !== 'new'" class="cancel-bnt" (click)="editAllow=false">Cancel</button>
     <button *ngIf="contactId === 'new'" (click)="createContact()">Create</button>
-    <button *ngIf="contactId !== 'new'" (click)="updateContact()">Update</button>
+    <button *ngIf="contactId !== 'new'" (click)="updateData()">Update</button>
   </div>
 
   <div class="action-block" *ngIf="!editAllow && (pageName !== 'opportunity-details')">
@@ -77,7 +77,7 @@
     <div class="btn-block">
       <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payment Plan</button>
       <button class="apply-bnt" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
-      <button class="cancel-bnt" (click)="goToPage('/generate-quote')">Generate Quote</button>
+      <button class="cancel-bnt" (click)="goToPage('/generate-quote/' + contactId + '/' + leadDetails.OptyNumber)">Generate Quote</button>
       <button [matMenuTriggerFor]="requestMenu">Request</button>
       <mat-menu #requestMenu="matMenu">
         <button mat-menu-item>Block</button>

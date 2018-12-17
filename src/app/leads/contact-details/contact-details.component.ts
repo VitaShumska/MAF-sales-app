@@ -142,6 +142,7 @@ export class ContactDetailsComponent implements OnInit {
         },
         (error) => {
           this.loadingSpinner.hide();
+          this.apiService.logOut();
           this.openSnackBar('Server error', 'OK');
         });
   }
@@ -150,7 +151,7 @@ export class ContactDetailsComponent implements OnInit {
     this.loadingSpinner.show();
     const data = {
       PrimaryContactId: contactId,
-      StatusCode: status
+      AssignmentStatusCode: status
     };
     this.leadsService.updateLead(leadId, data)
       .subscribe(() => {
@@ -176,6 +177,7 @@ export class ContactDetailsComponent implements OnInit {
         (error) => {
           this.loadingSpinner.hide();
           this.openSnackBar('Server error', 'OK');
+          this.apiService.logOut();
         });
   }
 
@@ -187,11 +189,11 @@ export class ContactDetailsComponent implements OnInit {
           this.identificationContactData = data.items[0];
           if (data.items.length === 0){
             this.identificationContactData = {
-              'MAF_IdentificationType_c': '',
-              'MAF_IDNo_c': '',
-              'MAF_IssuingAuthority_c': '',
-              'MAF_IssueDate_c': '',
-              'MAF_ExpiryDate_c': ''
+              MAF_IdentificationType_c: '',
+              MAF_IDNo_c: '',
+              MAF_IssuingAuthority_c: '',
+              MAF_IssueDate_c: '',
+              MAF_ExpiryDate_c: ''
             };
           }
         },
@@ -201,8 +203,24 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
+  updateIdentificationContactData() {
+    this.loadingSpinner.show();
+    this.leadsService.updateIdentificationContactData(this.contactId, this.identificationContactData)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.identificationContactData = data.items[0];
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
+
   updateContact() {
     this.loadingSpinner.show();
+    delete this.contactDetails['LastUpdateDate'];
+    delete this.contactDetails['CreationDate'];
+
     this.leadsService.updateContact(this.contactDetails.PartyNumber, this.contactDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
@@ -263,8 +281,6 @@ export class ContactDetailsComponent implements OnInit {
           this.loadingSpinner.hide();
           this.leadDetails = data;
           this.getDiscount(this.leadDetails.OptyId);
-          this.getMilestones(this.leadDetails.OptyId);
-          // this.getReceipt(this.leadDetails.OptyId);
           this.getPayplan();
         },
         (error) => {
@@ -288,36 +304,6 @@ export class ContactDetailsComponent implements OnInit {
       );
   }
 
-  getMilestones(id) {
-    this.loadingSpinner.show();
-    this.leadsService.getMilestones(id)
-      .subscribe(
-        (data: any) => {
-          this.loadingSpinner.hide();
-          this.getMilestonesData = data;
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        }
-      );
-  }
-
-  getReceipt(id) {
-    this.loadingSpinner.show();
-    this.leadsService.getReceipt(id)
-      .subscribe(
-        (data: any) => {
-          this.loadingSpinner.hide();
-          // this.getMilestonesData = data;
-        },
-        (error) => {
-          this.loadingSpinner.hide();
-          this.openSnackBar('Server error', 'OK');
-        }
-      );
-  }
-
   getPayplan() {
     this.loadingSpinner.show();
     this.leadsService.getPayplan()
@@ -332,6 +318,12 @@ export class ContactDetailsComponent implements OnInit {
         }
       );
   }
+/////////////////////////////Update data about leads and contact////////////////////
+  updateData() {
+    this.updateContact();
+    // this.updateIdentificationContactData();
+  }
+
 /////////////////////////////Additional functions////////////////////
   addUnit() {
     this.leadsService.opportunityData.contactName = this.leadDetails.PrimaryContactPartyName;
@@ -398,7 +390,8 @@ export class ContactDetailsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DiscountDialogComponent, {
       data: {
-        'discountData': this.discountData['items']
+        discountData: this.discountData['items'],
+        optyId: this.leadDetails.OptyId
       }
     });
     dialogRef.afterClosed().subscribe(result => {
