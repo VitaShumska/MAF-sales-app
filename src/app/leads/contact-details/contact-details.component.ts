@@ -8,7 +8,8 @@ import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { SelectPayplanDialogComponent } from '../../dialogs/select-payplan-dialog/select-payplan-dialog.component';
 import { DiscountDialogComponent } from '../../dialogs/discount-dialog/discount-dialog.component';
-import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
+import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-contact-details',
@@ -84,7 +85,7 @@ export class ContactDetailsComponent implements OnInit {
   ngOnInit() {
     this.pageName = window.location.pathname.split('/')[1];
     this.isLeadOrOpportunity(this.pageName);
-    // this.googleTranslateElementInit();
+    this.googleTranslateElementInit();
   }
 
   isLeadOrOpportunity(page) {
@@ -318,6 +319,23 @@ export class ContactDetailsComponent implements OnInit {
         }
       );
   }
+
+  updateStatus (actionType, approvalType) {
+    const updateData = {
+      MAF_ActionType_c: actionType,
+      MAF_ApprovalType_c: approvalType + ': ' + this.leadDetails.PrimaryContactPartyName,
+      MAF_Action_c: this.leadDetails.MAF_Action_c + 1
+    };
+    this.leadsService.updateRestOpportunity(this.optyId, updateData)
+      .subscribe(data => {
+          this.loadingSpinner.hide();
+          this.leadDetails = data;
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        });
+  }
 /////////////////////////////Update data about leads and contact////////////////////
   updateData() {
     this.updateContact();
@@ -401,13 +419,16 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   googleTranslateElementInit() {
-    let url = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyCZMgtddy1pj0JBTIzyZFo35qwCvMudiRo";
-    url += "&source=en";
-    url += "&target=ar";
-    url += "&q=text";
-    // url += "&q=text" + escape($("#txtSource").val());
+    const apiKey = 'AIzaSyAp7N8VtPpiko4cXfNigXmx3HE6FFELJLc';
+    let url = 'https://translation.googleapis.com/language/translate/v1';
+    url += '?key=' + apiKey;
+    url += '&text=text';
+    url += '&source=en';
+    url += '&target=ar';
+    // url += '&q=text' + escape($('#txtSource').val());
     this.apiService.googleTranslateElementInit(url)
       .subscribe(data => {
+        console.log('translate', data);
       },
       (error) => {
         this.openSnackBar('Server error', 'OK');

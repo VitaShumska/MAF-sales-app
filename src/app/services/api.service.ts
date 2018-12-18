@@ -103,7 +103,10 @@ export class ApiService {
   }
 
   googleTranslateElementInit(url): Observable<any> {
-    return this.http.get(url);
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Accept', 'application/json');
+    return this.http.get(url, {headers});
   }
 
   soapCall() {

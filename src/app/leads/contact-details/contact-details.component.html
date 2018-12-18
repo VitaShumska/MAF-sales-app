@@ -80,9 +80,9 @@
       <button class="cancel-bnt" (click)="goToPage('/generate-quote/' + contactId + '/' + leadDetails.OptyNumber)">Generate Quote</button>
       <button [matMenuTriggerFor]="requestMenu">Request</button>
       <mat-menu #requestMenu="matMenu">
-        <button mat-menu-item>Block</button>
-        <button mat-menu-item>Reserve</button>
-        <button mat-menu-item>Sale</button>
+        <button mat-menu-item (click)="updateStatus('Block', 'Blocking Request')">Block</button>
+        <button mat-menu-item (click)="updateStatus('Reservation', 'Reservation Request')">Reserve</button>
+        <button mat-menu-item (click)="updateStatus('Sale', 'Sale Request')">Sale</button>
       </mat-menu>
     </div>
   </div>

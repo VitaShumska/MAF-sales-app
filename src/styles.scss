@@ -828,3 +828,14 @@ mat-dialog-container.mat-dialog-container {
 input.phone-input {
   padding-left: 70px!important;
 }
+
+//////////////Dropdown menu/////////
+.mat-menu-panel {
+  min-width: 175px!important;
+  margin-bottom: 50px;
+  border-radius: 10px!important;
+
+  .mat-menu-item {
+    text-align: center;
+  }
+}
