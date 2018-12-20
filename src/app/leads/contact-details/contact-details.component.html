@@ -76,7 +76,7 @@
     </div>
     <div class="btn-block">
       <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payment Plan</button>
-      <button class="apply-bnt" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
+      <button class="apply-bnt" [disabled]="!leadDetails.MAF_PaymentPlan_c" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
       <button class="cancel-bnt" (click)="goToPage('/generate-quote/' + contactId + '/' + leadDetails.OptyNumber)">Generate Quote</button>
       <button [matMenuTriggerFor]="requestMenu">Request</button>
       <mat-menu #requestMenu="matMenu">

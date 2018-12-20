@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         this.loadingSpinner.hide();
         const token = data['items'][0]['MAF_Token_c'];
         localStorage.setItem('token', token);
+        localStorage.setItem('userName', this.userData.name);
         this.userData = {
           'name': '',
           'password': ''

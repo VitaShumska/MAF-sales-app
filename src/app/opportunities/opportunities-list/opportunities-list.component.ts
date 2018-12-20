@@ -43,7 +43,7 @@ export class OpportunitiesListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Status Code',
+      name: 'Action Type',
       key: 'StatusCode',
       sort: '',
       disableSort: false

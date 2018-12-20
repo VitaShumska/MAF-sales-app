@@ -34,8 +34,8 @@ export class ContactDetailsComponent implements OnInit {
   phoneCodes = [];
   editAllow = true;
   isAllowedSave: boolean;
-  discountData: any = {};
-  getMilestonesData: any = {};
+  discountData: any = [];
+  payplansList: any = [];
   newContact = {
     'FirstName' : '',
     'LastName' : '',
@@ -85,7 +85,7 @@ export class ContactDetailsComponent implements OnInit {
   ngOnInit() {
     this.pageName = window.location.pathname.split('/')[1];
     this.isLeadOrOpportunity(this.pageName);
-    this.googleTranslateElementInit();
+    // this.googleTranslateElementInit();
   }
 
   isLeadOrOpportunity(page) {
@@ -290,6 +290,22 @@ export class ContactDetailsComponent implements OnInit {
         });
   }
 
+  updateOpportunity(id, data) {
+    this.loadingSpinner.show();
+    this.leadsService.updateRestOpportunity(id, data)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          this.leadDetails = data;
+          console.log('opty updating', this.leadDetails);
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
   getDiscount(id) {
     this.loadingSpinner.show();
     this.leadsService.getDiscount(id)
@@ -311,7 +327,7 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();
-          // this.getMilestonesData = data;
+          this.payplansList = data;
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -321,12 +337,14 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   updateStatus (actionType, approvalType) {
-    const updateData = {
-      MAF_ActionType_c: actionType,
-      MAF_ApprovalType_c: approvalType + ': ' + this.leadDetails.PrimaryContactPartyName,
-      MAF_Action_c: this.leadDetails.MAF_Action_c + 1
-    };
-    this.leadsService.updateRestOpportunity(this.optyId, updateData)
+    this.leadDetails.MAF_ActionType_c = actionType;
+    this.leadDetails.MAF_ApprovalType_c = approvalType + ': ' + this.leadDetails.PrimaryContactPartyName;
+    this.leadDetails.MAF_Action_c = this.leadDetails.MAF_Action_c + 1;
+
+    delete this.leadDetails.UpdateFlag;
+    delete this.leadDetails.DeleteFlag;
+
+    this.leadsService.updateRestOpportunity(this.optyId, this.leadDetails)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.leadDetails = data;
@@ -369,7 +387,7 @@ export class ContactDetailsComponent implements OnInit {
     this.editAllow = true;
   }
 
-  openInfoDialog(text,type): void {
+  openInfoDialog(text, type): void {
     const dialogRef = this.dialog.open(InfoDialogComponent, {
       width: '60vw',
       data: {
@@ -389,13 +407,18 @@ export class ContactDetailsComponent implements OnInit {
     });
   }
 
-  openSelectPayplanDialog(id: number): void {
-    const config = new MatDialogConfig();
-    // config.data = _.clone(mandant);
-
-    const dialogRef = this.dialog.open(SelectPayplanDialogComponent, config);
+  openSelectPayplanDialog(): void {
+    const dialogRef = this.dialog.open(SelectPayplanDialogComponent, {
+      data: {
+        payplansList: this.payplansList['items'],
+        optyId: this.leadDetails.OptyId
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        // this.leadDetails.MAF_PaymentPlan_Id_c = result.id;
+        // this.leadDetails.MAF_PaymentPlan_c = result.name;
+        console.log('result', this.leadDetails);
       }
     });
   }

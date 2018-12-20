@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { LeadsService } from '../../services/leads.service';
+import { PropertiesService } from '../../services/properties.service';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 import { FilterCloseService } from "../../services/filter-close.service";
 import { MatSnackBar } from "@angular/material";
@@ -45,6 +46,7 @@ export class FilterComponent implements OnInit {
 
   constructor(private apiService: ApiService,
               private leadsService: LeadsService,
+              private propertiesService: PropertiesService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar,
               public filterClose: FilterCloseService) { }
@@ -78,7 +80,7 @@ export class FilterComponent implements OnInit {
     this.clearSearchInput();
     this.loadingSpinner.show();
     if (this.type === 'properties') {
-      this.apiService.getPropertiesWithFilter(this.offset, this.limit, null, filterParams)
+      this.propertiesService.getPropertiesWithFilter(this.offset, this.limit, null, filterParams)
         .subscribe((data) => {
             this.loadingSpinner.hide();
             this.responseList  =  data;

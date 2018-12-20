@@ -27,15 +27,18 @@ export class LeadsService {
 
   getLeads(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
+    const currentUser = localStorage.getItem('userName');
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + '&orderBy=LeadNumber:desc', {headers});
+    return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + '&orderBy=LeadNumber:desc' + '&q=CreatedBy=' + currentUser, {headers});
   }
 
   getLeadsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
     // let filterParameters = 'q=AssignmentStatusCode<>Retired AND Converted';
-    let filterParameters = '';
-    this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
+    const currentUser = localStorage.getItem('userName');
+    let filterParameters = 'q=CreatedBy=' + currentUser;
+    // let filterParameters = '';
+    // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
     if (filterParams) {
       filterParams.leadName ? (filterParameters += 'PrimaryContactPartyName=' + filterParams.leadName + ';') : false;
@@ -54,11 +57,12 @@ export class LeadsService {
     return this.http.get(this.API_URL + 'leads/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
   }
 
-  getNextLead(){
+  getNextLead() {
+    const currentUser = localStorage.getItem('userName');
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'leads/?offset=0&limit=1' + '&q=AssignmentStatusCode IS NULL&orderBy=LeadNumber:asc', {headers});
+    return this.http.get(this.API_URL + 'leads/?offset=0&limit=1' + '&q=AssignmentStatusCode IS NULL;CreatedBy=' + currentUser + '&orderBy=LeadNumber:asc', {headers});
   }
 
   getLeadById(id): Observable<any> {
@@ -223,10 +227,11 @@ export class LeadsService {
   }
 
   getPayplan(): Observable<any> {
+    const currentUser = localStorage.getItem('userName');
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'MAF_PaymentPlan_c/?limit=200', {headers});
+    return this.http.get(this.API_URL + 'MAF_PaymentPlan_c/?limit=200&q=CreatedBy=' + currentUser, {headers});
   }
 
   createOpportunity(name, contactId, unitId) {

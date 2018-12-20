@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {LeadsService} from '../../services/leads.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DialogData} from '../discount-dialog/discount-dialog.component';
+
+export interface DialogData {
+  payplansList: any;
+}
 
 @Component({
   selector: 'app-select-payplan-dialog',
@@ -7,35 +14,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectPayplanDialogComponent implements OnInit {
 
-  payplansList: any[] = [
-    {
-      payplan: 'Lillac PP1'
-    },
-    {
-      payplan: 'Lillac PP2'
-    },
-    {
-      payplan: 'Lillac PP3'
-    },
-    {
-      payplan: 'Lillac PP4'
-    },
-    {
-      payplan: 'Lillac PP5'
-    },
-    {
-      payplan: 'Lillac PP6'
-    }
-  ];
+  payPlansList;
+  optyId;
+  selectedPayplan: any = {};
 
-  selectedPayplan;
-
-  constructor() { }
+  constructor(private leadsService: LeadsService,
+              private dialogRef: MatDialogRef<SelectPayplanDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
+    this.payPlansList = this.data['payplansList'];
+    this.optyId = this.data['optyId'];
   }
 
   selected() {
-    console.log('selected payplan', this.selectedPayplan);
+    const updatingOpportuityData = {
+      // OptyId: this.optyId,
+      id: this.selectedPayplan.Id,
+      name: this.selectedPayplan.RecordName
+    };
+    return updatingOpportuityData;
   }
 }

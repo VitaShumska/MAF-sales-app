@@ -33,16 +33,6 @@ export class DiscountDialogComponent implements OnInit {
     this.newDiscount.MAF_OptyId_Id_c = this.optyId;
   }
 
-  // getDropdownOptions(param) {
-  //   this.leadsService.getDropdownOption(param).subscribe(
-  //     (data:  any) => {
-  //       data.items.map((item) => {
-  //         this.unitTypes.push(item.LookupCode);
-  //       });
-  //     }
-  //   );
-  // }
-
   getDiscount(id) {
     this.leadsService.getDiscount(id)
       .subscribe(

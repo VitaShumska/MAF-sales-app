@@ -114,7 +114,7 @@ export class PropertiesListComponent implements OnInit {
   getProperties(offset, limit) {
     this.loadingSpinner.show();
     // this.clearSearchInput();
-    this.apiService.getProperties(offset, limit)
+    this.propertiesService.getProperties(offset, limit)
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();
@@ -135,7 +135,7 @@ export class PropertiesListComponent implements OnInit {
   getPropertiesWithFilter(offset, limit, sortParam?, filterParams?) {
     this.loadingSpinner.show();
     // this.clearSearchInput();
-    this.apiService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
+    this.propertiesService.getPropertiesWithFilter(offset, limit, sortParam, filterParams).subscribe(
       (data:  any) => {
         this.loadingSpinner.hide();
         this.propertiesListOriginal = data['items'];
@@ -175,7 +175,7 @@ export class PropertiesListComponent implements OnInit {
         status: 'available'
       };
     }
-    this.apiService.getPropertiesWithFilter(0, this.limit, this.sortElem, filterParams)
+    this.propertiesService.getPropertiesWithFilter(0, this.limit, this.sortElem, filterParams)
       .subscribe((data:  Array<object>) => {
         this.loadingSpinner.hide();
         this.countOfAvailable = data['totalResults'];

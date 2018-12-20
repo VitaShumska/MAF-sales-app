@@ -168,7 +168,7 @@ export class ProperiesDetailsComponent implements OnInit {
 
   getPropertiesById () {
     this.loadingSpinner.show();
-    this.apiService.getPropertiesById(this.unitId)
+    this.propertiesService.getPropertiesById(this.unitId)
       .subscribe(data => {
         this.loadingSpinner.hide();
         this.unitDetails = data;
