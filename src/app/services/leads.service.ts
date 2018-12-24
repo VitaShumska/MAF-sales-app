@@ -36,7 +36,7 @@ export class LeadsService {
   getLeadsWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
     // let filterParameters = 'q=AssignmentStatusCode<>Retired AND Converted';
     const currentUser = localStorage.getItem('userName');
-    let filterParameters = 'q=CreatedBy=' + currentUser;
+    let filterParameters = 'q=CreatedBy=' + currentUser + ';';
     // let filterParameters = '';
     // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';

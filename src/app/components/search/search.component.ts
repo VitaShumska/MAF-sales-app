@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
 
   public debouncedChangeSearch() {
     sessionStorage.setItem('searchText', this.searchText);
-    if (this.searchText) {
+    if (this.searchText && this.searchText !== null ) {
       const searchText = this.searchText.trim().toLowerCase();
       let selectedFilters = this.searchColumns;
 
