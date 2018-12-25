@@ -85,6 +85,38 @@
       <input id="assigned-to" type="text" maxlength="72" [(ngModel)]="filterParams.assignedTo">
     </div>
 
+    <div *ngIf="type === 'opportunities'">
+      <label for="opportunity-no">Opportunity Number</label>
+      <input id="opportunity-no" type="text" maxlength="72"  [(ngModel)]="filterParams.optNo">
+
+      <label for="primary-purch">Primary Purchaser</label>
+      <input id="primary-purch" type="text" maxlength="72"  [(ngModel)]="filterParams.primaryPurch">
+
+      <label for="action">Action Type</label>
+      <input id="action" type="text" maxlength="72"  [(ngModel)]="filterParams.action">
+
+      <!-- <label for="unit-type">Unit Type</label>
+      <mat-select id="unit-type" [(value)]="filterParams.unitType">
+        <mat-option value="">Select unit type</mat-option>
+        <mat-option *ngFor="let item of unitTypes" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select> -->
+
+      <label for="unit-number">Unit Number</label>
+      <input id="unit-number" type="text" maxlength="72"  [(ngModel)]="filterParams.unitNumber">
+
+      <label for="creation-date">Creation Date</label>
+      <input id="creation-date" matInput [matDatepicker]="createPicker" [(ngModel)]="filterParams.creation">
+      <mat-datepicker-toggle matSuffix [for]="createPicker"></mat-datepicker-toggle>
+      <mat-datepicker #createPicker></mat-datepicker>
+
+      <label for="last-update">Last Update Date</label>
+      <input id="last-update" matInput [matDatepicker]="updatePicker" [(ngModel)]="filterParams.lastUpdate">
+      <mat-datepicker-toggle matSuffix [for]="updatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #updatePicker></mat-datepicker>
+    </div>
+
     <button class="filter-btn" (click)="getPropertiesWithFilter()">Search</button>
 
   </div>

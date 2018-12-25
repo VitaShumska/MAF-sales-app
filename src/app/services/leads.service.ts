@@ -171,21 +171,22 @@ export class LeadsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
-    return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    // return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
   }
 
   getOpportunitiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
+    console.log('filters', filterParams);
     const todayDate = new Date().toISOString();
-    let filterParameters = 'q=CreationDate<' + todayDate;
+    let filterParameters = 'q=CreationDate<' + todayDate + ';';
     // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
     let sortParameters = '';
     if (filterParams) {
-      filterParams.optyNo ? (filterParameters += 'OptyNumber=' + filterParams.optyNo + ';') : false;
-      filterParams.primaryPurchaser ? (filterParameters += 'PrimaryContactPartyName=' + filterParams.primaryPurchaser + ';') : false;
-      filterParams.actionType ? (filterParameters += 'StatusCode=' + filterParams.actionType + ';') : false;
+      filterParams.optNo ? (filterParameters += 'OptyNumber=' + filterParams.optNo + ';') : false;
+      filterParams.primaryPurch ? (filterParameters += 'PrimaryContactPartyName=' + filterParams.primaryPurch + ';') : false;
+      filterParams.action ? (filterParameters += 'MAF_ActionType_c=' + filterParams.action + ';') : false;
       filterParams.unitType ? (filterParameters += 'unitType_c=' + filterParams.unitType + ';') : false;
-      filterParams.unitNo ? (filterParameters += 'UnitNumber_c=' + filterParams.unitNo + ';') : false;
+      filterParams.unitNumber ? (filterParameters += 'UnitNumber_c=' + filterParams.unitNumber + ';') : false;
       filterParams.creation ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
       filterParams.lastUpdate ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + ';') : false;
     }

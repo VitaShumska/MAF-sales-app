@@ -22,6 +22,7 @@ export class GenerateQuoteComponent implements OnInit {
 
   constructor(private elRef: ElementRef,
               private route: ActivatedRoute,
+              private router: Router,
               private leadsService: LeadsService,
               private mockUpService: MockUpService,
               private propertiesService: PropertiesService,
@@ -185,6 +186,9 @@ export class GenerateQuoteComponent implements OnInit {
       </html>`
     );
     popupWin.document.close();
+  }
+  cancel() {
+    this.router.navigate(['opportunity-details/' + this.contactId + '/' + this.optyNumber]);
   }
 
   openSnackBar(message: string, action: string) {

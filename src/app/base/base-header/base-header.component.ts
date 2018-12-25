@@ -17,6 +17,7 @@ export class BaseHeaderComponent implements OnInit {
   breadcrumbsArr = [];
   headerName: string;
   backUrl: string;
+  userName;
 
   constructor(
     private location: Location,
@@ -36,6 +37,7 @@ export class BaseHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.href = this.router.url;
+    this.userName = localStorage.getItem('userName');
     // this.leadsService.opportunityData = {
     //   showSelectBtn: true
     // };

@@ -18,7 +18,7 @@
       <div class="properties-table">
         <div class="table">
           <div class="table-header">
-            <div class="table-cell">Unit/Type</div>
+            <div class="table-cell">Unit Type</div>
             <div class="table-cell">Phase</div>
             <div class="table-cell">Product</div>
             <div class="table-cell">Product No.</div>
@@ -50,7 +50,7 @@
       </div>
       <div class="space-between">
         <p>Approved Discount ({{optyDetails?.MAF_Discount_c ? optyDetails?.MAF_Discount_c : 0}}%)</p>
-        <p>{{optyDetails?.MAF_DiscountedValue_c ? (optyDetails?.MAF_DiscountedValue_c | number : '1.2-2') : 0 }}</p>
+        <p>{{optyDetails?.MAF_DiscountOpty_c ? (optyDetails?.MAF_DiscountOpty_c | number : '1.2-2') : 0 }}</p>
       </div>
       <div class="space-between">
         <p>Taxable Price</p>
@@ -98,7 +98,9 @@
     </div>
   </div>
   <div class="action-block">
-    <button class="cancel-bnt" (click)="print()"> <img src="assets/icons/icon_print.png"> Print</button>
-    <button disabled><img src="assets/icons/icon_email.png"> Email</button>
+    <button class="cancel-bnt" (click)="cancel()">Cancel</button>
+    <button  (click)="print()">
+      <!-- <img src="assets/icons/icon_print.png"> -->
+      Print</button>
   </div>
 </div>

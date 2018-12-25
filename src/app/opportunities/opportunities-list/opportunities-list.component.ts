@@ -26,7 +26,7 @@ export class OpportunitiesListComponent implements OnInit {
   opportunitiesList;
 
   sortElem = {
-    key: 'LeadNumber',
+    key: 'OptyNumber',
     sort: 'desc'
   };
   displayedColumns = [
@@ -89,18 +89,17 @@ export class OpportunitiesListComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.getOpportunities(this.offset, this.limit);
     this.displayedColumns.map( item => {
       this.searchColumns.push(item.key);
     });
-    // if (window.sessionStorage.getItem('filterParams') || window.sessionStorage.getItem('limit') || window.sessionStorage.getItem('offset')) {
-    //   this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
-    //   window.sessionStorage.getItem('limit') ? this.limit = +window.sessionStorage.getItem('limit') : false;
-    //   window.sessionStorage.getItem('offset') ? this.offset = +window.sessionStorage.getItem('offset') : false;
-    //   this.getOpportunitiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
-    // } else {
-    //   this.getOpportunities(this.offset, this.limit);
-    // }
+    if (window.sessionStorage.getItem('filterParams') || window.sessionStorage.getItem('limit') || window.sessionStorage.getItem('offset')) {
+      this.filterParams = JSON.parse(window.sessionStorage.getItem('filterParams'));
+      window.sessionStorage.getItem('limit') ? this.limit = +window.sessionStorage.getItem('limit') : false;
+      window.sessionStorage.getItem('offset') ? this.offset = +window.sessionStorage.getItem('offset') : false;
+     this.getOpportunitiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+     } else {
+       this.getOpportunities(this.offset, this.limit);
+     }
     this.breadcrumbsArr();
   }
 

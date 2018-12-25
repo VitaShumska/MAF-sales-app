@@ -17,7 +17,7 @@ export class DiscountDialogComponent implements OnInit {
   newDiscount = {
     DiscountType_c: '',
     Type_c: '',
-    DiscountValue_c: +'',
+    DiscountValue_c: '',
     MAF_OptyId_Id_c: ''
   };
   discountsData;
@@ -53,7 +53,7 @@ export class DiscountDialogComponent implements OnInit {
     this.newDiscount = {
       DiscountType_c: '',
       Type_c: '',
-      DiscountValue_c: +'',
+      DiscountValue_c: '',
       MAF_OptyId_Id_c: ''
     };
     // this.leadsService.createDiscount(data, this.optyId)

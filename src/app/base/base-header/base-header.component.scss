@@ -52,7 +52,7 @@
 
   .user-name {
     font-family: Helvetica;
-    padding: 0 20px;
+    // padding: 0 20px;
     text-align: right;
     font-size: 14px;
     img.avatar {
@@ -67,13 +67,14 @@
       border: none;
       height: 40px;
       //width: 70px;
+      margin-left: 20px;
       border-radius: 20px;
       color: #ffffff;
       margin-top: 14px;
       line-height: 40px;
-      font-size: 16px;
+      font-size: 14px;
       img {
-        height: 20px;
+        height: 14px;
         vertical-align: sub;
       }
     }

@@ -36,7 +36,11 @@ export class FilterComponent implements OnInit {
     nationality: '',
     creation: '',
     lastUpdate: '',
-    assignedTo: ''
+    assignedTo: '',
+    optNo: '',
+    primaryPurch: '',
+    action: '',
+    unitNumber: ''
   };
   unitTypes:any[] = [];
 
@@ -107,6 +111,20 @@ export class FilterComponent implements OnInit {
             this.loadingSpinner.hide();
             this.openSnackBar('Server error', 'OK');
           });
+    } else if (this.type === 'opportunities') {
+      this.leadsService.getOpportunitiesWithFilter(this.offset, this.limit, null, filterParams)
+        .subscribe((data) => {
+            this.loadingSpinner.hide();
+            this.responseList  =  data;
+            this.changeFilter.emit(this.responseList);
+            this.changeFilterParams.emit(this.filterParams);
+            this.toggleFilter();
+          },
+          (error) => {
+            this.toggleFilter();
+            this.loadingSpinner.hide();
+            this.openSnackBar('Server error', 'OK');
+          });
     }
 
     window.sessionStorage.removeItem('filterParams');
@@ -161,8 +179,13 @@ export class FilterComponent implements OnInit {
       leadNumber: '',
       creation: '',
       lastUpdate: '',
-      assignedTo: ''
+      assignedTo: '',
+      optNo: '',
+      primaryPurch: '',
+      action: '',
+      unitNumber: ''
     };
+    this.getPropertiesWithFilter ();
   }
 
   isFilterEmpty () {

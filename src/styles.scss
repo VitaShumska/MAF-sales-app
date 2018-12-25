@@ -530,7 +530,7 @@ ngx-gallery-preview {
     }
 
     &:disabled {
-      opacity: 0.6!important;
+      opacity: 0.4!important;
       cursor: not-allowed;
       pointer-events: none;
     }
@@ -837,4 +837,8 @@ input.phone-input {
   .mat-menu-item {
     text-align: center;
   }
+}
+
+.mat-menu-item[disabled] {
+  cursor: not-allowed!important;
 }
