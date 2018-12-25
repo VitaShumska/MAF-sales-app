@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {LeadsService} from '../../services/leads.service';
-import {PropertiesService} from '../../services/properties.service';
-import {LoadingSpinnerService} from '../../services/loading-spinner.service';
-import {MatSnackBar} from '@angular/material';
+import { LeadsService } from '../../services/leads.service';
+import { PropertiesService } from '../../services/properties.service';
+import { LoadingSpinnerService } from '../../services/loading-spinner.service';
+import { MatSnackBar } from '@angular/material';
+import { MockUpService } from '../../services/mock-up.service';
 
 @Component({
   selector: 'app-generate-quote',
@@ -22,6 +23,7 @@ export class GenerateQuoteComponent implements OnInit {
   constructor(private elRef: ElementRef,
               private route: ActivatedRoute,
               private leadsService: LeadsService,
+              private mockUpService: MockUpService,
               private propertiesService: PropertiesService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar) { }
@@ -57,6 +59,9 @@ export class GenerateQuoteComponent implements OnInit {
           this.getMilestones(this.optyDetails.OptyId);
           // this.getReceipt(this.optyDetails.OptyId);
           this.getPropertiesById(this.optyDetails.MAF_Product_Id_c);
+          if (this.optyDetails.OptyNumber = this.mockUpService.currentOpt.OptyNumber) {
+            this.optyDetails = this.mockUpService.currentOpt;
+          }
         },
         (error) => {
           this.loadingSpinner.hide();

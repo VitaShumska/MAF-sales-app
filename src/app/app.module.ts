@@ -29,6 +29,7 @@ import { BreadcrumbsService } from './services/breadcrumbs.service';
 import { LoadingSpinnerService } from './services/loading-spinner.service';
 import { FilterCloseService } from './services/filter-close.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { MockUpService } from './services/mock-up.service';
 
 import { AppComponent } from './app.component';
 import { BaseHeaderComponent } from './base/base-header/base-header.component';
@@ -115,6 +116,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
     LoadingSpinnerService,
     FilterCloseService,
     AuthGuard,
+    MockUpService,
     { provide: DateAdapter, useClass: DateFormat }
   ],
   bootstrap: [AppComponent],

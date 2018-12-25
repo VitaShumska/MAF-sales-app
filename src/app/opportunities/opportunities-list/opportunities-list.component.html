@@ -16,8 +16,7 @@
   <div class="opportunities-table">
     <div class="table">
       <div class="table-header">
-        <!--<div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">-->
-        <div class="table-cell" *ngFor="let element of displayedColumns" [class]="'table-cell ' + element.sort">
+        <div class="table-cell" *ngFor="let element of displayedColumns" (click)="sortByKey(element)" [class]="'table-cell ' + element.sort">
           {{element.name}}
           <i class="fa fa-chevron-down" *ngIf="element.sort"></i>
         </div>
@@ -31,8 +30,8 @@
           </div>
           <div class="table-cell">{{opportunity.PrimaryContactPartyName}}</div>
           <div class="table-cell"> {{opportunity.MAF_ActionType_c}} </div>
-          <div class="table-cell">{{opportunity.UnitType_c}}</div>
-          <div class="table-cell">{{opportunity.UnitNumber_c}}</div>
+          <div class="table-cell">{{opportunity.MAF_ProductType_c}}</div>
+          <div class="table-cell">{{opportunity.MAF_Product_c}}</div>
           <div class="table-cell"> {{opportunity.CreationDate | date : 'dd/MM/yyyy' }} </div>
           <div class="table-cell"> {{opportunity.LastUpdateDate | date : 'dd/MM/yyyy' }} </div>
         </div>

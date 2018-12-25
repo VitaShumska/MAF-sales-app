@@ -211,11 +211,6 @@ export class PropertiesListComponent implements OnInit {
     this.getPropertiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
   }
 
-  clearSearchInput() {
-    const searchInput = document.getElementById('searchInput');
-    searchInput['value'] = '';
-  }
-
   goToPage(url) {
     this.router.navigate([url]);
     this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)): false;

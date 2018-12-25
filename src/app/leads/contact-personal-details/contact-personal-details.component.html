@@ -67,21 +67,22 @@
 
       <div class="field-block" *ngIf="pageName === 'opportunity-details'">
         <label for="unit">Unit</label>
-        <span id="unit">{{leadDetails.UnitNumber_c}}</span>
+        <span id="unit">{{leadDetails.MAF_Product_c}}</span>
+        <button class="add-field-btn" style="justify-content: flex-end; margin-left: 25px" *ngIf="leadDetails.MAF_Product_c && !editAllow" (click)="showUnitInfo()">SHOW INFO</button>
         <!--<button class="add-field-btn" (click)="addUnit()" *ngIf="!leadDetails.UnitNumber_c && editAllow">+ add property</button>-->
       </div>
-      <div class="dynamically-btn" style="justify-content: flex-end; margin-top: -25px" *ngIf="leadDetails.UnitNumber_c && editAllow">
+      <!-- <div class="dynamically-btn" style="justify-content: flex-end; margin-top: -25px" *ngIf="leadDetails.MAF_Product_c && !editAllow">
         <button class="add-field-btn" (click)="showUnitInfo()">SHOW INFO</button>
         <button class="change-btn" (click)="changeUnit(leadDetails.MAF_Product_Id_c)">CHANGE</button>
-      </div>
+      </div>-->
 
-      <div class="attachment-block">
+      <!--<div class="attachment-block">
         <p>Attachments:</p>
         <angular-file-uploader
           *ngIf="editAllow"
           [config]="afuConfig">
         </angular-file-uploader>
-      </div>
+      </div>-->
     </div>
 
     <div fxFlex="50">

@@ -72,7 +72,7 @@
       <span class="price">PRICE: <b>{{leadDetails.MAF_Price_c | number : '1.2-2'}}</b></span>
       <span>Payment Plan: {{leadDetails.MAF_PaymentPlan_c}}</span>
       <span>Discount: {{leadDetails.MAF_DiscountOpty_c | number : '1.2-2'}}</span>
-      <span>Total amount: <b>{{leadDetails.MAF_BdgtAmount_c | number : '1.2-2'}}</b></span>
+      <span>Total amount: <b>{{(leadDetails.MAF_BdgtAmount_c ? +leadDetails.MAF_BdgtAmount_c : +leadDetails.MAF_Price_c) | number : '1.2-2'}}</b></span>
     </div>
     <div class="btn-block">
       <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payment Plan</button>

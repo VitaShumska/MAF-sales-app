@@ -49,14 +49,14 @@ export class OpportunitiesListComponent implements OnInit {
       disableSort: false
     },
     {
-      name: 'Unit/Type',
-      key: 'UnitType_c',
+      name: 'Unit Type',
+      key: 'MAF_ProductType_c',
       sort: '',
       disableSort: false
     },
     {
       name: 'Unit No.',
-      key: 'UnitNumber_c',
+      key: 'MAF_Product_c',
       sort: '',
       disableSort: false
     },
@@ -80,6 +80,7 @@ export class OpportunitiesListComponent implements OnInit {
   pageSizeOptions: number[] = [25, 50, 100];
   countOfOpportunities;
   searchColumns = [];
+  filterParams;
 
   breadcrumbObj = {
     name: 'Opportunities',
@@ -121,20 +122,39 @@ export class OpportunitiesListComponent implements OnInit {
       );
   }
 
-  // sortByKey(sortElem) {
-  //   this.sortElem = sortElem;
-  //   this.displayedColumns.forEach(item => {
-  //     if (sortElem.key === item.key) {
-  //       if (sortElem.sort === 'asc') {
-  //         sortElem.sort = 'desc';
-  //       } else {
-  //         sortElem.sort = 'asc';
-  //       }
-  //     } else {
-  //       item.sort = '';
-  //     }
-  //   });
-  // }
+  getOpportunitiesWithFilter(offset, limit, sortParam?, filterParams?) {
+    this.loadingSpinner.show();
+    this.leadsService.getOpportunitiesWithFilter(offset, limit, sortParam, filterParams)
+      .subscribe(
+        (data: any) => {
+          this.loadingSpinner.hide();
+          this.opportunitiesListOriginal =  data['items'];
+          this.opportunitiesList = this.opportunitiesListOriginal;
+          this.countOfOpportunities = data['totalResults'];
+        },
+        (error) => {
+          this.loadingSpinner.hide();
+          this.apiService.logOut();
+          this.openSnackBar('Server error', 'OK');
+        }
+      );
+  }
+
+  sortByKey(sortElem) {
+    this.sortElem = sortElem;
+    this.displayedColumns.forEach(item => {
+      if (sortElem.key === item.key) {
+        if (sortElem.sort === 'asc') {
+          sortElem.sort = 'desc';
+        } else {
+          sortElem.sort = 'asc';
+        }
+      } else {
+        item.sort = '';
+      }
+    });
+    this.getOpportunitiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+  }
 
   goToPage(url) {
     this.router.navigate([url]);
@@ -145,6 +165,16 @@ export class OpportunitiesListComponent implements OnInit {
 
   changeSearch(data) {
     this.opportunitiesList = data;
+  }
+
+  changeFilter(data) {
+    this.opportunitiesListOriginal = data.items;
+    this.opportunitiesList = this.opportunitiesListOriginal;
+    this.countOfOpportunities = data.totalResults;
+  }
+
+  changeFilterParams(data) {
+    this.filterParams = data;
   }
 
 

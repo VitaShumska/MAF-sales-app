@@ -10,6 +10,7 @@ import { SelectPayplanDialogComponent } from '../../dialogs/select-payplan-dialo
 import { DiscountDialogComponent } from '../../dialogs/discount-dialog/discount-dialog.component';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import {stringify} from 'querystring';
+import { MockUpService } from '../../services/mock-up.service';
 
 @Component({
   selector: 'app-contact-details',
@@ -77,6 +78,7 @@ export class ContactDetailsComponent implements OnInit {
               private router: Router,
               private apiService: ApiService,
               private leadsService: LeadsService,
+              private mockUpService: MockUpService,
               private loadingSpinner: LoadingSpinnerService,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {
@@ -283,6 +285,12 @@ export class ContactDetailsComponent implements OnInit {
           this.leadDetails = data;
           this.getDiscount(this.leadDetails.OptyId);
           this.getPayplan();
+          ////Mock up service/////
+          if (this.leadDetails.OptyNumber !== this.mockUpService.currentOpt.OptyNumber) {
+            this.mockUpService.currentOpt = this.leadDetails;
+          } else {
+            this.leadDetails = this.mockUpService.currentOpt;
+          }
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -313,6 +321,8 @@ export class ContactDetailsComponent implements OnInit {
         (data: any) => {
           this.loadingSpinner.hide();
           this.discountData = data;
+          ////Mock service////
+          this.mockUpService.discountsList = this.discountData['items'];
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -416,8 +426,9 @@ export class ContactDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.leadDetails.MAF_PaymentPlan_Id_c = result.id;
-        // this.leadDetails.MAF_PaymentPlan_c = result.name;
+        this.leadDetails.MAF_PaymentPlan_Id_c = result.id;
+        this.leadDetails.MAF_PaymentPlan_c = result.name;
+        this.mockUpService.currentOpt['MAF_PaymentPlan_c'] = this.leadDetails.MAF_PaymentPlan_c;
         console.log('result', this.leadDetails);
       }
     });
@@ -428,15 +439,27 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   openDiscountDialog(): void {
-
     const dialogRef = this.dialog.open(DiscountDialogComponent, {
       data: {
-        discountData: this.discountData['items'],
+        // discountData: this.discountData['items'],
         optyId: this.leadDetails.OptyId
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.leadDetails.MAF_BdgtAmount_c = this.leadDetails.MAF_Price_c;
+        this.leadDetails.MAF_DiscountOpty_c = 0;
+        result.map(item => {
+          if (item.Type_c === 'Amount') {
+            this.leadDetails.MAF_DiscountOpty_c += +item.DiscountValue_c;
+            console.log('test', +item.DiscountValue_c, this.leadDetails.MAF_DiscountOpty_c);
+          } else if (item.Type_c === 'Percentage') {
+            this.leadDetails.MAF_DiscountOpty_c += +this.leadDetails.MAF_Price_c * (item.DiscountValue_c) / 100;
+          }
+          this.leadDetails.MAF_BdgtAmount_c = this.leadDetails.MAF_Price_c - this.leadDetails.MAF_DiscountOpty_c;
+          this.mockUpService.currentOpt.MAF_BdgtAmount_c = this.leadDetails.MAF_BdgtAmount_c;
+        });
+        console.log('total price', this.leadDetails.MAF_BdgtAmount_c, this.mockUpService.currentOpt.MAF_BdgtAmount_c, this.leadDetails.MAF_DiscountOpty_c)
       }
     });
   }
@@ -456,6 +479,11 @@ export class ContactDetailsComponent implements OnInit {
       (error) => {
         this.openSnackBar('Server error', 'OK');
       });
+  }
+
+  ////////////Functional for mock up//////////////
+  getMockUpData() {
+    this.mockUpService.currentOpt['MAF_PaymentPlan_c'] = this.leadDetails.MAF_PaymentPlan_c;
   }
 
 }

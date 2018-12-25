@@ -23,7 +23,7 @@ export class LeadsService {
               private ngxXml2jsonService: NgxXml2jsonService) {
   }
 
-  ////////////Ledas////////////////
+  ////////////Ledas functions////////////////
 
   getLeads(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
@@ -85,6 +85,8 @@ export class LeadsService {
     headers = headers.append('Content-Type', 'application/json');
     return this.http.patch(this.API_URL + 'leads/' + id, data, {headers});
   }
+
+  /////////////////////////////Contacts functions////////////////
 
   getContacts(offset, limit): Observable<any> {
     let headers = new HttpHeaders();
@@ -162,12 +164,36 @@ export class LeadsService {
     return this.http.patch(this.API_URL + 'contacts/' + id, data, {headers});
   }
 
+  /////////////////////////////Opportunities functions////////////////
+
   getOpportunities(offset, limit): Observable<any> {
     const todayDate = new Date().toISOString();
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    // return this.http.get(this.API_URL + 'opportunities/?q=CreationDate<' + todayDate + '&totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+    return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
+  }
+
+  getOpportunitiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
+    const todayDate = new Date().toISOString();
+    let filterParameters = 'q=CreationDate<' + todayDate;
+    // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';
+    let sortParameters = '';
+    if (filterParams) {
+      filterParams.optyNo ? (filterParameters += 'OptyNumber=' + filterParams.optyNo + ';') : false;
+      filterParams.primaryPurchaser ? (filterParameters += 'PrimaryContactPartyName=' + filterParams.primaryPurchaser + ';') : false;
+      filterParams.actionType ? (filterParameters += 'StatusCode=' + filterParams.actionType + ';') : false;
+      filterParams.unitType ? (filterParameters += 'unitType_c=' + filterParams.unitType + ';') : false;
+      filterParams.unitNo ? (filterParameters += 'UnitNumber_c=' + filterParams.unitNo + ';') : false;
+      filterParams.creation ? (filterParameters += 'CreationDate>=' + filterParams.creation + ';') : false;
+      filterParams.lastUpdate ? (filterParameters += 'LastUpdateDate>=' + filterParams.lastUpdate + ';') : false;
+    }
+    sortParam ? (sortParameters = '&orderBy=' + sortParam.key + ':' + sortParam.sort) : false;
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer ' + this.getToken());
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit + sortParameters + '&' + filterParameters, {headers});
     // return this.http.get(this.API_URL + 'opportunities/?totalResults=true&offset=' + offset + '&limit=' + limit, {headers});
   }
 
