@@ -29,7 +29,6 @@ export class DiscountDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
-    console.log(this.data);
     // this.discountsData = this.data.discountData;
     this.discountsData = this.mockUpService.discountsList;
     this.optyId = this.data['optyId'];
@@ -59,7 +58,6 @@ export class DiscountDialogComponent implements OnInit {
     // this.leadsService.createDiscount(data, this.optyId)
       // .subscribe(
         // (res: any) => {
-          // console.log('data', res);
           // this.getDiscount(this.optyId);
         // },
         // (error) => {

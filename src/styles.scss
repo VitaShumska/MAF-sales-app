@@ -684,7 +684,8 @@ ngx-gallery-preview {
   }
 }
 
-.contact-details.edit {
+.contact-details.edit,
+.create-lead.edit {
   .lead-different-details .inputs-block .field-block {
 
     input,
@@ -701,7 +702,7 @@ ngx-gallery-preview {
       }
     }
     .mat-select-arrow-wrapper {
-      display: block;
+      opacity: 1;
     }
     label {
       pointer-events: all;

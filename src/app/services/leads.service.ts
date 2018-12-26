@@ -176,7 +176,6 @@ export class LeadsService {
   }
 
   getOpportunitiesWithFilter(offset, limit, sortParam?, filterParams?): Observable<any> {
-    console.log('filters', filterParams);
     const todayDate = new Date().toISOString();
     let filterParameters = 'q=CreationDate<' + todayDate + ';';
     // this.isFilterEmpty(filterParams) ? filterParameters = '' : filterParameters = 'q=';

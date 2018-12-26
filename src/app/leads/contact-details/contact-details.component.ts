@@ -157,9 +157,10 @@ export class ContactDetailsComponent implements OnInit {
       AssignmentStatusCode: status
     };
     this.leadsService.updateLead(leadId, data)
-      .subscribe(() => {
+      .subscribe((resp) => {
           this.loadingSpinner.hide();
           this.editAllow = false;
+          this.leadDetails = resp;
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -305,7 +306,6 @@ export class ContactDetailsComponent implements OnInit {
         (data: any) => {
           this.loadingSpinner.hide();
           this.leadDetails = data;
-          console.log('opty updating', this.leadDetails);
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -347,12 +347,14 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   updateStatus (actionType, approvalType) {
+    this.loadingSpinner.show();
     this.leadDetails.MAF_ActionType_c = actionType;
     this.leadDetails.MAF_ApprovalType_c = approvalType + ': ' + this.leadDetails.PrimaryContactPartyName;
     this.leadDetails.MAF_Action_c = this.leadDetails.MAF_Action_c + 1;
 
     delete this.leadDetails.UpdateFlag;
     delete this.leadDetails.DeleteFlag;
+    // delete this.leadDetails.MAF_PaymentPlan_c;
 
     this.leadsService.updateRestOpportunity(this.optyId, this.leadDetails)
       .subscribe(data => {
@@ -381,7 +383,6 @@ export class ContactDetailsComponent implements OnInit {
     } else {
       this.goToPage('/units');
     }
-    console.log('opt data', this.leadsService.opportunityData);
   }
 
   goToPage(url) {
@@ -429,7 +430,6 @@ export class ContactDetailsComponent implements OnInit {
         this.leadDetails.MAF_PaymentPlan_Id_c = result.id;
         this.leadDetails.MAF_PaymentPlan_c = result.name;
         this.mockUpService.currentOpt['MAF_PaymentPlan_c'] = this.leadDetails.MAF_PaymentPlan_c;
-        console.log('result', this.leadDetails);
       }
     });
   }
@@ -452,14 +452,12 @@ export class ContactDetailsComponent implements OnInit {
         result.map(item => {
           if (item.Type_c === 'Amount') {
             this.leadDetails.MAF_DiscountOpty_c += +item.DiscountValue_c;
-            console.log('test', +item.DiscountValue_c, this.leadDetails.MAF_DiscountOpty_c);
           } else if (item.Type_c === 'Percentage') {
             this.leadDetails.MAF_DiscountOpty_c += +this.leadDetails.MAF_Price_c * (item.DiscountValue_c) / 100;
           }
           this.leadDetails.MAF_BdgtAmount_c = this.leadDetails.MAF_Price_c - this.leadDetails.MAF_DiscountOpty_c;
           this.mockUpService.currentOpt.MAF_BdgtAmount_c = this.leadDetails.MAF_BdgtAmount_c;
         });
-        console.log('total price', this.leadDetails.MAF_BdgtAmount_c, this.mockUpService.currentOpt.MAF_BdgtAmount_c, this.leadDetails.MAF_DiscountOpty_c)
       }
     });
   }

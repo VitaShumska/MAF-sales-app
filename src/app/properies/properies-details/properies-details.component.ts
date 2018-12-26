@@ -198,7 +198,6 @@ export class ProperiesDetailsComponent implements OnInit {
 
   selectUnit() {
     const  opportunityData = this.leadsService.opportunityData;
-    console.log('opt data prop', opportunityData);
     if (opportunityData.contactName && opportunityData.keyContactId) {
       this.createNewOpportunity(opportunityData.contactName, opportunityData.keyContactId);
     } else if (opportunityData.unitId) {

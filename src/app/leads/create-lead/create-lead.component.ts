@@ -68,7 +68,6 @@ export class CreateLeadComponent implements OnInit {
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.contactsList = data.items;
-          console.log(this.contactsList);
         },
         (error) => {
           this.loadingSpinner.hide();

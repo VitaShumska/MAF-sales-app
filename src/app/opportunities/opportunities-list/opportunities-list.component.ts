@@ -27,7 +27,7 @@ export class OpportunitiesListComponent implements OnInit {
 
   sortElem = {
     key: 'OptyNumber',
-    sort: 'desc'
+    sort: 'asc'
   };
   displayedColumns = [
     {
@@ -157,7 +157,7 @@ export class OpportunitiesListComponent implements OnInit {
 
   goToPage(url) {
     this.router.navigate([url]);
-    // this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)) : false;
+    this.filterParams ? window.sessionStorage.setItem('filterParams', JSON.stringify(this.filterParams)) : false;
     window.sessionStorage.setItem('limit', this.limit.toString());
     window.sessionStorage.setItem('offset', this.offset.toString());
   }
@@ -191,11 +191,11 @@ export class OpportunitiesListComponent implements OnInit {
   paginator (event) {
     this.offset = event.pageIndex * event.pageSize;
     this.limit = event.pageSize;
-    // if (this.filterParams || this.sortElem) {
-    //   this.getLeadsWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
-    // } else {
+    if (this.filterParams || this.sortElem) {
+      this.getOpportunitiesWithFilter(this.offset, this.limit, this.sortElem, this.filterParams);
+    } else {
       this.getOpportunities(this.offset, this.limit);
-    // }
+    }
   }
 
 }
