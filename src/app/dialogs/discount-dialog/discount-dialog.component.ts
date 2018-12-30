@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { LeadsService } from '../../services/leads.service';
 import { MockUpService } from '../../services/mock-up.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 export interface DialogData {
   discountData: any;
@@ -22,6 +22,7 @@ export class DiscountDialogComponent implements OnInit {
   };
   discountsData;
   optyId;
+  discountTypes = ['Bulk', 'Loyalty', 'Consortium', 'Approved Discount', 'Payment Plan'];
 
   constructor(private leadsService: LeadsService,
               private mockUpService: MockUpService,
@@ -29,8 +30,9 @@ export class DiscountDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
-    // this.discountsData = this.data.discountData;
-    this.discountsData = this.mockUpService.discountsList;
+    this.discountsData = this.data.discountData;
+    console.log('discounts', this.discountsData);
+    // this.discountsData = this.mockUpService.discountsList;
     this.optyId = this.data['optyId'];
     this.newDiscount.MAF_OptyId_Id_c = this.optyId;
   }
@@ -39,33 +41,32 @@ export class DiscountDialogComponent implements OnInit {
     this.leadsService.getDiscount(id)
       .subscribe(
         (data: any) => {
-          this.discountsData = data;
+          this.discountsData = data['items'];
+          console.log('discounts', this.discountsData);
         },
         (error) => {
         }
       );
   }
 
-  createDiscount(data?) {
-    this.mockUpService.discountsList.push(this.newDiscount);
-    this.discountsData = this.mockUpService.discountsList;
-    this.newDiscount = {
-      DiscountType_c: '',
-      Type_c: '',
-      DiscountValue_c: '',
-      MAF_OptyId_Id_c: ''
-    };
-    // this.leadsService.createDiscount(data, this.optyId)
-      // .subscribe(
-        // (res: any) => {
-          // this.getDiscount(this.optyId);
-        // },
-        // (error) => {
-        // }
-      // );
+  createDiscount() {
+    // this.mockUpService.discountsList.push(this.newDiscount);
+    // this.discountsData = this.mockUpService.discountsList;
+
+    this.leadsService.createDiscount(this.newDiscount)
+      .subscribe(
+        (res: any) => {
+          this.getDiscount(this.optyId);
+          this.newDiscount = {
+            DiscountType_c: '',
+            Type_c: '',
+            DiscountValue_c: '',
+            MAF_OptyId_Id_c: this.optyId
+          };
+        });
   }
 
   aplyDiscount() {
-    return this.mockUpService.discountsList;
+    return this.discountsData;
   }
 }

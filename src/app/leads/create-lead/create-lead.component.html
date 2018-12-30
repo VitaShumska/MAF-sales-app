@@ -14,8 +14,7 @@
 
         <div class="field-block">
           <label for="primaryPurch">Primary Purchaser</label>
-          <mat-select id="primaryPurch" [(ngModel)]="newLead.PrimaryContactId">
-            <mat-option value="">Select primary purchaser</mat-option>
+          <mat-select id="primaryPurch" [(ngModel)]="newLead.PrimaryContactId" placeholder="Select primary purchaser">
             <mat-option *ngFor="let item of contactsList" [value]="item.PartyId">{{item.ContactName}}</mat-option>
           </mat-select>
         </div>

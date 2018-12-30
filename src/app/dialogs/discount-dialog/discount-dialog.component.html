@@ -5,11 +5,13 @@
   <div class="new-discount" fxLayoutAlign="center">
     <div fxFlex="27" class="inputs-block">
       <label for="type">Type</label>
-      <input id="type" type="text" [(ngModel)]="newDiscount.DiscountType_c">
+      <mat-select id="type" [(ngModel)]="newDiscount.DiscountType_c" placeholder="Select discount type">
+        <mat-option *ngFor="let item of discountTypes" [value]="item">{{item}}</mat-option>
+      </mat-select>
     </div>
     <div fxFlex="27" class="inputs-block">
       <label for="amount">Amount/Percentage</label>
-      <mat-select id="amount" [(value)]="newDiscount.Type_c">
+      <mat-select id="amount" [(value)]="newDiscount.Type_c" placeholder="Select value type">
         <mat-option value="Amount">Amount</mat-option>
         <mat-option value="Percentage">Percentage</mat-option>
       </mat-select>

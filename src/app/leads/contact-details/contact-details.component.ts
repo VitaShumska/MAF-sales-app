@@ -320,9 +320,7 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.loadingSpinner.hide();
-          this.discountData = data;
-          ////Mock service////
-          this.mockUpService.discountsList = this.discountData['items'];
+          this.discountData = data['items'];
         },
         (error) => {
           this.loadingSpinner.hide();
@@ -348,15 +346,27 @@ export class ContactDetailsComponent implements OnInit {
 
   updateStatus (actionType, approvalType) {
     this.loadingSpinner.show();
+
+    let updateData = {
+      MAF_ActionType_c: actionType,
+      MAF_ApprovalType_c: approvalType + ': ' + this.leadDetails.PrimaryContactPartyName,
+      MAF_Action_c: this.leadDetails.MAF_Action_c + 1,
+      MAF_BdgtAmount_c: this.leadDetails.MAF_BdgtAmount_c,
+      MAF_PPDiscountedValue_c: this.leadDetails.MAF_PPDiscountedValue_c,
+      OptyId: this.leadDetails.OptyId,
+      MAF_PaymentPlan_c: this.leadDetails.MAF_PaymentPlan_c,
+      MAF_PaymentPlan_Id_c: this.leadDetails.MAF_PaymentPlan_Id_c
+    };
     this.leadDetails.MAF_ActionType_c = actionType;
     this.leadDetails.MAF_ApprovalType_c = approvalType + ': ' + this.leadDetails.PrimaryContactPartyName;
     this.leadDetails.MAF_Action_c = this.leadDetails.MAF_Action_c + 1;
 
     delete this.leadDetails.UpdateFlag;
     delete this.leadDetails.DeleteFlag;
-    // delete this.leadDetails.MAF_PaymentPlan_c;
+    // delete this.leadDetails.OptionsPriceAdded_c;
+    // this.leadDetails.MAF_PaymentPlan_c = null;
 
-    this.leadsService.updateRestOpportunity(this.optyId, this.leadDetails)
+    this.leadsService.updateRestOpportunity(this.optyId, updateData)
       .subscribe(data => {
           this.loadingSpinner.hide();
           this.leadDetails = data;
@@ -441,21 +451,22 @@ export class ContactDetailsComponent implements OnInit {
   openDiscountDialog(): void {
     const dialogRef = this.dialog.open(DiscountDialogComponent, {
       data: {
-        // discountData: this.discountData['items'],
+        discountData: this.discountData,
         optyId: this.leadDetails.OptyId
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.discountData = result;
         this.leadDetails.MAF_BdgtAmount_c = this.leadDetails.MAF_Price_c;
-        this.leadDetails.MAF_DiscountOpty_c = 0;
+        this.leadDetails.MAF_PPDiscountedValue_c = 0;
         result.map(item => {
           if (item.Type_c === 'Amount') {
-            this.leadDetails.MAF_DiscountOpty_c += +item.DiscountValue_c;
+            this.leadDetails.MAF_PPDiscountedValue_c += +item.DiscountValue_c;
           } else if (item.Type_c === 'Percentage') {
-            this.leadDetails.MAF_DiscountOpty_c += +this.leadDetails.MAF_Price_c * (item.DiscountValue_c) / 100;
+            this.leadDetails.MAF_PPDiscountedValue_c += +this.leadDetails.MAF_Price_c * (item.DiscountValue_c) / 100;
           }
-          this.leadDetails.MAF_BdgtAmount_c = this.leadDetails.MAF_Price_c - this.leadDetails.MAF_DiscountOpty_c;
+          this.leadDetails.MAF_BdgtAmount_c = this.leadDetails.MAF_Price_c - this.leadDetails.MAF_PPDiscountedValue_c;
           this.mockUpService.currentOpt.MAF_BdgtAmount_c = this.leadDetails.MAF_BdgtAmount_c;
         });
       }

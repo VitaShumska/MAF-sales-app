@@ -238,10 +238,10 @@ export class LeadsService {
     return this.http.get(this.API_URL + 'MAF_DiscountOpportunity_c/?q=MAF_OptyId_Id_c=' + id, {headers});
   }
 
-  createDiscount(data, id): Observable<any> {
+  createDiscount(data): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.getToken());
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Content-Type', 'application/json');
     return this.http.post(this.API_URL + 'MAF_DiscountOpportunity_c/', data, {headers});
   }
 

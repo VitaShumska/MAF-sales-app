@@ -71,12 +71,12 @@
     <div class="price-block ">
       <span class="price">PRICE: <b>{{leadDetails.MAF_Price_c | number : '1.2-2'}}</b></span>
       <span>Payment Plan: {{leadDetails.MAF_PaymentPlan_c}}</span>
-      <span>Discount: {{leadDetails.MAF_DiscountOpty_c | number : '1.2-2'}}</span>
+      <span>Discount: {{leadDetails.MAF_PPDiscountedValue_c | number : '1.2-2'}}</span>
       <span>Total amount: <b>{{(leadDetails.MAF_BdgtAmount_c ? +leadDetails.MAF_BdgtAmount_c : +leadDetails.MAF_Price_c) | number : '1.2-2'}}</b></span>
     </div>
     <div class="btn-block">
       <button class="select-bnt" (click)="openSelectPayplanDialog(contactDetails.contactId)">Select Payment Plan</button>
-      <button class="apply-bnt" [disabled]="!leadDetails.MAF_PaymentPlan_c" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
+      <button class="apply-bnt" (click)="openDiscountDialog(contactDetails.contactId)">Apply Discount(s)</button>
       <button class="cancel-bnt" (click)="goToPage('/generate-quote/' + contactId + '/' + leadDetails.OptyNumber)">Generate Quote</button>
       <button [matMenuTriggerFor]="requestMenu">Request</button>
       <mat-menu #requestMenu="matMenu">
