@@ -4,8 +4,9 @@
 }
 
 
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 800px) {
   .base {
-    width: 340px!important;
+    width: 800px!important;
+    min-width: 800px!important;
   }
 }

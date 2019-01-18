@@ -276,11 +276,12 @@ button {
   -moz-opacity: 0.8;
   opacity: .80;
   filter: alpha(opacity=80);
+  min-width: 800px;
 }
 
 .bright_content {
   background-image: url("assets/images/bg.png");
-  position: absolute;
+  position: fixed;
   top: 68px;
   right: 0;
   width: 278px;
