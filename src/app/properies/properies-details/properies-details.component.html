@@ -201,7 +201,6 @@
           <ng-template mat-tab-label>
             VIDEO
           </ng-template>
-
           <mdb-carousel [isControls]="true" class="carousel slide" [animation]="'slide'" [interval]="0">
             <div *ngFor="let video of galleryVideos">
               <mdb-carousel-item>
@@ -214,6 +213,12 @@
         </mat-tab>
       </mat-tab-group>
     </div>
+    <img src="../../../assets/images/green-reel.jpg" width="168" height="126"
+         class="reel"
+         data-image="../../../assets/images/green-reel.jpg"
+         data-frames="32"
+         data-footage="4"
+         data-revolution="800">
   </div>
   <div class="action-block">
     <span>PRICE: <b>{{unitDetails?.MAF_UnitPrice_c | number : '1.2-2'}} {{unitDetails?.MAF_PrefferredCurrency_c}}</b></span>

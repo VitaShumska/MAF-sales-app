@@ -15,7 +15,7 @@ export class ApiService {
 
   login(user) {
     let headers = new HttpHeaders();
-    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    // headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:Maf@2019'));
     headers = headers.append('Authorization', 'Basic ' + btoa(user.name + ':' + user.password));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.API_URL + 'MAF_Token_c?fields=MAF_Token_c', {headers});
@@ -31,7 +31,7 @@ export class ApiService {
 
   getDropdownOption(param): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    headers = headers.append('Authorization', 'Basic ' + btoa('SOAUSER:Maf@2019'));
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers = headers.append('Accept', 'application/json');
     return this.http.get(this.API_URL + '/fndStaticLookups?finder=LookupTypeActiveEnabledOrBindCodeFinder%3BBindLookupType%3D' + param + '&limit=100', {headers});

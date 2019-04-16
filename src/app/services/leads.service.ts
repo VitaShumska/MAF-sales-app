@@ -293,7 +293,7 @@ export class LeadsService {
       }
     };
     // Send the POST request.
-    xmlhttp.setRequestHeader('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    xmlhttp.setRequestHeader('Authorization', 'Basic ' + btoa('SOAUSER:Maf@2019'));
     xmlhttp.setRequestHeader('Content-Type', 'text/xml');
     xmlhttp.responseType = 'document';
     xmlhttp.send(data);
@@ -335,7 +335,7 @@ export class LeadsService {
       }
     };
     // Send the POST request.
-    xmlhttp.setRequestHeader('Authorization', 'Basic ' + btoa('SOAUSER:SOAUSER123'));
+    xmlhttp.setRequestHeader('Authorization', 'Basic ' + btoa('SOAUSER:Maf@2019'));
     xmlhttp.setRequestHeader('Content-Type', 'text/xml');
     xmlhttp.responseType = 'document';
     xmlhttp.send(data);

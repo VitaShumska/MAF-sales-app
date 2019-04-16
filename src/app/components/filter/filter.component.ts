@@ -139,7 +139,7 @@ export class FilterComponent implements OnInit {
       },
       (error) => {
         this.loadingSpinner.hide();
-        this.openSnackBar('Server error', 'OK');
+        //this.openSnackBar('Server error', 'OK');
       }
     );
   }
