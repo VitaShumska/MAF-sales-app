@@ -169,11 +169,13 @@ export class ContactDetailsComponent implements OnInit {
   }
 //////////////////////Contacts functional///////////////////////
   getContactById (id) {
-    this.loadingSpinner.show();
+    //this.loadingSpinner.show();
     this.leadsService.getContactById(id)
       .subscribe(data => {
           this.loadingSpinner.hide();
-          this.contactDetails = data.items[0];
+          ///////Impotrant line!!!!!!!!!!!!!////////////
+          //this.contactDetails = data.items[0];
+          console.log(this.contactDetails, id, data);
           delete this.contactDetails.UpdateFlag;
           delete this.contactDetails.DeleteFlag;
           delete this.contactDetails.links;
@@ -186,7 +188,7 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   getIdentificationContactData () {
-    this.loadingSpinner.show();
+    //this.loadingSpinner.show();
     this.leadsService.getIdentificationContactData(this.contactId)
       .subscribe(data => {
           this.loadingSpinner.hide();
@@ -279,7 +281,7 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   getOpportunityById(id) {
-    this.loadingSpinner.show();
+    //this.loadingSpinner.show();
     this.leadsService.getOpportunityById(id)
       .subscribe(data => {
           this.loadingSpinner.hide();

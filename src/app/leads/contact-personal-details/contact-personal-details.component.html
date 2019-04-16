@@ -3,7 +3,8 @@
     <div fxFlex="50">
       <div class="field-block">
         <label for="title">Prefix</label>
-        <mat-select id="title" [(value)]="contactDetails.Title">
+        <!--<mat-select id="title" [(value)]="contactDetails.Title">-->
+        <mat-select id="title">
           <mat-option *ngFor="let prefix of prefixList" [value]="prefix">{{prefix}}</mat-option>
         </mat-select>
       </div>

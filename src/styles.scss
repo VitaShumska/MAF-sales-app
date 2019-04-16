@@ -471,6 +471,7 @@ ngx-gallery-preview {
 
 .expanded-action-block {
   position: absolute;
+  z-index: 9;
   bottom: 0;
   width: 100%;
   min-width: 800px;

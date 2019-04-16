@@ -16,12 +16,13 @@ import {
 })
 export class ContactPersonalDetailsComponent implements OnInit {
 
-  @Input() contactDetails: any = {};
+  @Input() contactDetails: any = {}
   @Input() leadDetails: any = {};
   @Input() editAllow: boolean;
   @Input() pageName: string;
   @Output() isAllowedSave = new EventEmitter();
   @ViewChild('phone') phone: ElementRef;
+
 
   afuConfig = {
     uploadAPI: {
@@ -63,7 +64,7 @@ export class ContactPersonalDetailsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private leadsService: LeadsService) { }
+              private leadsService: LeadsService) {}
 
   ngOnInit() {}
 
